@@ -7,6 +7,7 @@ export default function AboutAlgorithmsPage() {
     <PageHeader
       title={'Sobre os algoritmos'}
       style={{ background: 'white' }}
+      onBack={() => window.history.back()}
     />
     <Row style={{ marginBottom: '2px', marginTop: '2px' }}>
 
