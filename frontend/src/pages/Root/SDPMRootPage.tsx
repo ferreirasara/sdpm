@@ -1,6 +1,6 @@
 import { Layout, Menu } from 'antd';
-import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined } from '@ant-design/icons';
-import { Content, Footer, Header } from 'antd/lib/layout/layout';
+import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, MenuOutlined } from '@ant-design/icons';
+import { Content, Header } from 'antd/lib/layout/layout';
 import "antd/dist/antd.css";
 import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 import SimulatorPage from '../Simulator/SimulatorPage';
@@ -9,6 +9,8 @@ import AboutAlgorithmsPage from '../AboutAlgorithms/AboutAlgorithmsPage';
 import AboutSimulatorPage from '../AboutSimulator/AboutSimulatorPage';
 
 export default function SDPMRootPage() {
+  const urlSplit = document.URL.split('/')
+  const actualRoute = urlSplit[urlSplit?.length - 1]
 
   const allLinks = [
     <Menu.Item key={'simulator'}>
@@ -38,20 +40,16 @@ export default function SDPMRootPage() {
     <BrowserRouter>
       <Layout style={{ height: '100vh', overflow: 'auto' }}>
         <Header>
-          <div style={{ float: 'left', color: "#ddd", fontSize: '20px', fontFamily: 'cursive' }}>SDPM - Simulador Didático de Paginação de Memória</div>
-          <Menu theme="dark" mode="horizontal" style={{ float: 'right' }} defaultSelectedKeys={['simulator']}>
+          <div style={{ float: 'left', color: "#ddd", fontSize: '20px', marginRight: '10px' }}>SDPM</div>
+          <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || 'simulator']}>
             {allLinks}
           </Menu>
         </Header>
-        <Content>
+        <Content style={{ backgroundColor: 'white' }}>
           <Switch>
             {allRoutes}
           </Switch>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          <span style={{ color: "#aaa" }}>Developed by Sara Ferreira</span>
-          <span style={{ marginLeft: 15, color: "#aaa" }}>Versão {process.env.REACT_APP_VERSION}</span>
-        </Footer>
       </Layout>
     </BrowserRouter>
   </>
