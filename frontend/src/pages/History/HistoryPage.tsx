@@ -1,25 +1,29 @@
 import { HourglassOutlined, MonitorOutlined } from "@ant-design/icons";
 import { Card, Col, PageHeader, Row, Statistic, Table } from "antd";
 import BarChart from "../../components/charts/BarChart";
-import { formatDate } from "../../utils/pretifyStrings";
+import { formatDateHour } from "../../utils/pretifyStrings";
+
+const getRandomInt = (min: number, max: number) => {
+  return Math.floor(Math.random() * max + min)
+}
 
 function GeneralStatistics() {
   return <>
-    <Col span={6}>
+    <Col span={10}>
       <Card bordered={false}>
         <Statistic
           title="Total de simulações realizadas"
-          value={152}
+          value={getRandomInt(50, 100)}
           prefix={<MonitorOutlined />}
           suffix={'simulações'}
         />
       </Card>
     </Col>
-    <Col span={6}>
+    <Col span={10}>
       <Card bordered={false}>
         <Statistic
           title="Total de tempo gasto nas simulações realizadas"
-          value={3.5}
+          value={getRandomInt(0, 10)}
           prefix={<HourglassOutlined />}
           suffix={'horas'}
         />
@@ -31,15 +35,15 @@ function GeneralStatistics() {
 function PageFaultsTotalGraph() {
   const axis = ['Algoritmo', 'Faltas de página']
   const data = [
-    { name: 'Algoritmo Ótimo', cont: 15 },
-    { name: 'FIFO', cont: 35 },
-    { name: 'Segunda Chance', cont: 17 },
-    { name: 'LRU', cont: 19 },
-    { name: 'NRU', cont: 17 },
-    { name: 'WS-Clock', cont: 16 },
+    { name: 'Algoritmo Ótimo', cont: getRandomInt(100, 1000) },
+    { name: 'FIFO', cont: getRandomInt(100, 1000) },
+    { name: 'Segunda Chance', cont: getRandomInt(100, 1000) },
+    { name: 'LRU', cont: getRandomInt(100, 1000) },
+    { name: 'NRU', cont: getRandomInt(100, 1000) },
+    { name: 'WS-Clock', cont: getRandomInt(100, 1000) },
   ]
 
-  return <Col span={12}>
+  return <Col span={20}>
     <Card bordered={false} title="Total de faltas de página por algoritmo">
       <BarChart axis={axis} data={data} />
     </Card>
@@ -52,19 +56,25 @@ function SimulationsTable() {
     data.push({
       key: i,
       date: new Date(),
-      input: 'teste input',
-      optimalAlgorithm: Math.floor(Math.random() * 10),
-      fifoAlgorithm: Math.floor(Math.random() * 10),
-      secondChanceAlgorithm: Math.floor(Math.random() * 10),
-      lruAlgorithm: Math.floor(Math.random() * 10),
-      nruAlgorithm: Math.floor(Math.random() * 10),
-      wsClockAlgorithm: Math.floor(Math.random() * 10),
+      memoryLenght: getRandomInt(10, 1000),
+      proccessQueueLenght: getRandomInt(1000, 10000),
+      optimalAlgorithm: getRandomInt(10, 1000),
+      fifoAlgorithm: getRandomInt(10, 1000),
+      secondChanceAlgorithm: getRandomInt(10, 1000),
+      lruAlgorithm: getRandomInt(10, 1000),
+      nruAlgorithm: getRandomInt(10, 1000),
+      wsClockAlgorithm: getRandomInt(10, 1000),
     });
   }
 
   const columns = [
-    { title: 'Data', dataIndex: 'date', key: 'date', render: (date: Date) => formatDate(date) },
-    { title: 'Input', dataIndex: 'input', key: 'input', },
+    { title: 'Data', dataIndex: 'date', key: 'date', render: (date: Date) => formatDateHour(date) },
+    { title: 'Input',
+      children: [
+        { title: 'Tamanho da memória', dataIndex: 'memoryLenght', key: 'memoryLenght', },
+        { title: 'Tamanho da fila de processos', dataIndex: 'proccessQueueLenght', key: 'proccessQueueLenght', },
+      ]
+    },
     {
       title: 'Resultado',
       children: [
@@ -78,7 +88,7 @@ function SimulationsTable() {
     },
   ];
 
-  return <Col span={12}>
+  return <Col span={20}>
     <Card bordered={false} title="30 últimas simulações">
       <Table dataSource={data} columns={columns} size="small" />
     </Card>
