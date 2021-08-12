@@ -38,14 +38,14 @@ export default function SDPMRootPage() {
 
   return <>
     <BrowserRouter>
-      <Layout style={{ height: '100vh', overflow: 'auto' }}>
+      <Layout style={{ height: '100vh', overflow: 'auto', backgroundColor: 'white' }}>
         <Header>
           <div style={{ float: 'left', color: "#ddd", fontSize: '20px', marginRight: '10px' }}>SDPM</div>
           <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || 'simulator']}>
             {allLinks}
           </Menu>
         </Header>
-        <Content style={{ backgroundColor: 'white' }}>
+        <Content>
           <Switch>
             {allRoutes}
           </Switch>
