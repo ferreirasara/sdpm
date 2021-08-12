@@ -43,3 +43,12 @@ export function putSlashNinLongMessages(msg: string, limit: number) {
 export function asPercentage(num: number) {
   return (num * 100).toFixed(1) + " %";
 }
+
+export function getRandomString(size: number) {
+  let string = '';
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < size; i++) {
+      string += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return string;
+}
