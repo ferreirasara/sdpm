@@ -24,3 +24,12 @@ export const algorithmList = [
     label: "Algoritmo WS-Clock"
   },
 ]
+
+export const algorithmNamesList = [
+  "optimalAlgorithm",
+  "fifoAlgorithm",
+  "secondChanceAlgorithm",
+  "lruAlgorithm",
+  "nruAlgorithm",
+  "wsClockAlgorithm",
+]

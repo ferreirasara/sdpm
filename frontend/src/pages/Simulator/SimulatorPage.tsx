@@ -1,7 +1,92 @@
-import { PageHeader, Row } from "antd";
+import { Card, Form, PageHeader, Row, Spin } from "antd";
+import { useState } from "react";
+import { algorithmNamesList } from "../../utils/algorithmList";
+import { getRandomInt } from "../../utils/calculations";
+import { getRandomString } from "../../utils/pretifyStrings";
+import ResultCard from "./components/ResultCard";
+import SimulationForm from "./components/SimulationForm";
+import SimulationSteps from "./components/SimulationSteps";
+
+export const generateNumberOfPages = (memorySize: number, pagesQueueSize: number): number => {
+  return memorySize + (memorySize % pagesQueueSize)
+}
+
+export const generatePages = (numberOfPages: number): string[] => {
+  const pages = []
+  for (let i = 0; i < numberOfPages; i++) {
+    pages.push(getRandomString(5))
+  }
+  return pages
+}
+
+export const generateMemoryInitialState = (memorySize: number, pages: string[]) => {
+  const memoryInitalState: string[] = []
+  for (let i = 0; i < memorySize; i++) {
+    const randomNumber = getRandomInt(1, 3)
+    if (randomNumber === 1) {
+      memoryInitalState.push('0')
+    } else {
+      const page = pages[Math.floor(Math.random() * pages.length)]
+      if (!memoryInitalState.includes(page)) {
+        memoryInitalState.push(page)
+      } else {
+        i--
+      }
+    }
+  }
+  return memoryInitalState
+}
+
+export const generatePagesQueue = (pagesQueueSize: number, pages: string[]) => {
+  const pagesQueue = []
+  for (let i = 0; i < pagesQueueSize; i++) {
+    pagesQueue.push(pages[Math.floor(Math.random() * pages.length)])
+  }
+  return pagesQueue
+}
 
 export default function AboutAlgorithmsPage() {
   document.title = 'SDPM - Simulador Didático de Paginação de Memória'
+  const [form] = Form.useForm();
+  const [currentStep, setCurrentStep] = useState<number>(0)
+
+  const setMemoryInitialState = () => {
+    const memorySize = form.getFieldValue('memorySize')
+    const pages = form.getFieldValue('pages')
+    const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
+    form.setFieldsValue({ memoryInitalState })
+  }
+
+  const setPagesQueue = () => {
+    const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+    const pages = form.getFieldValue('pages')
+    const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
+    form.setFieldsValue({ pagesQueue })
+  }
+
+  const setRandomValues = () => {
+    const memorySize = getRandomInt(1, 100)
+    const pagesQueueSize = getRandomInt(100, 1000)
+    const numberOfPages = generateNumberOfPages(memorySize, pagesQueueSize)
+    const pages = generatePages(numberOfPages)
+    const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
+    const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
+
+    form.setFieldsValue({
+      memorySize,
+      pagesQueueSize,
+      numberOfPages,
+      pages,
+      pagesQueue,
+      memoryInitalState,
+      algorithms: algorithmNamesList,
+    })
+  }
+
+  const handleStartSimulation = () => {
+    setCurrentStep(1)
+    setTimeout(() => setCurrentStep(2), 1000)
+  }
 
   return <>
     <PageHeader
@@ -9,8 +94,24 @@ export default function AboutAlgorithmsPage() {
       style={{ background: 'white' }}
       onBack={() => window.history.back()}
     />
-    <Row style={{ marginBottom: '2px', marginTop: '2px' }}>
-
+    <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+      <SimulationSteps currentStep={currentStep} />
     </Row>
+
+    {currentStep === 0 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+      <Card bordered={false} style={{ width: '90vh' }}>
+        <SimulationForm form={form} setRandomValues={setRandomValues} setMemoryInitialState={setMemoryInitialState} setPagesQueue={setPagesQueue} onFinish={handleStartSimulation} />
+      </Card>
+    </Row>}
+
+    {currentStep === 1 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+      <div style={{ margin: '20px 0', marginBottom: '20px', padding: '30px 50px', textAlign: 'center', borderRadius: '4px' }}>
+        <Spin tip="Simulando... Por favor aguarde" />
+      </div>
+    </Row>}
+
+    {currentStep === 2 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+      <ResultCard />
+    </Row>}
   </>
 }
