@@ -40,7 +40,7 @@ export default function SDPMRootPage() {
     <BrowserRouter>
       <Layout style={{ height: '100vh', overflow: 'auto', backgroundColor: 'white' }}>
         <Header>
-          <div style={{ float: 'left', color: "#ddd", fontSize: '20px', marginRight: '10px' }}>SDPM</div>
+          <div style={{ float: 'left', fontSize: '20px', marginRight: '10px' }}><NavLink to="/" style={{ color: "#DDD" }}>SDPM</NavLink></div>
           <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || 'simulator']}>
             {allLinks}
           </Menu>

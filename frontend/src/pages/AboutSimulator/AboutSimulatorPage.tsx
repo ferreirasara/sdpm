@@ -38,6 +38,9 @@ export default function AboutAlgorithmsPage() {
               {developmentTools}
             </ul>
           </Descriptions.Item>
+          <Descriptions.Item label="Favicon" labelStyle={{ fontWeight: 'bold' }}>
+            <div>Feito por <a href="https://www.flaticon.com/authors/wichaiwi" title="Wichai.wi">Wichai.wi</a> disponível em <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+          </Descriptions.Item>
           <Descriptions.Item label="Links" labelStyle={{ fontWeight: 'bold' }}>
             <Typography.Link href='https://github.com/ferreirasara/sdpm' target="_blank"><Tag icon={<GithubOutlined />} color="#333">GitHub</Tag></Typography.Link>
             {' '}
