@@ -45,6 +45,16 @@ export const generatePagesQueue = (pagesQueueSize: number, pages: string[]) => {
   return pagesQueue
 }
 
+export const generateTau = () => {
+  // This is temporary. TODO: calculate the best value
+  return getRandomInt(1, 10)
+}
+
+export const generateClockInterruption = () => {
+  // This is temporary. TODO: calculate the best value
+  return getRandomInt(5, 15)
+}
+
 export default function AboutAlgorithmsPage() {
   document.title = 'SDPM - Simulador Didático de Paginação de Memória'
   const [form] = Form.useForm();
@@ -64,6 +74,16 @@ export default function AboutAlgorithmsPage() {
     form.setFieldsValue({ pagesQueue })
   }
 
+  const setTau = () => {
+    const tau = generateTau()
+    form.setFieldsValue({ tau })
+  }
+
+  const setClockInterruption = () => {
+    const clockInterruption = generateClockInterruption()
+    form.setFieldsValue({ clockInterruption })
+  }
+
   const setRandomValues = () => {
     const memorySize = getRandomInt(1, 100)
     const pagesQueueSize = getRandomInt(100, 1000)
@@ -71,6 +91,8 @@ export default function AboutAlgorithmsPage() {
     const pages = generatePages(numberOfPages)
     const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
     const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
+    const tau = generateTau()
+    const clockInterruption = generateClockInterruption()
 
     form.setFieldsValue({
       memorySize,
@@ -79,6 +101,8 @@ export default function AboutAlgorithmsPage() {
       pages,
       pagesQueue,
       memoryInitalState,
+      tau,
+      clockInterruption,
       algorithms: algorithmNamesList,
     })
   }
@@ -100,7 +124,15 @@ export default function AboutAlgorithmsPage() {
 
     {currentStep === 0 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
       <Card bordered={false} style={{ width: '90vh' }}>
-        <SimulationForm form={form} setRandomValues={setRandomValues} setMemoryInitialState={setMemoryInitialState} setPagesQueue={setPagesQueue} onFinish={handleStartSimulation} />
+        <SimulationForm
+          form={form}
+          setRandomValues={setRandomValues}
+          setMemoryInitialState={setMemoryInitialState}
+          setPagesQueue={setPagesQueue}
+          setTau={setTau}
+          setClockInterruption={setClockInterruption}
+          onFinish={handleStartSimulation}
+        />
       </Card>
     </Row>}
 
