@@ -1,4 +1,4 @@
-import { ReloadOutlined, SettingOutlined } from "@ant-design/icons";
+import { ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import { Button, Form, Input, InputNumber, Select, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
@@ -75,9 +75,9 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Form.Item>
 
     <Form.Item>
-      <Button type="primary" htmlType="submit" style={{ marginRight: '5px' }}>Simular</Button>
+      <Button type="primary" htmlType="submit" style={{ marginRight: '5px' }} icon={<ThunderboltOutlined />}>Simular</Button>
       <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<SettingOutlined />} onClick={setRandomValues}>Gerar dados aleatórios</Button>
-      <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<ReloadOutlined />} onClick={onReset}>Limpar</Button>
+      <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
     </Form.Item>
 
   </Form>
