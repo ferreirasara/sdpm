@@ -3,8 +3,7 @@ import BarChart from '../BarChart'
 import { FundProjectionScreenOutlined, PercentageOutlined } from '@ant-design/icons'
 import React from 'react'
 import PizzaChart from '../PizzaChart'
-import { ContType } from '../../../utils/calculations'
-import { addPercentageDataInContType } from '../../../utils/addPercentageDataInContType'
+import { addPercentageDataInContType, ContType } from '../../../utils/calculations'
 
 interface Props {
   title: String
