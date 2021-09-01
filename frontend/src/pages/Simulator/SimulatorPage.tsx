@@ -1,5 +1,7 @@
 import { Card, Form, PageHeader, Row, Spin } from "antd";
 import { useState } from "react";
+import api from "../../api";
+import { SimuationResponse, SimulationData } from "../../types";
 import { algorithmNamesList } from "../../utils/algorithmList";
 import { getRandomInt } from "../../utils/calculations";
 import { getRandomString } from "../../utils/pretifyStrings";
@@ -59,6 +61,7 @@ export default function AboutAlgorithmsPage() {
   document.title = 'SDPM - Simulador Didático de Paginação de Memória'
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState<number>(0)
+  const [simulationResponse, setSimulationResponse] = useState<SimuationResponse>({success: false, simulationTime: 0, faultsPerAlgorithm: []})
 
   const setMemoryInitialState = () => {
     const memorySize = form.getFieldValue('memorySize')
@@ -107,9 +110,15 @@ export default function AboutAlgorithmsPage() {
     })
   }
 
-  const handleStartSimulation = () => {
+  const handleStartSimulation = async (data: SimulationData) => {
     setCurrentStep(1)
-    setTimeout(() => setCurrentStep(2), 1000)
+    try {
+      const response = await api.post('simulate', data);
+      setSimulationResponse(response.data)
+    } catch (error) {
+      console.log(error)    
+    }
+    setCurrentStep(2)
   }
 
   return <>
@@ -131,7 +140,7 @@ export default function AboutAlgorithmsPage() {
           setPagesQueue={setPagesQueue}
           setTau={setTau}
           setClockInterruption={setClockInterruption}
-          onFinish={handleStartSimulation}
+          onSubmit={handleStartSimulation}
         />
       </Card>
     </Row>}
@@ -143,7 +152,7 @@ export default function AboutAlgorithmsPage() {
     </Row>}
 
     {currentStep === 2 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
-      <ResultCard />
+      <ResultCard result={simulationResponse} />
     </Row>}
   </>
 }

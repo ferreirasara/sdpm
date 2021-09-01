@@ -2,6 +2,7 @@ import { ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design
 import { Button, Form, Input, InputNumber, Select, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
+import { SimulationData } from "../../../types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
 
 export interface SimulationFormProps {
@@ -11,30 +12,51 @@ export interface SimulationFormProps {
   setPagesQueue: () => void,
   setTau: () => void,
   setClockInterruption: () => void,
-  onFinish: () => void,
+  onSubmit?: (data: SimulationData) => void,
 }
 
 export default function SimulationForm(props: SimulationFormProps) {
-  const { form, setRandomValues, setMemoryInitialState, setPagesQueue, setTau, setClockInterruption, onFinish } = props
+  const { form, setRandomValues, setMemoryInitialState, setPagesQueue, setTau, setClockInterruption, onSubmit } = props
 
   const algorithmsOptions = algorithmList.map(cur => { return <Select.Option value={cur.name} key={cur.name}>{cur.label}</Select.Option> })
 
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>(algorithmNamesList)
   const [useTau, setUseTau] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
   const [useClockInterruption, setUseClockInterruption] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
+  const [formSubmitLoading, setFormSubmitLoading] = useState(false)
 
   useEffect(() => {
     setUseTau(selectedAlgorithms.includes('wsClockAlgorithm'))
     setUseClockInterruption(selectedAlgorithms.includes('nruAlgorithm'))
   }, [selectedAlgorithms])
 
+  const initialValues = { algorithms: selectedAlgorithms }
   const formItemLayout = { labelCol: { span: 8 }, wrapperCol: { span: 16 }, }
 
   const onReset = () => {
     form.resetFields();
   };
 
-  return <Form {...formItemLayout} form={form} onFinish={onFinish}>
+  const handleSubmit = async () => {
+    if (formSubmitLoading) return
+    setFormSubmitLoading(true)
+    form.validateFields().then(values => {
+      onSubmit && onSubmit({
+        algorithms: values.algorithms,
+        clockInterruption: values.clockInterruption,
+        memoryInitalState: values.memoryInitalState,
+        memorySize: values.memorySize,
+        numberOfPages: values.numberOfPages,
+        pages: values.pages,
+        pagesQueue: values.pagesQueue,
+        pagesQueueSize: values.pagesQueueSize,
+        tau: values.tau,
+      })
+      setFormSubmitLoading(false)
+    })
+  }
+
+  return <Form {...formItemLayout} form={form} onFinish={handleSubmit} initialValues={initialValues}>
 
     <Form.Item label="Tamanho da memória" key="memorySize" name="memorySize" tooltip="Quantos processos cabem na memória." rules={[{ required: true, message: 'Informe o tamanho da memória' }]}>
       <InputNumber style={{ width: '100%' }} type="number" />
@@ -69,7 +91,7 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Form.Item>}
 
     <Form.Item label="Algoritmos" key="algorithms" name="algorithms" tooltip="Algoritmos a serem executados." rules={[{ required: true, message: 'Selecione os algoritmos' }]} >
-      <Select mode="multiple" style={{ width: '100%' }} defaultValue={selectedAlgorithms} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
+      <Select mode="multiple" style={{ width: '100%' }} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
         {algorithmsOptions}
       </Select>
     </Form.Item>

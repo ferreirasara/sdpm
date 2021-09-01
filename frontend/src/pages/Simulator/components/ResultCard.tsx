@@ -1,19 +1,25 @@
 import { HourglassOutlined } from "@ant-design/icons";
 import { Card, Col, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
-import { algorithmList } from "../../../utils/algorithmList";
-import { getRandomInt } from "../../../utils/calculations";
+import { SimuationResponse } from "../../../types";
+import { formatNumber } from "../../../utils/calculations";
 
-export default function ResultCard() {
+export interface ResultCardProps {
+  result: SimuationResponse,
+}
+
+export default function ResultCard(props: ResultCardProps) {
+  const { result } = props
   const axis = ['Algoritmo', 'Faltas de página']
-  const data = algorithmList.map(cur => { return { name: cur.label, cont: getRandomInt(100, 1000) } })
+  const data = result?.faultsPerAlgorithm?.map(cur => { return { name: cur.name, cont: cur.cont } })
+  console.log({result, data})
 
   return <>
     <Col span={20}>
       <Card bordered={false}>
         <Statistic
           title="Tempo de simulação"
-          value={getRandomInt(0, 10)}
+          value={formatNumber(result.simulationTime / 60000)}
           prefix={<HourglassOutlined />}
           suffix={'minutos'}
         />
