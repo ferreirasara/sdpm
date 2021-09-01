@@ -9,3 +9,12 @@ export interface SimulationData {
   clockInterruption: number;
   algorithms: string[];
 }
+
+export interface SimuationResponse {
+  success: boolean,
+  faultsPerAlgorithm: {
+    name: string,
+    cont: number
+  }[],
+  simulationTime: number,
+}
