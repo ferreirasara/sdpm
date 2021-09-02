@@ -1,7 +1,7 @@
 import { Card, Form, PageHeader, Row, Spin } from "antd";
 import { useState } from "react";
 import api from "../../api";
-import { SimuationResponse, SimulationData } from "../../types";
+import { SimuationResponse, SimulationData } from "../../utils/types";
 import { algorithmNamesList } from "../../utils/algorithmList";
 import { getRandomInt } from "../../utils/calculations";
 import { getRandomString } from "../../utils/pretifyStrings";

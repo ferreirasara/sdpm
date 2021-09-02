@@ -1,7 +1,7 @@
 import { HourglassOutlined } from "@ant-design/icons";
 import { Card, Col, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
-import { SimuationResponse } from "../../../types";
+import { SimuationResponse } from "../../../utils/types";
 import { formatNumber } from "../../../utils/calculations";
 
 export interface ResultCardProps {

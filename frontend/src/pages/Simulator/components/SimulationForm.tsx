@@ -2,7 +2,7 @@ import { ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design
 import { Button, Form, Input, InputNumber, Select, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
-import { SimulationData } from "../../../types";
+import { SimulationData } from "../../../utils/types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
 
 export interface SimulationFormProps {
