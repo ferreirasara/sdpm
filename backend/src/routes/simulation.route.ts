@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { SimuationResponse, SimulationData } from './types';
+import { SimulationData, SimuationResponse } from '../utils/types';
 
 const router: Router = Router();
 
@@ -23,4 +23,4 @@ router.post('/', (req: Request, res: Response) => {
 });
 
 // Export the express.Router() instance
-export const SimulationController: Router = router;
+export const Simulation: Router = router;

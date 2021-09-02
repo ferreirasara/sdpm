@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from "body-parser";
-import { SimulationController } from './server';
 import cors from 'cors';
+import { Simulation } from './routes/simulation.route';
 // Create a new express application instance
 const app: express.Application = express();
 
@@ -10,8 +10,8 @@ app.use(cors());
 app.use(bodyParser.json());
 //support application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: false }));
-// Mount the SimulationController at the /simulate route
-app.use('/simulate', SimulationController);
+// Mount the Simulation at the /simulation route
+app.use('/simulation', Simulation);
 
 // The port the express app will listen on
 const port = process.env.PORT || 8000;
