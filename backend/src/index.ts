@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from "body-parser";
 import cors from 'cors';
 import { Simulation } from './routes/simulation.route';
+require('dotenv').config({ path: __dirname+'/.env' });
+
 // Create a new express application instance
 const app: express.Application = express();
 
