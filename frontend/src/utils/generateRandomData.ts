@@ -83,8 +83,14 @@ export const generateMemoryInitialState = (memorySize: number, pages: string[]) 
 
 export const generatePagesQueue = (pagesQueueSize: number, pages: string[]) => {
   const pagesQueue = []
+  const limitRandom = pagesQueueSize * 0.05
   for (let i = 0; i < pagesQueueSize; i++) {
-    pagesQueue.push(pages[Math.floor(Math.random() * pages.length)])
+    if (getRandomInt(0, limitRandom) === 1) {
+      pagesQueue.push('#')
+      i--
+    } else {
+      pagesQueue.push(pages[Math.floor(Math.random() * pages.length)])
+    }
   }
   return pagesQueue
 }
