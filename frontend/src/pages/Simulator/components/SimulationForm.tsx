@@ -4,19 +4,15 @@ import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
+import { setPagesQueue, setMemoryInitialState, setTau, setClockInterruption, setRandomValues } from "../../../utils/generateRandomData";
 
 export interface SimulationFormProps {
   form: FormInstance<any>,
-  setRandomValues: () => void,
-  setMemoryInitialState: () => void,
-  setPagesQueue: () => void,
-  setTau: () => void,
-  setClockInterruption: () => void,
   onSubmit?: (data: SimulationData) => void,
 }
 
 export default function SimulationForm(props: SimulationFormProps) {
-  const { form, setRandomValues, setMemoryInitialState, setPagesQueue, setTau, setClockInterruption, onSubmit } = props
+  const { form, onSubmit } = props
 
   const algorithmsOptions = algorithmList.map(cur => { return <Select.Option value={cur.name} key={cur.name}>{cur.label}</Select.Option> })
 
@@ -75,19 +71,19 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Form.Item>
 
     <Form.Item label="Fila de páginas" key="pagesQueue" name="pagesQueue" tooltip="Fila de páginas para serem referenciadas. Se deixado em branco, será gerado automaticamente">
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={setPagesQueue} /></Tooltip>} style={{ width: '100%' }} />
+      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setPagesQueue(form)} /></Tooltip>} style={{ width: '100%' }} />
     </Form.Item>
 
     <Form.Item label="Estado inicial da memória" key="memoryInitalState" name="memoryInitalState" tooltip="Páginas que já estão na memória. Se deixado em branco, será gerado automaticamente">
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={setMemoryInitialState} /></Tooltip>} style={{ width: '100%' }} />
+      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setMemoryInitialState(form)} /></Tooltip>} style={{ width: '100%' }} />
     </Form.Item>
 
     {useTau && <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho. Se deixado em branco, será gerado automaticamente">
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={setTau} /></Tooltip>} style={{ width: '100%' }} type="number" />
+      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setTau(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
     </Form.Item>}
 
     {useClockInterruption && <Form.Item label="Tempo de interrupção do relógio" key="clockInterruption" name="clockInterruption" tooltip="A cada quantas páginas haverá uma interrupção do relógio. Se deixado em branco, será gerado automaticamente">
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={setClockInterruption} /></Tooltip>} style={{ width: '100%' }} type="number" />
+      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setClockInterruption(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
     </Form.Item>}
 
     <Form.Item label="Algoritmos" key="algorithms" name="algorithms" tooltip="Algoritmos a serem executados." rules={[{ required: true, message: 'Selecione os algoritmos' }]} >
@@ -98,7 +94,7 @@ export default function SimulationForm(props: SimulationFormProps) {
 
     <Form.Item>
       <Button type="primary" htmlType="submit" style={{ marginRight: '5px' }} icon={<ThunderboltOutlined />}>Simular</Button>
-      <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<SettingOutlined />} onClick={setRandomValues}>Gerar dados aleatórios</Button>
+      <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<SettingOutlined />} onClick={() => setRandomValues(form)}>Gerar dados aleatórios</Button>
       <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
     </Form.Item>
 
