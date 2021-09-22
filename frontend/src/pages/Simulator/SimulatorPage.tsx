@@ -1,4 +1,4 @@
-import { Card, Form, PageHeader, Row, Spin } from "antd";
+import { Card, Form, notification, PageHeader, Row, Spin } from "antd";
 import { useState } from "react";
 import api from "../../api";
 import { SimuationResponse, SimulationData } from "../../utils/types";
@@ -115,10 +115,16 @@ export default function AboutAlgorithmsPage() {
     try {
       const response = await api.post('simulate', data);
       setSimulationResponse(response.data)
+      setCurrentStep(2)
     } catch (error) {
-      console.log(error)    
+      console.log(error)
+      notification.open({
+        message: 'Ocorreu um erro durante a simulação.',
+        description: `Erro: ${(error as Error).message}`,
+        type: 'error'
+      });
+      setCurrentStep(0)
     }
-    setCurrentStep(2)
   }
 
   return <>
