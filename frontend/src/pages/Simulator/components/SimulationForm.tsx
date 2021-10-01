@@ -4,7 +4,7 @@ import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
-import { setPagesQueue, setMemoryInitialState, setTau, setClockInterruption, setRandomValues } from "../../../utils/generateRandomData";
+import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues } from "../../../utils/generateRandomData";
 
 export interface SimulationFormProps {
   form: FormInstance<any>,
@@ -18,12 +18,12 @@ export default function SimulationForm(props: SimulationFormProps) {
 
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>(algorithmNamesList)
   const [useTau, setUseTau] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
-  const [useClockInterruption, setUseClockInterruption] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
+  // const [useClockInterruption, setUseClockInterruption] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
   const [formSubmitLoading, setFormSubmitLoading] = useState(false)
 
   useEffect(() => {
     setUseTau(selectedAlgorithms.includes('wsClockAlgorithm'))
-    setUseClockInterruption(selectedAlgorithms.includes('nruAlgorithm'))
+    // setUseClockInterruption(selectedAlgorithms.includes('nruAlgorithm'))
   }, [selectedAlgorithms])
 
   const initialValues = { algorithms: selectedAlgorithms }
@@ -39,7 +39,7 @@ export default function SimulationForm(props: SimulationFormProps) {
     form.validateFields().then(values => {
       onSubmit && onSubmit({
         algorithms: values.algorithms,
-        clockInterruption: values.clockInterruption,
+        // clockInterruption: values.clockInterruption,
         memoryInitalState: values.memoryInitalState,
         memorySize: values.memorySize,
         numberOfPages: values.numberOfPages,
@@ -62,29 +62,29 @@ export default function SimulationForm(props: SimulationFormProps) {
       <InputNumber style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="Quantidade de páginas" key="numberOfPages" name="numberOfPages" tooltip="Número de páginas únicas. Se deixado em branco, será gerado automaticamente">
+    <Form.Item label="Quantidade de páginas" key="numberOfPages" name="numberOfPages" tooltip="Número de páginas únicas." rules={[{ required: true, message: 'Informe o número de páginas únicas' }]}>
       <InputNumber style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="Páginas" key="pages" name="pages" tooltip="Nomes das páginas. Se deixado em branco, será gerado automaticamente">
+    <Form.Item label="Páginas" key="pages" name="pages" tooltip="Nomes das páginas." rules={[{ required: true, message: 'Informe os nomes das páginas' }]}>
       <Select mode="tags" tokenSeparators={[',']} allowClear style={{ width: '100%' }} />
     </Form.Item>
 
-    <Form.Item label="Fila de páginas" key="pagesQueue" name="pagesQueue" tooltip="Fila de páginas para serem referenciadas. Se deixado em branco, será gerado automaticamente">
+    <Form.Item label="Fila de páginas" key="pagesQueue" name="pagesQueue" tooltip="Fila de páginas para serem referenciadas." rules={[{ required: true, message: 'Informe a fila de páginas para serem referenciadas' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setPagesQueue(form)} /></Tooltip>} style={{ width: '100%' }} />
     </Form.Item>
 
-    <Form.Item label="Estado inicial da memória" key="memoryInitalState" name="memoryInitalState" tooltip="Páginas que já estão na memória. Se deixado em branco, será gerado automaticamente">
+    <Form.Item label="Estado inicial da memória" key="memoryInitalState" name="memoryInitalState" tooltip="Páginas que já estão na memória." rules={[{ required: true, message: 'Informe as páginas que já estão na memória' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setMemoryInitialState(form)} /></Tooltip>} style={{ width: '100%' }} />
     </Form.Item>
 
-    {useTau && <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho. Se deixado em branco, será gerado automaticamente">
+    {useTau && <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho." rules={[{ required: true, message: 'Informe a idade máxima para considerar uma página dentro do conjunto de trabalho' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setTau(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
     </Form.Item>}
 
-    {useClockInterruption && <Form.Item label="Tempo de interrupção do relógio" key="clockInterruption" name="clockInterruption" tooltip="A cada quantas páginas haverá uma interrupção do relógio. Se deixado em branco, será gerado automaticamente">
+    {/* {useClockInterruption && <Form.Item label="Tempo de interrupção do relógio" key="clockInterruption" name="clockInterruption" tooltip="A cada quantas páginas haverá uma interrupção do relógio." rules={[{ required: true, message: 'Informe a cada quantas páginas haverá uma interrupção do relógio' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setClockInterruption(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
-    </Form.Item>}
+    </Form.Item>} */}
 
     <Form.Item label="Algoritmos" key="algorithms" name="algorithms" tooltip="Algoritmos a serem executados." rules={[{ required: true, message: 'Selecione os algoritmos' }]} >
       <Select mode="multiple" style={{ width: '100%' }} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
