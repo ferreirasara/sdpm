@@ -15,7 +15,7 @@ export default function AboutAlgorithmsPage() {
   const handleStartSimulation = async (data: SimulationData) => {
     setCurrentStep(1)
     try {
-      const response = await api.post('simulate', data);
+      const response = await api.post('simulation', data);
       setSimulationResponse(response.data)
       setCurrentStep(2)
     } catch (error) {
