@@ -19,7 +19,7 @@ export default function ResultCard(props: ResultCardProps) {
       <Card bordered={false}>
         <Statistic
           title="Tempo de simulação"
-          value={formatNumber(result.simulationTime / 60000)}
+          value={formatNumber((result?.simulationTime || 0) / 60000)}
           prefix={<HourglassOutlined />}
           suffix={'minutos'}
         />
@@ -27,7 +27,7 @@ export default function ResultCard(props: ResultCardProps) {
     </Col>
     <Col span={20}>
       <Card bordered={false} title="Total de faltas de página por algoritmo">
-        <BarChart axis={axis} data={data} />
+        <BarChart axis={axis} data={data || []} />
       </Card>
     </Col>
 

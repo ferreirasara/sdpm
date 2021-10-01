@@ -12,9 +12,10 @@ export interface SimulationData {
 
 export interface SimuationResponse {
   success: boolean,
-  faultsPerAlgorithm: {
+  message: string,
+  faultsPerAlgorithm?: {
     name: string,
     cont: number
   }[],
-  simulationTime: number,
+  simulationTime?: number,
 }

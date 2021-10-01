@@ -2,6 +2,7 @@ import { Card, Form, notification, PageHeader, Row, Spin } from "antd";
 import { useState } from "react";
 import api from "../../api";
 import { SimuationResponse, SimulationData } from "../../utils/types";
+import { getMessageFromError } from "../../utils/utils";
 import ResultCard from "./components/ResultCard";
 import SimulationForm from "./components/SimulationForm";
 import SimulationSteps from "./components/SimulationSteps";
@@ -10,7 +11,7 @@ export default function AboutAlgorithmsPage() {
   document.title = 'SDPM - Simulador Didático de Paginação de Memória'
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState<number>(0)
-  const [simulationResponse, setSimulationResponse] = useState<SimuationResponse>({success: false, simulationTime: 0, faultsPerAlgorithm: []})
+  const [simulationResponse, setSimulationResponse] = useState<SimuationResponse>({success: false, message: ''})
 
   const handleStartSimulation = async (data: SimulationData) => {
     setCurrentStep(1)
@@ -22,7 +23,7 @@ export default function AboutAlgorithmsPage() {
       console.log(error)
       notification.open({
         message: 'Ocorreu um erro durante a simulação.',
-        description: `Erro: ${(error as Error).message}`,
+        description: `Erro: ${getMessageFromError(error)}`,
         type: 'error'
       });
       setCurrentStep(0)
