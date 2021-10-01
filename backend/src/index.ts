@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from "body-parser";
 import cors from 'cors';
-import { validateRequiredParams } from './middlewares/simulation.middleware';
+import { validateParamsIntegrity, validateRequiredParams } from './middlewares/simulation.middleware';
 require('dotenv').config({ path: __dirname+'/.env' });
 
 // Create a new express application instance
@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/simulation', [
     validateRequiredParams,
+    validateParamsIntegrity,
 ])
 
 // The port the express app will listen on
