@@ -1,6 +1,6 @@
 import { algorithmNamesList } from "../utils/algorithmList"
 
-export const validateRequiredParams = async (req: any, res: any, next: any) => {
+export const validateRequiredParamsMiddleware = async (req: any, res: any, next: any) => {
   if (!req.body.memorySize) {
     return res.status(400).send({ success: false, message: `O campo "Tamanho da memória" é obrigatório.` })
   } else if (!req.body.pagesQueueSize) {
@@ -22,7 +22,7 @@ export const validateRequiredParams = async (req: any, res: any, next: any) => {
   }
 }
 
-export const validateParamsIntegrity = async (req: any, res: any, next: any) => {
+export const validateParamsIntegrityMiddleware = async (req: any, res: any, next: any) => {
   const memorySize: number = req.body.memorySize
   const pagesQueueSize: number = req.body.pagesQueueSize
   const numberOfPages: number = req.body.numberOfPages
