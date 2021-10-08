@@ -10,7 +10,7 @@ export interface SimulationData {
   algorithms: string[];
 }
 
-export interface SimuationResponse {
+export interface SimulationResponse {
   success: boolean,
   message: string,
   faultsPerAlgorithm?: {

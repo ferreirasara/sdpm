@@ -1,8 +1,8 @@
 export const algorithmNamesList = [
-  "optimal",
-  "fifo",
-  "secondChance",
-  "lru",
-  "nru",
-  "wsClock",
+  "optimalAlgorithm",
+  "fifoAlgorithm",
+  "secondChanceAlgorithm",
+  "lruAlgorithm",
+  "nruAlgorithm",
+  "wsClockAlgorithm",
 ]
