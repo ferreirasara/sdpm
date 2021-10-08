@@ -18,10 +18,12 @@ app.post('/simulation', [
     validateParamsIntegrityMiddleware,
 ])
 
+app.get('/', (req, res) => res.send('SDPM'))
+
 // The port the express app will listen on
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 // Serve the application at the given port
 app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}/`);
+    console.log(`Listening at ${process.env.NODE_ENV !== 'production' ? 'http://localhost:' : 'https://api-sdpm-simulator.herokuapp.com:'}${port}/`);
 });
