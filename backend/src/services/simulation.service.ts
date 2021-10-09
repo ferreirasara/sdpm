@@ -12,14 +12,16 @@ export const simulateService = async (req: any, res: any, next: any) => {
   const algorithmsToRun: string[] = body.algorithms
 
   const faultsPerAlgorithm = []
+  const memory = body.memoryInitalState.split('|');
+  const pagesQueue = body.pagesQueue.split('|');
 
   if (algorithmsToRun.includes('optimalAlgorithm')) {
-    const optimalAlgorithmResult: AlgorithmResult = optimalAlgorithm(body.memoryInitalState, body.pagesQueue);
+    const optimalAlgorithmResult: AlgorithmResult = optimalAlgorithm(memory, pagesQueue);
     faultsPerAlgorithm.push(optimalAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('fifoAlgorithm')) {
-    const fifoAlgorithmResult: AlgorithmResult = fifoAlgorithm()
+    const fifoAlgorithmResult: AlgorithmResult = fifoAlgorithm(memory, pagesQueue)
     faultsPerAlgorithm.push(fifoAlgorithmResult)
   }
 
