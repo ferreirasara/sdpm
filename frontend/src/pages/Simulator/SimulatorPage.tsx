@@ -37,7 +37,7 @@ export default function AboutAlgorithmsPage() {
       onBack={() => window.history.back()}
     />
     <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
-      <SimulationSteps currentStep={currentStep} />
+      <SimulationSteps currentStep={currentStep} setCurrentStep={setCurrentStep} />
     </Row>
 
     {currentStep === 0 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>

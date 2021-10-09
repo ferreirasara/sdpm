@@ -12,7 +12,6 @@ export default function ResultCard(props: ResultCardProps) {
   const { result } = props
   const axis = ['Algoritmo', 'Faltas de página']
   const data = result?.faultsPerAlgorithm?.map(cur => { return { name: cur.name, cont: cur.cont } })
-  console.log({result, data})
 
   return <>
     <Col span={20}>
