@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from "body-parser";
 import cors from 'cors';
 import { validateParamsIntegrityMiddleware, validateRequiredParamsMiddleware } from './middlewares/simulation.middleware';
+import { simulateService } from './services/simulation.service';
 require('dotenv').config({ path: __dirname+'/.env' });
 
 // Create a new express application instance
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/simulation', [
     validateRequiredParamsMiddleware,
     validateParamsIntegrityMiddleware,
+    simulateService,
 ])
 
 app.get('/', (req, res) => res.send('SDPM'))
