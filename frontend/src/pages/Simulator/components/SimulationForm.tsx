@@ -1,10 +1,11 @@
 import { ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design/icons";
-import { Button, Form, Input, InputNumber, Select, Tooltip } from "antd";
+import { Button, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
 import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues } from "../../../utils/generateRandomData";
+import { setExampleValues } from "../../../utils/examples";
 
 export interface SimulationFormProps {
   form: FormInstance<any>,
@@ -20,17 +21,23 @@ export default function SimulationForm(props: SimulationFormProps) {
   const [useTau, setUseTau] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
   // const [useClockInterruption, setUseClockInterruption] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
   const [formSubmitLoading, setFormSubmitLoading] = useState(false)
+  const [selectedExample, setSelectedExample] = useState<string>('')
 
   useEffect(() => {
     setUseTau(selectedAlgorithms.includes('wsClockAlgorithm'))
     // setUseClockInterruption(selectedAlgorithms.includes('nruAlgorithm'))
   }, [selectedAlgorithms])
 
+  useEffect(() => {
+    setExampleValues(form, selectedExample)
+  }, [selectedExample])
+
   const initialValues = { algorithms: selectedAlgorithms }
   const formItemLayout = { labelCol: { span: 8 }, wrapperCol: { span: 16 }, }
 
   const onReset = () => {
     form.resetFields();
+    setSelectedExample('')
   };
 
   const handleSubmit = async () => {
@@ -51,6 +58,13 @@ export default function SimulationForm(props: SimulationFormProps) {
       setFormSubmitLoading(false)
     })
   }
+
+  const examplesMenu = (
+    <Menu selectedKeys={[selectedExample]} onClick={(e) => setSelectedExample(e.key)} >
+      <Menu.Item key="example1" >Exemplo 1</Menu.Item>
+      <Menu.Item key="example2" >Exemplo 2</Menu.Item>
+    </Menu>
+  )
 
   return <Form {...formItemLayout} form={form} onFinish={handleSubmit} initialValues={initialValues}>
 
@@ -93,9 +107,12 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Form.Item>
 
     <Form.Item>
-      <Button type="primary" htmlType="submit" style={{ marginRight: '5px' }} icon={<ThunderboltOutlined />}>Simular</Button>
-      <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<SettingOutlined />} onClick={() => setRandomValues(form)}>Gerar dados aleatórios</Button>
-      <Button type="dashed" htmlType="button" style={{ marginRight: '5px' }} icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
+      <Space>
+        <Button type="primary" htmlType="submit" icon={<ThunderboltOutlined />}>Simular</Button>
+        <Dropdown.Button overlay={examplesMenu} type="dashed">Usar exemplo</Dropdown.Button>
+        <Button type="dashed" htmlType="button" icon={<SettingOutlined />} onClick={() => setRandomValues(form)}>Gerar dados aleatórios</Button>
+        <Button type="dashed" htmlType="button" icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
+      </Space>
     </Form.Item>
 
   </Form>
