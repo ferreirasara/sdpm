@@ -3,6 +3,7 @@ import { Card, Col, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
 import { SimuationResponse } from "../../../utils/types";
 import { formatNumber } from "../../../utils/calculations";
+import { pretifyAlgorithmName } from "../../../utils/pretifyStrings";
 
 export interface ResultCardProps {
   result: SimuationResponse,
@@ -11,7 +12,7 @@ export interface ResultCardProps {
 export default function ResultCard(props: ResultCardProps) {
   const { result } = props
   const axis = ['Algoritmo', 'Faltas de página']
-  const data = result?.faultsPerAlgorithm?.map(cur => { return { name: cur.name, cont: cur.cont } })
+  const data = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
 
   return <>
     <Col span={20}>

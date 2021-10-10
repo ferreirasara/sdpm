@@ -18,15 +18,8 @@ export default function SimulationForm(props: SimulationFormProps) {
   const algorithmsOptions = algorithmList.map(cur => { return <Select.Option value={cur.name} key={cur.name}>{cur.label}</Select.Option> })
 
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>(algorithmNamesList)
-  const [useTau, setUseTau] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
-  // const [useClockInterruption, setUseClockInterruption] = useState<boolean>(selectedAlgorithms.includes('wsClockAlgorithm'))
   const [formSubmitLoading, setFormSubmitLoading] = useState(false)
   const [selectedExample, setSelectedExample] = useState<string>('')
-
-  useEffect(() => {
-    setUseTau(selectedAlgorithms.includes('wsClockAlgorithm'))
-    // setUseClockInterruption(selectedAlgorithms.includes('nruAlgorithm'))
-  }, [selectedAlgorithms])
 
   useEffect(() => {
     setExampleValues(form, selectedExample)
@@ -46,7 +39,6 @@ export default function SimulationForm(props: SimulationFormProps) {
     form.validateFields().then(values => {
       onSubmit && onSubmit({
         algorithms: values.algorithms,
-        // clockInterruption: values.clockInterruption,
         memoryInitalState: values.memoryInitalState,
         memorySize: values.memorySize,
         numberOfPages: values.numberOfPages,
@@ -92,13 +84,9 @@ export default function SimulationForm(props: SimulationFormProps) {
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setMemoryInitialState(form)} /></Tooltip>} style={{ width: '100%' }} />
     </Form.Item>
 
-    {useTau && <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho." rules={[{ required: true, message: 'Informe a idade máxima para considerar uma página dentro do conjunto de trabalho' }]}>
+    <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho." rules={[{ required: true, message: 'Informe a idade máxima para considerar uma página dentro do conjunto de trabalho' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setTau(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
-    </Form.Item>}
-
-    {/* {useClockInterruption && <Form.Item label="Tempo de interrupção do relógio" key="clockInterruption" name="clockInterruption" tooltip="A cada quantas páginas haverá uma interrupção do relógio." rules={[{ required: true, message: 'Informe a cada quantas páginas haverá uma interrupção do relógio' }]}>
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setClockInterruption(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
-    </Form.Item>} */}
+    </Form.Item>
 
     <Form.Item label="Algoritmos" key="algorithms" name="algorithms" tooltip="Algoritmos a serem executados." rules={[{ required: true, message: 'Selecione os algoritmos' }]} >
       <Select mode="multiple" style={{ width: '100%' }} onChange={(value: string[]) => setSelectedAlgorithms(value)}>

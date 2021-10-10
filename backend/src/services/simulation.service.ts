@@ -11,38 +11,38 @@ export const simulateService = async (req: any, res: any, next: any) => {
   const body: SimulationData = req.body
   const algorithmsToRun: string[] = body.algorithms
 
-  const faultsPerAlgorithm = []
+  const algorithmResult = []
   const memory = body.memoryInitalState.split('|');
   const pagesQueue = body.pagesQueue.split('|');
 
   if (algorithmsToRun.includes('optimalAlgorithm')) {
     const optimalAlgorithmResult: AlgorithmResult = optimalAlgorithm(memory, pagesQueue);
-    faultsPerAlgorithm.push(optimalAlgorithmResult)
+    algorithmResult.push(optimalAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('fifoAlgorithm')) {
     const fifoAlgorithmResult: AlgorithmResult = fifoAlgorithm(memory, pagesQueue)
-    faultsPerAlgorithm.push(fifoAlgorithmResult)
+    algorithmResult.push(fifoAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('secondChanceAlgorithm')) {
     const secondChanceAlgorithmResult: AlgorithmResult = secondChanceAlgorithm()
-    faultsPerAlgorithm.push(secondChanceAlgorithmResult)
+    algorithmResult.push(secondChanceAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('lruAlgorithm')) {
     const lruAlgorithmResult: AlgorithmResult = lruAlgorithm()
-    faultsPerAlgorithm.push(lruAlgorithmResult)
+    algorithmResult.push(lruAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('nruAlgorithm')) {
     const nruAlgorithmResult: AlgorithmResult = nruAlgorithm()
-    faultsPerAlgorithm.push(nruAlgorithmResult)
+    algorithmResult.push(nruAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('wsClockAlgorithm')) {
     const wsClockAlgorithmResult: AlgorithmResult = wsClockAlgorithm()
-    faultsPerAlgorithm.push(wsClockAlgorithmResult)
+    algorithmResult.push(wsClockAlgorithmResult)
   }
 
   const end = new Date().getTime();
@@ -51,7 +51,7 @@ export const simulateService = async (req: any, res: any, next: any) => {
   const response: SimulationResponse = {
     success: true,
     message: 'Simulation completed successfully.',
-    faultsPerAlgorithm,
+    algorithmResult,
     simulationTime,
   }
 

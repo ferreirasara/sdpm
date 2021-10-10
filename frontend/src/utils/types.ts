@@ -13,7 +13,7 @@ export interface SimulationData {
 export interface SimuationResponse {
   success: boolean,
   message: string,
-  faultsPerAlgorithm?: {
+  algorithmResult?: {
     name: string,
     cont: number
   }[],

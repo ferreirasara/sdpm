@@ -13,11 +13,20 @@ export interface SimulationData {
 export interface SimulationResponse {
   success: boolean,
   message: string,
-  faultsPerAlgorithm?: AlgorithmResult[],
+  algorithmResult?: AlgorithmResult[],
   simulationTime?: number,
 }
 
 export interface AlgorithmResult {
   name: string,
   cont: number
+  simulationExecution?: SimulationExecution[]
+}
+
+export interface SimulationExecution {
+  t: number,
+  page: string,
+  memory: string,
+  fault: boolean,
+  action: string,
 }

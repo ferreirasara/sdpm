@@ -1,5 +1,6 @@
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import { algorithmList } from './algorithmList';
 
 export function formatDate(date: Date | string) {
   if (!date) return '-'
@@ -23,4 +24,8 @@ export function getRandomString(size: number) {
       string += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return string;
+}
+
+export const pretifyAlgorithmName = (algorithmName: string) => {
+  return algorithmList.find(cur => cur.name === algorithmName)?.label || ''
 }
