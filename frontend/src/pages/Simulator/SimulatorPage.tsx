@@ -1,7 +1,7 @@
 import { Card, Form, notification, PageHeader, Row, Spin } from "antd";
 import { useState } from "react";
 import api from "../../api";
-import { SimuationResponse, SimulationData } from "../../utils/types";
+import { SimulationResponse, SimulationData } from "../../utils/types";
 import { getMessageFromError } from "../../utils/utils";
 import ResultCard from "./components/ResultCard";
 import SimulationForm from "./components/SimulationForm";
@@ -11,13 +11,15 @@ export default function AboutAlgorithmsPage() {
   document.title = 'SDPM - Simulador Didático de Paginação de Memória'
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState<number>(0)
-  const [simulationResponse, setSimulationResponse] = useState<SimuationResponse>({success: false, message: ''})
+  const [simulationResponse, setSimulationResponse] = useState<SimulationResponse>({})
+  const [simulationData, setSimulationData] = useState<SimulationData>({})
 
   const handleStartSimulation = async (data: SimulationData) => {
     setCurrentStep(1)
     try {
       const response = await api.post('simulation', data);
-      setSimulationResponse(response.data)
+      setSimulationData(data);
+      setSimulationResponse(response.data);
       setCurrentStep(2)
     } catch (error) {
       console.log(error)
@@ -56,7 +58,7 @@ export default function AboutAlgorithmsPage() {
     </Row>}
 
     {currentStep === 2 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
-      <ResultCard result={simulationResponse} />
+      <ResultCard result={simulationResponse} simulationData={simulationData} />
     </Row>}
   </>
 }

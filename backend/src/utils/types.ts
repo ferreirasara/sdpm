@@ -15,6 +15,7 @@ export interface SimulationResponse {
   message: string,
   algorithmResult?: AlgorithmResult[],
   simulationTime?: number,
+  shouldShowDetails?: boolean,
 }
 
 export interface AlgorithmResult {
@@ -24,7 +25,6 @@ export interface AlgorithmResult {
 }
 
 export interface SimulationExecution {
-  t: number,
   page: string,
   memory: string,
   fault: boolean,

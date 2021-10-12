@@ -7,21 +7,23 @@ import { secondChanceAlgorithm } from "./secondChanceAlgorithm"
 import { wsClockAlgorithm } from "./wsClockAlgorithm"
 
 export const simulateService = async (req: any, res: any, next: any) => {
-  const start = new Date().getTime();
   const body: SimulationData = req.body
   const algorithmsToRun: string[] = body.algorithms
 
   const algorithmResult = []
   const memory = body.memoryInitalState.split('|');
   const pagesQueue = body.pagesQueue.split('|');
+  const shouldSentDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15
+
+  const start = new Date().getTime();
 
   if (algorithmsToRun.includes('optimalAlgorithm')) {
-    const optimalAlgorithmResult: AlgorithmResult = optimalAlgorithm(memory, pagesQueue);
+    const optimalAlgorithmResult: AlgorithmResult = optimalAlgorithm(memory, pagesQueue, shouldSentDetails);
     algorithmResult.push(optimalAlgorithmResult)
   }
 
   if (algorithmsToRun.includes('fifoAlgorithm')) {
-    const fifoAlgorithmResult: AlgorithmResult = fifoAlgorithm(memory, pagesQueue)
+    const fifoAlgorithmResult: AlgorithmResult = fifoAlgorithm(memory, pagesQueue, shouldSentDetails)
     algorithmResult.push(fifoAlgorithmResult)
   }
 
@@ -53,6 +55,7 @@ export const simulateService = async (req: any, res: any, next: any) => {
     message: 'Simulation completed successfully.',
     algorithmResult,
     simulationTime,
+    shouldShowDetails: shouldSentDetails,
   }
 
   res.send(response)

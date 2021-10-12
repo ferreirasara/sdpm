@@ -23,7 +23,7 @@ export default function SimulationForm(props: SimulationFormProps) {
 
   useEffect(() => {
     setExampleValues(form, selectedExample)
-  }, [selectedExample])
+  }, [selectedExample, form])
 
   const initialValues = { algorithms: selectedAlgorithms }
   const formItemLayout = { labelCol: { span: 8 }, wrapperCol: { span: 16 }, }
