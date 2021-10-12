@@ -33,3 +33,13 @@ export const getRandomInt = (min: number, max: number) => {
 export const formatNumber = (num: number) => {
   return parseFloat(num.toString()).toFixed(2)
 }
+
+export const formatSimulationTime = (simulationTime: number): { simulationTime: number, suffix: string } => {
+  if (simulationTime < 1000) {
+    return { simulationTime, suffix: 'milisegundos' }
+  } else if (simulationTime >= 1000 && simulationTime < 60000) {
+    return { simulationTime: simulationTime / 1000, suffix: 'segundos' }
+  } else {
+    return { simulationTime: simulationTime / 60000, suffix: 'minutos' }
+  }
+}

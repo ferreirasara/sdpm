@@ -2,7 +2,7 @@ import { HourglassOutlined } from "@ant-design/icons";
 import { Card, Col, Collapse, Descriptions, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
 import { SimulationData, SimulationResponse } from "../../../utils/types";
-import { formatNumber } from "../../../utils/calculations";
+import { formatNumber, formatSimulationTime } from "../../../utils/calculations";
 import { pretifyAlgorithmName } from "../../../utils/pretifyStrings";
 import DetailsTable from "./DetailsTable";
 
@@ -15,17 +15,16 @@ export default function ResultCard(props: ResultCardProps) {
   const { result, simulationData } = props
   const axis = ['Algoritmo', 'Faltas de página']
   const chartData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
-  let simulationTime = (result?.simulationTime || 0) / 1000
-  if (simulationTime > 60) simulationTime = (result?.simulationTime || 0) / 60000
+  const { simulationTime, suffix } = formatSimulationTime(result?.simulationTime || 0)
 
   return <>
     <Col span={20}>
       <Card bordered={false}>
         <Statistic
           title="Tempo de simulação"
-          value={formatNumber((result?.simulationTime || 0) / 1000)}
+          value={formatNumber(simulationTime)}
           prefix={<HourglassOutlined />}
-          suffix={simulationTime <= 60 ? 'segundos' : 'minutos'}
+          suffix={suffix}
         />
       </Card>
     </Col>
