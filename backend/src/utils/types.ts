@@ -6,7 +6,6 @@ export interface SimulationData {
   pagesQueue: string;
   memoryInitalState: string;
   tau: number;
-  // clockInterruption: number;
   algorithms: string[];
 }
 

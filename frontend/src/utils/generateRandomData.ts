@@ -23,11 +23,6 @@ export const setTau = (form: FormInstance<any>) => {
   form.setFieldsValue({ tau })
 }
 
-export const setClockInterruption = (form: FormInstance<any>) => {
-  const clockInterruption = generateClockInterruption()
-  form.setFieldsValue({ clockInterruption })
-}
-
 export const setRandomValues = (form: FormInstance<any>) => {
   const memorySize = getRandomInt(1, 100)
   const pagesQueueSize = getRandomInt(100, 1000)
@@ -36,7 +31,6 @@ export const setRandomValues = (form: FormInstance<any>) => {
   const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
   const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
   const tau = generateTau()
-  const clockInterruption = generateClockInterruption()
 
   form.setFieldsValue({
     memorySize,
@@ -46,7 +40,6 @@ export const setRandomValues = (form: FormInstance<any>) => {
     pagesQueue,
     memoryInitalState,
     tau,
-    clockInterruption,
     algorithms: algorithmNamesList,
   })
 }
