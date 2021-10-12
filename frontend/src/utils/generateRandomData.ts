@@ -18,6 +18,12 @@ export const setPagesQueue = (form: FormInstance<any>) => {
   form.setFieldsValue({ pagesQueue })
 }
 
+export const setActionsQueue = (form: FormInstance<any>) => {
+  const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  const actionsQueue = generateActionsQueue(pagesQueueSize).join('|')
+  form.setFieldsValue({ actionsQueue })
+}
+
 export const setTau = (form: FormInstance<any>) => {
   const tau = generateTau()
   form.setFieldsValue({ tau })
@@ -29,6 +35,7 @@ export const setRandomValues = (form: FormInstance<any>) => {
   const numberOfPages = generateNumberOfPages(memorySize, pagesQueueSize)
   const pages = generatePages(numberOfPages)
   const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
+  const actionsQueue = generateActionsQueue(pagesQueueSize).join('|')
   const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
   const tau = generateTau()
 
@@ -38,6 +45,7 @@ export const setRandomValues = (form: FormInstance<any>) => {
     numberOfPages,
     pages,
     pagesQueue,
+    actionsQueue,
     memoryInitalState,
     tau,
     algorithms: algorithmNamesList,
@@ -76,16 +84,22 @@ export const generateMemoryInitialState = (memorySize: number, pages: string[]) 
 
 export const generatePagesQueue = (pagesQueueSize: number, pages: string[]) => {
   const pagesQueue = []
-  const limitRandom = pagesQueueSize * 0.05
   for (let i = 0; i < pagesQueueSize; i++) {
-    if (getRandomInt(0, limitRandom) === 1) {
-      pagesQueue.push('#')
-      i--
-    } else {
-      pagesQueue.push(pages[Math.floor(Math.random() * pages.length)])
-    }
+    pagesQueue.push(pages[Math.floor(Math.random() * pages.length)])
   }
   return pagesQueue
+}
+
+export const generateActionsQueue = (pagesQueueSize: number) => {
+  const actionsQueue = []
+  for (let i = 0; i < pagesQueueSize; i++) {
+    if (getRandomInt(0, 2) === 1) {
+      actionsQueue.push('E')
+    } else {
+      actionsQueue.push('L')
+    }
+  }
+  return actionsQueue
 }
 
 export const generateTau = () => {

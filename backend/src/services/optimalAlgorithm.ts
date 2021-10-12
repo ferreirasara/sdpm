@@ -16,37 +16,35 @@ export const optimalAlgorithm = (memoryInitalState: string[], pagesQueue: string
   const simulationExecution: SimulationExecution[] = []
 
   for (let i = 0; i < pagesQueue.length; i++) {
-    if (pagesQueue[i] !== '#') {
-      if (!memory.includes(pagesQueue[i])) {
-        faults++;
-        if (memory.includes('0')) {
-          memory = replacePage(memory, pagesQueue[i], '0');
+    if (!memory.includes(pagesQueue[i])) {
+      faults++;
+      if (memory.includes('0')) {
+        memory = replacePage(memory, pagesQueue[i], '0');
 
-          if (shouldSentDetails) simulationExecution.push({
-            page: pagesQueue[i],
-            memory: memory.join('|'),
-            fault: true,
-            action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
-          })
-        } else {
-          const pageToReplace = findPageToReplace(memory, pagesQueue) || '';
-          memory = replacePage(memory, pagesQueue[i], pageToReplace);
-
-          if (shouldSentDetails) simulationExecution.push({
-            page: pagesQueue[i],
-            memory: memory.join('|'),
-            fault: true,
-            action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace}.`
-          })
-        };
-      } else {
         if (shouldSentDetails) simulationExecution.push({
           page: pagesQueue[i],
           memory: memory.join('|'),
-          fault: false,
-          action: `Página ${pagesQueue[i]} está na memória.`
+          fault: true,
+          action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
         })
-      }
+      } else {
+        const pageToReplace = findPageToReplace(memory, pagesQueue) || '';
+        memory = replacePage(memory, pagesQueue[i], pageToReplace);
+
+        if (shouldSentDetails) simulationExecution.push({
+          page: pagesQueue[i],
+          memory: memory.join('|'),
+          fault: true,
+          action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace}.`
+        })
+      };
+    } else {
+      if (shouldSentDetails) simulationExecution.push({
+        page: pagesQueue[i],
+        memory: memory.join('|'),
+        fault: false,
+        action: `Página ${pagesQueue[i]} está na memória.`
+      })
     }
   }
 

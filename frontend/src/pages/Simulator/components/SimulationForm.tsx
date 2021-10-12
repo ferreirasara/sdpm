@@ -4,7 +4,7 @@ import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
-import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues } from "../../../utils/generateRandomData";
+import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue } from "../../../utils/generateRandomData";
 import { setExampleValues } from "../../../utils/examples";
 
 export interface SimulationFormProps {
@@ -44,6 +44,7 @@ export default function SimulationForm(props: SimulationFormProps) {
         numberOfPages: values.numberOfPages,
         pages: values.pages,
         pagesQueue: values.pagesQueue,
+        actionsQueue: values.actionsQueue,
         pagesQueueSize: values.pagesQueueSize,
         tau: values.tau,
       })
@@ -78,6 +79,10 @@ export default function SimulationForm(props: SimulationFormProps) {
 
     <Form.Item label="Fila de páginas" key="pagesQueue" name="pagesQueue" tooltip="Fila de páginas para serem referenciadas." rules={[{ required: true, message: 'Informe a fila de páginas para serem referenciadas' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setPagesQueue(form)} /></Tooltip>} style={{ width: '100%' }} />
+    </Form.Item>
+
+    <Form.Item label="Fila de ações" key="actionsQueue" name="actionsQueue" tooltip="Fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))." rules={[{ required: true, message: 'Informe a fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))' }]}>
+      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setActionsQueue(form)} /></Tooltip>} style={{ width: '100%' }} />
     </Form.Item>
 
     <Form.Item label="Estado inicial da memória" key="memoryInitalState" name="memoryInitalState" tooltip="Páginas que já estão na memória." rules={[{ required: true, message: 'Informe as páginas que já estão na memória' }]}>

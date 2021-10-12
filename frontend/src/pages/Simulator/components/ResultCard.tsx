@@ -42,6 +42,7 @@ export default function ResultCard(props: ResultCardProps) {
           <Descriptions.Item label="Quantidade de páginas">{simulationData.numberOfPages}</Descriptions.Item>
           <Descriptions.Item label="Páginas">{simulationData.pages?.join('|')}</Descriptions.Item>
           <Descriptions.Item label="Fila de páginas">{simulationData.pagesQueue}</Descriptions.Item>
+          <Descriptions.Item label="Fila de ações">{simulationData.actionsQueue}</Descriptions.Item>
           <Descriptions.Item label="Estado inicial da memória">{simulationData.memoryInitalState}</Descriptions.Item>
           <Descriptions.Item label="τ (tau)">{simulationData.tau}</Descriptions.Item>
           <Descriptions.Item label="Algoritmos">{simulationData.algorithms?.map(cur => pretifyAlgorithmName(cur)).join(', ')}</Descriptions.Item>

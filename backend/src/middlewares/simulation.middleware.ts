@@ -11,6 +11,8 @@ export const validateRequiredParamsMiddleware = async (req: any, res: any, next:
     return res.status(400).send({ success: false, message: `O campo "Páginas" é obrigatório.` })
   } else if (!req.body.pagesQueue) {
     return res.status(400).send({ success: false, message: `O campo "Fila de páginas" é obrigatório.` })
+  } else if (!req.body.actionsQueue) {
+    return res.status(400).send({ success: false, message: `O campo "Fila de ações" é obrigatório.` })
   } else if (!req.body.memoryInitalState) {
     return res.status(400).send({ success: false, message: `O campo "Estado inicial da memória" é obrigatório.` })
   } else if (!req.body.tau) {
@@ -27,19 +29,44 @@ export const validateParamsIntegrityMiddleware = async (req: any, res: any, next
   const pagesQueueSize: number = req.body.pagesQueueSize
   const numberOfPages: number = req.body.numberOfPages
   const pages: string[] = req.body.pages
-  const pagesQueue: string[] = (req.body.pagesQueue as string).split('|').filter(cur => cur !== '#')
+  const pagesQueue: string[] = (req.body.pagesQueue as string).split('|')
+  const actionsQueue: string[] = (req.body.actionsQueue as string).split('|')
+  const actionsQueueCharNotAllowed: string[] = actionsQueue.filter(cur => cur !== '|' && cur !== 'E' && cur !== 'L')
   const memoryInitalState: string[] = req.body.memoryInitalState.split('|')
   const algorithmsNotAllowed: string[] = (req.body.algorithms as string[]).filter(cur => !algorithmNamesList.includes(cur))
 
   if (memorySize !== memoryInitalState.length) {
-    return res.status(400).send({ success: false, message: `O campo "Estado inicial da memória" deve possuir comprimento igual ao tamanho da memória.` })
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Estado inicial da memória" deve possuir comprimento igual ao tamanho da memória.`
+    })
   } else if (pagesQueueSize !== pagesQueue.length) {
-    return res.status(400).send({ success: false, message: `O campo "Fila de páginas" deve possuir comprimento igual ao tamanho da fila de páginas.` })
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Fila de páginas" deve possuir comprimento igual ao tamanho da fila de páginas.`
+    })
+  } else if (pagesQueueSize !== actionsQueue.length) {
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Fila de ações" deve possuir comprimento igual ao tamanho da fila de páginas.`
+    })
+  } else if (actionsQueueCharNotAllowed.length) {
+    const plural = actionsQueueCharNotAllowed.length > 1 ? 's' : '';
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Fila de ações" deve possuir apenas os caracteres '|', 'E' e 'L'. Caracter${plural ? 'es' : ''} não suportado${plural}: ${actionsQueueCharNotAllowed.join(', ')}.`
+    })
   } else if (numberOfPages !== pages.length) {
-    return res.status(400).send({ success: false, message: `O campo "Páginas" deve possuir comprimento igual à quantidade de páginas.` })
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Páginas" deve possuir comprimento igual à quantidade de páginas.`
+    })
   } else if (algorithmsNotAllowed.length) {
-    const plural = algorithmsNotAllowed.length > 1
-    return res.status(400).send({ success: false, message: `Algoritmo${plural ? 's' : ''} não suportado${plural ? 's' : ''}: ${algorithmsNotAllowed.join(', ')}.` })
+    const plural = algorithmsNotAllowed.length > 1 ? 's' : '';
+    return res.status(400).send({
+      success: false,
+      message: `Algoritmo${plural} não suportado${plural}: ${algorithmsNotAllowed.join(', ')}.`
+    })
   } else {
     return next();
   }

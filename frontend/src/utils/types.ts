@@ -4,6 +4,7 @@ export interface SimulationData {
   numberOfPages?: number;
   pages?: string[];
   pagesQueue?: string;
+  actionsQueue?: string;
   memoryInitalState?: string;
   tau?: number;
   algorithms?: string[];
