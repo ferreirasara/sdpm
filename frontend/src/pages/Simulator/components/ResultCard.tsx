@@ -15,15 +15,17 @@ export default function ResultCard(props: ResultCardProps) {
   const { result, simulationData } = props
   const axis = ['Algoritmo', 'Faltas de página']
   const chartData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
+  let simulationTime = (result?.simulationTime || 0) / 1000
+  if (simulationTime > 60) simulationTime = (result?.simulationTime || 0) / 60000
 
   return <>
     <Col span={20}>
       <Card bordered={false}>
         <Statistic
           title="Tempo de simulação"
-          value={formatNumber((result?.simulationTime || 0) / 60000)}
+          value={formatNumber((result?.simulationTime || 0) / 1000)}
           prefix={<HourglassOutlined />}
-          suffix={'minutos'}
+          suffix={simulationTime <= 60 ? 'segundos' : 'minutos'}
         />
       </Card>
     </Col>
