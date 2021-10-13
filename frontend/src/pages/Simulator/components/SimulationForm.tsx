@@ -4,7 +4,7 @@ import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
 import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
-import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue } from "../../../utils/generateRandomData";
+import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue, setClockInterruption } from "../../../utils/generateRandomData";
 import { setExampleValues } from "../../../utils/examples";
 
 export interface SimulationFormProps {
@@ -46,6 +46,7 @@ export default function SimulationForm(props: SimulationFormProps) {
         pagesQueue: values.pagesQueue,
         actionsQueue: values.actionsQueue,
         pagesQueueSize: values.pagesQueueSize,
+        clockInterruption: values.clockInterruption,
         tau: values.tau,
       })
       setFormSubmitLoading(false)
@@ -59,7 +60,8 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Menu>
   )
 
-  return <Form {...formItemLayout} form={form} onFinish={handleSubmit} initialValues={initialValues}>
+  // return <Form {...formItemLayout} form={form} onFinish={handleSubmit} initialValues={initialValues}>
+  return <Form labelAlign='right' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit} initialValues={initialValues}>
 
     <Form.Item label="Tamanho da memória" key="memorySize" name="memorySize" tooltip="Quantos processos cabem na memória." rules={[{ required: true, message: 'Informe o tamanho da memória' }]}>
       <InputNumber style={{ width: '100%' }} type="number" />
@@ -87,6 +89,10 @@ export default function SimulationForm(props: SimulationFormProps) {
 
     <Form.Item label="Estado inicial da memória" key="memoryInitalState" name="memoryInitalState" tooltip="Páginas que já estão na memória." rules={[{ required: true, message: 'Informe as páginas que já estão na memória' }]}>
       <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setMemoryInitialState(form)} /></Tooltip>} style={{ width: '100%' }} />
+    </Form.Item>
+
+    <Form.Item label="Interrupção do relógio" key="clockInterruption" name="clockInterruption" tooltip="A quantas referências de página haverá uma interrupção do relógio." rules={[{ required: true, message: 'Informe a quantas referências de página haverá uma interrupção do relógio' }]}>
+      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setClockInterruption(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
     </Form.Item>
 
     <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho." rules={[{ required: true, message: 'Informe a idade máxima para considerar uma página dentro do conjunto de trabalho' }]}>

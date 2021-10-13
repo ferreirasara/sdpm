@@ -43,7 +43,7 @@ export default function AboutAlgorithmsPage() {
     </Row>
 
     {currentStep === 0 && <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
-      <Card bordered={false} style={{ width: '90vh' }}>
+      <Card bordered={false} style={{ width: '100vh', overflow: 'auto' }}>
         <SimulationForm
           form={form}
           onSubmit={handleStartSimulation}

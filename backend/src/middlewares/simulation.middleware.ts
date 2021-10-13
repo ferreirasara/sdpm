@@ -15,6 +15,8 @@ export const validateRequiredParamsMiddleware = async (req: any, res: any, next:
     return res.status(400).send({ success: false, message: `O campo "Fila de ações" é obrigatório.` })
   } else if (!req.body.memoryInitalState) {
     return res.status(400).send({ success: false, message: `O campo "Estado inicial da memória" é obrigatório.` })
+  } else if (!req.body.clockInterruption) {
+    return res.status(400).send({ success: false, message: `O campo "Interrupção do relógio" é obrigatório.` })
   } else if (!req.body.tau) {
     return res.status(400).send({ success: false, message: `O campo "τ (tau)" é obrigatório.` })
   } else if (!req.body.algorithms) {
@@ -33,6 +35,7 @@ export const validateParamsIntegrityMiddleware = async (req: any, res: any, next
   const actionsQueue: string[] = (req.body.actionsQueue as string).split('|')
   const actionsQueueCharNotAllowed: string[] = actionsQueue.filter(cur => cur !== '|' && cur !== 'E' && cur !== 'L')
   const memoryInitalState: string[] = req.body.memoryInitalState.split('|')
+  const clockInterruption: number = req.body.clockInterruption
   const algorithmsNotAllowed: string[] = (req.body.algorithms as string[]).filter(cur => !algorithmNamesList.includes(cur))
 
   if (memorySize !== memoryInitalState.length) {
@@ -60,6 +63,11 @@ export const validateParamsIntegrityMiddleware = async (req: any, res: any, next
     return res.status(400).send({
       success: false,
       message: `O campo "Páginas" deve possuir comprimento igual à quantidade de páginas.`
+    })
+  } else if (clockInterruption >= pagesQueueSize) {
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Interrupção do relógio" deve ser menor que o tamanho da fila de páginas.`
     })
   } else if (algorithmsNotAllowed.length) {
     const plural = algorithmsNotAllowed.length > 1 ? 's' : '';

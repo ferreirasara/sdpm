@@ -7,6 +7,7 @@ export interface SimulationData {
   actionsQueue: string;
   memoryInitalState: string;
   tau: number;
+  clockInterruption: number;
   algorithms: string[];
 }
 

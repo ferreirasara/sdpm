@@ -24,6 +24,12 @@ export const setActionsQueue = (form: FormInstance<any>) => {
   form.setFieldsValue({ actionsQueue })
 }
 
+export const setClockInterruption = (form: FormInstance<any>) => {
+  const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  const clockInterruption = generateClockInterruption(pagesQueueSize)
+  form.setFieldsValue({ clockInterruption })
+}
+
 export const setTau = (form: FormInstance<any>) => {
   const tau = generateTau()
   form.setFieldsValue({ tau })
@@ -102,12 +108,12 @@ export const generateActionsQueue = (pagesQueueSize: number) => {
   return actionsQueue
 }
 
+export const generateClockInterruption = (pagesQueueSize: number) => {
+  // This is temporary. TODO: calculate the best value
+  return getRandomInt(2, pagesQueueSize / 2)
+}
+
 export const generateTau = () => {
   // This is temporary. TODO: calculate the best value
   return getRandomInt(1, 10)
-}
-
-export const generateClockInterruption = () => {
-  // This is temporary. TODO: calculate the best value
-  return getRandomInt(5, 15)
 }
