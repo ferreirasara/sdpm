@@ -26,7 +26,6 @@ export default function SimulationForm(props: SimulationFormProps) {
   }, [selectedExample, form])
 
   const initialValues = { algorithms: selectedAlgorithms }
-  const formItemLayout = { labelCol: { span: 8 }, wrapperCol: { span: 16 }, }
 
   const onReset = () => {
     form.resetFields();
@@ -60,7 +59,6 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Menu>
   )
 
-  // return <Form {...formItemLayout} form={form} onFinish={handleSubmit} initialValues={initialValues}>
   return <Form labelAlign='right' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit} initialValues={initialValues}>
 
     <Form.Item label="Tamanho da memória" key="memorySize" name="memorySize" tooltip="Quantos processos cabem na memória." rules={[{ required: true, message: 'Informe o tamanho da memória' }]}>

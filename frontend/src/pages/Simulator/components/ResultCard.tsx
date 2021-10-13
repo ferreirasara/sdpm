@@ -51,7 +51,7 @@ export default function ResultCard(props: ResultCardProps) {
       {result?.shouldShowDetails ? <Card bordered={false} title="Detalhamento da execução dos algoritmos">
         <Collapse accordion ghost >
           {result?.algorithmResult?.map((cur, i) => <Collapse.Panel header={pretifyAlgorithmName(cur.name)} key={i} >
-            <DetailsTable simulationExecution={cur.simulationExecution} />
+            <DetailsTable algorithm={cur.name} simulationExecution={cur.simulationExecution} />
           </Collapse.Panel>
           )}
         </Collapse>

@@ -26,8 +26,9 @@ export interface AlgorithmResult {
 }
 
 export interface SimulationExecution {
-  page: string,
-  memory: string,
-  fault: boolean,
+  page?: string,
+  memory?: string,
+  fault?: boolean,
+  queue?: string,
   action: string,
 }

@@ -13,7 +13,8 @@ export const simulateService = async (req: any, res: any, next: any) => {
   const algorithmResult = []
   const memory = body.memoryInitalState.split('|');
   const pagesQueue = body.pagesQueue.split('|');
-  const shouldSentDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15
+  const clockInterruption = body.clockInterruption;
+  const shouldSentDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15;
 
   const start = new Date().getTime();
 
@@ -28,7 +29,7 @@ export const simulateService = async (req: any, res: any, next: any) => {
   }
 
   if (algorithmsToRun.includes('secondChanceAlgorithm')) {
-    const secondChanceAlgorithmResult: AlgorithmResult = secondChanceAlgorithm()
+    const secondChanceAlgorithmResult: AlgorithmResult = secondChanceAlgorithm(memory, pagesQueue, clockInterruption, shouldSentDetails)
     algorithmResult.push(secondChanceAlgorithmResult)
   }
 

@@ -17,8 +17,9 @@ export const fifoAlgorithm = (memoryInitalState: string[], pagesQueue: string[],
 
         if (shouldSentDetails) simulationExecution.push({
           page: pagesQueue[i],
-          memory: memory.join('|'),
+          memory: memory.join(' | '),
           fault: true,
+          queue: fifoQueue.join(' | '),
           action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
         })
       } else {
@@ -28,16 +29,18 @@ export const fifoAlgorithm = (memoryInitalState: string[], pagesQueue: string[],
 
         if (shouldSentDetails) simulationExecution.push({
           page: pagesQueue[i],
-          memory: memory.join('|'),
+          memory: memory.join(' | '),
           fault: true,
+          queue: fifoQueue.join(' | '),
           action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace}.`
         })
       };
     } else {
       if (shouldSentDetails) simulationExecution.push({
         page: pagesQueue[i],
-        memory: memory.join('|'),
+        memory: memory.join(' | '),
         fault: false,
+        queue: fifoQueue.join(' | '),
         action: `Página ${pagesQueue[i]} está na memória.`
       })
     }
