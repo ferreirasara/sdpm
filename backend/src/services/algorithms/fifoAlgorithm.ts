@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
-import { AlgorithmResult, SimulationExecution } from "../utils/types"
-import { replacePage } from "./common";
+import { AlgorithmResult, SimulationExecution } from "../../utils/types"
+import { replacePage } from "../common";
 
 export const fifoAlgorithm = (memoryInitalState: string[], pagesQueue: string[], shouldSentDetails: boolean): AlgorithmResult => {
   let memory: string[] = cloneDeep(memoryInitalState);
@@ -19,7 +19,7 @@ export const fifoAlgorithm = (memoryInitalState: string[], pagesQueue: string[],
           page: pagesQueue[i],
           memory: memory.join(' | '),
           fault: true,
-          queue: fifoQueue.join(' | '),
+          text: fifoQueue.join(' | '),
           action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
         })
       } else {
@@ -31,7 +31,7 @@ export const fifoAlgorithm = (memoryInitalState: string[], pagesQueue: string[],
           page: pagesQueue[i],
           memory: memory.join(' | '),
           fault: true,
-          queue: fifoQueue.join(' | '),
+          text: fifoQueue.join(' | '),
           action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace}.`
         })
       };
@@ -40,7 +40,7 @@ export const fifoAlgorithm = (memoryInitalState: string[], pagesQueue: string[],
         page: pagesQueue[i],
         memory: memory.join(' | '),
         fault: false,
-        queue: fifoQueue.join(' | '),
+        text: fifoQueue.join(' | '),
         action: `Página ${pagesQueue[i]} está na memória.`
       })
     }

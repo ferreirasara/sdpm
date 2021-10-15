@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
-import { AlgorithmResult, SimulationExecution } from "../utils/types"
-import { replacePage } from "./common";
+import { AlgorithmResult, SimulationExecution } from "../../utils/types"
+import { replacePage } from "../common";
 
 interface SecondChanceQueue {
   page?: string,
@@ -45,7 +45,7 @@ export const secondChanceAlgorithm = (memoryInitalState: string[], pagesQueue: s
           page: pagesQueue[i],
           memory: memory.join(' | '),
           fault: true,
-          queue: getPretiffyQueue(secondChanceQueue),
+          text: getPretiffyQueue(secondChanceQueue),
           action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
         })
       } else {
@@ -57,7 +57,7 @@ export const secondChanceAlgorithm = (memoryInitalState: string[], pagesQueue: s
           page: pagesQueue[i],
           memory: memory.join(' | '),
           fault: true,
-          queue: getPretiffyQueue(secondChanceQueue),
+          text: getPretiffyQueue(secondChanceQueue),
           action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace?.page}.`
         })
       }
@@ -66,14 +66,14 @@ export const secondChanceAlgorithm = (memoryInitalState: string[], pagesQueue: s
         page: pagesQueue[i],
         memory: memory.join(' | '),
         fault: false,
-        queue: getPretiffyQueue(secondChanceQueue),
+        text: getPretiffyQueue(secondChanceQueue),
         action: `Página ${pagesQueue[i]} está na memória.`
       })
     }
     if (i % clockInterruption === 0) {
       setNotReferenced(secondChanceQueue);
       if (shouldSentDetails) simulationExecution.push({
-        queue: getPretiffyQueue(secondChanceQueue),
+        text: getPretiffyQueue(secondChanceQueue),
         action: `Bit R resetado.`
       })
     }

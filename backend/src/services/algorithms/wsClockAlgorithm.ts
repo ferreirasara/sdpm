@@ -1,4 +1,4 @@
-import { AlgorithmResult } from "../utils/types"
+import { AlgorithmResult } from "../../utils/types"
 
 export const wsClockAlgorithm = (): AlgorithmResult => {
 

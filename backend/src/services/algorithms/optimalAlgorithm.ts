@@ -1,11 +1,13 @@
-import { AlgorithmResult, SimulationExecution } from "../utils/types"
-import { replacePage } from "./common";
+import { AlgorithmResult, SimulationExecution } from "../../utils/types"
+import { replacePage } from "../common";
 import { cloneDeep } from 'lodash'
 
 const findPageToReplace = (memory: string[], pagesQueue: string[]) => {
   const pagesReferences: string[] = [];
   for (let i = 0; i < pagesQueue.length; i++) {
-    if (memory.includes(pagesQueue[i]) && !pagesReferences.includes(pagesQueue[i])) pagesReferences.push(pagesQueue[i]);
+    if (memory.includes(pagesQueue[i]) && !pagesReferences.includes(pagesQueue[i])) {
+      pagesReferences.push(pagesQueue[i])
+    };
   }
   return pagesReferences.pop();
 }
@@ -24,6 +26,7 @@ export const optimalAlgorithm = (memoryInitalState: string[], pagesQueue: string
         if (shouldSentDetails) simulationExecution.push({
           page: pagesQueue[i],
           memory: memory.join('|'),
+          text: `Fila restante: ${pagesQueue.slice(i).join(' | ')}`,
           fault: true,
           action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
         })
@@ -34,6 +37,7 @@ export const optimalAlgorithm = (memoryInitalState: string[], pagesQueue: string
         if (shouldSentDetails) simulationExecution.push({
           page: pagesQueue[i],
           memory: memory.join('|'),
+          text: `Fila restante: ${pagesQueue.slice(i).join(' | ')}`,
           fault: true,
           action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace}.`
         })
@@ -42,6 +46,7 @@ export const optimalAlgorithm = (memoryInitalState: string[], pagesQueue: string
       if (shouldSentDetails) simulationExecution.push({
         page: pagesQueue[i],
         memory: memory.join('|'),
+        text: `Fila restante: ${pagesQueue.slice(i).join(' | ')}`,
         fault: false,
         action: `Página ${pagesQueue[i]} está na memória.`
       })

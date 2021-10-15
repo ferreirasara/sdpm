@@ -19,7 +19,7 @@ export default function DetailsTable(props: DetailsTableProps) {
       page: cur?.page,
       memory: cur?.memory,
       fault: cur?.fault,
-      queue: cur?.queue,
+      text: cur?.text,
       action: cur?.action,
     }
   })
@@ -42,19 +42,17 @@ export default function DetailsTable(props: DetailsTableProps) {
       key: 'fault',
       render: (fault: boolean) => fault === undefined ? null : fault ? <CloseCircleOutlined style={{ color: 'red' }} /> : <CheckCircleOutlined style={{ color: 'green' }} />,
     },
-  ];
-
-  if (['fifoAlgorithm', 'secondChanceAlgorithm'].includes(algorithm)) columns.push({
-      title: 'Fila',
-      dataIndex: 'queue',
-      key: 'queue'
-  })
-
-  columns.push({
+    {
+      title: 'Detalhamento',
+      dataIndex: 'text',
+      key: 'text'
+    },
+    {
       title: 'Ação',
       dataIndex: 'action',
       key: 'action'
-  })
+    },
+  ];
 
   return <Table dataSource={data} columns={columns} size="small" pagination={false} />
 }
@@ -64,6 +62,6 @@ interface TableData {
   page?: string,
   memory?: string,
   fault?: boolean,
-  queue?: string,
+  text?: string,
   action: string,
 }

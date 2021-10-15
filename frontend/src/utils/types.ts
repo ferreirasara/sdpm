@@ -29,6 +29,6 @@ export interface SimulationExecution {
   page?: string,
   memory?: string,
   fault?: boolean,
-  queue?: string,
+  text?: string,
   action: string,
 }
