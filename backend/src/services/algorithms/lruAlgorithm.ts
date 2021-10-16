@@ -1,6 +1,21 @@
-import { AlgorithmResult } from "../utils/types"
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../../utils/types";
+import AlgorithmInterface from "./algorithmInterface";
 
-export const lruAlgorithm = (): AlgorithmResult => {
+export default class LRUAlgorithm extends AlgorithmInterface {
+  constructor(args: { algorithmName: string }) {
+    const { algorithmName } = args;
+    super({ algorithmName })
+  }
 
-  return { name: 'lruAlgorithm', cont: 10 }
+  public findPageToReplace(args: FindPageToReplaceArgs): string {
+    return '';
+  }
+
+  public run(args: RunArgs): AlgorithmResult {
+    return {
+      cont: 0,
+      name: this.algorithmName,
+      simulationExecution: []
+    }
+  }
 }

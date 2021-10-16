@@ -1,6 +1,21 @@
-import { AlgorithmResult } from "../../utils/types"
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../../utils/types";
+import AlgorithmInterface from "./algorithmInterface";
 
-export const wsClockAlgorithm = (): AlgorithmResult => {
+export default class WSClockAlgorithm extends AlgorithmInterface {
+  constructor(args: { algorithmName: string }) {
+    const { algorithmName } = args;
+    super({ algorithmName })
+  }
 
-  return { name: 'wsClockAlgorithm', cont: 10 }
+  public findPageToReplace(args: FindPageToReplaceArgs): string {
+    return '';
+  }
+
+  public run(args: RunArgs): AlgorithmResult {
+    return {
+      cont: 0,
+      name: this.algorithmName,
+      simulationExecution: []
+    }
+  }
 }

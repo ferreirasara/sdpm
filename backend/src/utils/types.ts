@@ -1,3 +1,5 @@
+import Memory from "../services/Memory";
+
 export interface SimulationData {
   memorySize: number;
   pagesQueueSize: number;
@@ -26,9 +28,37 @@ export interface AlgorithmResult {
 }
 
 export interface SimulationExecution {
-  page?: string,
+  pageName?: string,
   memory?: string,
   fault?: boolean,
-  text?: string,
   action: string,
+}
+
+export interface MemoryArgs {
+  memoryInitalState: string[]
+}
+
+export interface AlgorithmInterfaceArgs {
+  algorithmName: string
+}
+
+export interface AlgorithmRunnerArgs {
+  algorithmsToRun: string[]
+  shouldSentDetails: boolean
+  memoryInitalState: string[]
+  pagesQueue: string[]
+  actionsQueue: string[]
+  clockInterruption: number
+}
+
+export interface FindPageToReplaceArgs {
+  memory: Memory
+  pagesQueue: string[]
+}
+
+export interface RunArgs {
+  memoryInitalState: string[]
+  pagesQueue: string[]
+  actionsQueue: string[]
+  clockInterruption: number
 }

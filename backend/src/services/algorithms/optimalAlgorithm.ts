@@ -1,57 +1,61 @@
-import { AlgorithmResult, SimulationExecution } from "../../utils/types"
-import { replacePage } from "../common";
-import { cloneDeep } from 'lodash'
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../../utils/types";
+import Memory from "../Memory";
+import AlgorithmInterface from "./algorithmInterface";
 
-const findPageToReplace = (memory: string[], pagesQueue: string[]) => {
-  const pagesReferences: string[] = [];
-  for (let i = 0; i < pagesQueue.length; i++) {
-    if (memory.includes(pagesQueue[i]) && !pagesReferences.includes(pagesQueue[i])) {
-      pagesReferences.push(pagesQueue[i])
-    };
+export default class OptimalAlgorithm extends AlgorithmInterface {
+  constructor(args: { algorithmName: string }) {
+    const { algorithmName } = args;
+    super({ algorithmName })
   }
-  return pagesReferences.pop();
-}
 
-export const optimalAlgorithm = (memoryInitalState: string[], pagesQueue: string[], shouldSentDetails: boolean): AlgorithmResult => {
-  let memory: string[] = cloneDeep(memoryInitalState);
-  let faults = 0;
-  const simulationExecution: SimulationExecution[] = []
-
-  for (let i = 0; i < pagesQueue.length; i++) {
-    if (!memory.includes(pagesQueue[i])) {
-      faults++;
-      if (memory.includes('0')) {
-        memory = replacePage(memory, pagesQueue[i], '0');
-
-        if (shouldSentDetails) simulationExecution.push({
-          page: pagesQueue[i],
-          memory: memory.join('|'),
-          text: `Fila restante: ${pagesQueue.slice(i).join(' | ')}`,
-          fault: true,
-          action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
-        })
-      } else {
-        const pageToReplace = findPageToReplace(memory, pagesQueue) || '';
-        memory = replacePage(memory, pagesQueue[i], pageToReplace);
-
-        if (shouldSentDetails) simulationExecution.push({
-          page: pagesQueue[i],
-          memory: memory.join('|'),
-          text: `Fila restante: ${pagesQueue.slice(i).join(' | ')}`,
-          fault: true,
-          action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace}.`
-        })
-      };
+  public findPageToReplace(args: FindPageToReplaceArgs): string {
+    const { memory, pagesQueue } = args
+    const pagesReferences = memory.pagesInMemory.map(cur => {
+      return {
+        pageName: cur.pageName,
+        index: pagesQueue?.findIndex((value) => value === cur.pageName)
+      }
+    });
+    const notInQueue = pagesReferences?.find(cur => cur.index - 1);
+    if (notInQueue) {
+      return notInQueue.pageName;
     } else {
-      if (shouldSentDetails) simulationExecution.push({
-        page: pagesQueue[i],
-        memory: memory.join('|'),
-        text: `Fila restante: ${pagesQueue.slice(i).join(' | ')}`,
-        fault: false,
-        action: `Página ${pagesQueue[i]} está na memória.`
-      })
+      pagesReferences?.sort((a, b) => a.index - b.index);
+      return pagesReferences?.pop()?.pageName || '';
     }
   }
 
-  return { name: 'optimalAlgorithm', cont: faults, simulationExecution }
+  public run(args: RunArgs): AlgorithmResult {
+    const { pagesQueue, memoryInitalState, actionsQueue } = args;
+
+    const memory = new Memory({ memoryInitalState });
+    const simulationExecution: SimulationExecution[] = []
+    let faults = 0;
+
+    for (let i = 0; i < pagesQueue.length; i++) {
+      const pageName = pagesQueue[i]
+      const modified = actionsQueue[i] === 'E'
+
+      if (memory.referencePage(pageName)) {
+        simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: memory.getPages() })
+      } else {
+        faults++;
+        if (memory.hasFreePosition()) {
+          memory.replacePage(pageName, '0');
+          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
+        } else {
+          const pageNameToReplace = this.findPageToReplace({ memory, pagesQueue: pagesQueue.slice(i) });
+          memory.replacePage(pageName, pageNameToReplace);
+          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: memory.getPages() })
+        }
+      }
+      memory.setModified(memory.findIndex(pageName), modified)
+    }
+
+    return {
+      name: this.algorithmName,
+      cont: faults,
+      simulationExecution,
+    }
+  }
 }

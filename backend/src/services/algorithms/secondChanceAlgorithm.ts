@@ -1,83 +1,62 @@
-import { cloneDeep } from "lodash";
-import { AlgorithmResult, SimulationExecution } from "../../utils/types"
-import { replacePage } from "../common";
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../../utils/types";
+import Memory from "../Memory";
+import AlgorithmInterface from "./algorithmInterface";
 
-interface SecondChanceQueue {
-  page?: string,
-  referenced?: boolean
-}
+export default class SecondChanceAlgorithm extends AlgorithmInterface {
+  protected fifoQueue: string[]
 
-const setNotReferenced = (secondChanceQueue: SecondChanceQueue[]) => {
-  for (let i = 0; i < secondChanceQueue.length; i++) {
-    secondChanceQueue[i].referenced = false;
+  constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
+    const { algorithmName, memoryInitalState } = args;
+    super({ algorithmName })
+    this.fifoQueue = memoryInitalState.filter(cur => cur !== '0')
   }
-}
 
-const findPageToReplace = (secondChanceQueue: SecondChanceQueue[]) => {
-  while (true) {
-    const firstPage = secondChanceQueue?.pop();
-    if (!firstPage?.referenced) {
-      return firstPage;
-    } else {
-      secondChanceQueue.unshift({ page: firstPage?.page, referenced: false })
+  public findPageToReplace(args: FindPageToReplaceArgs): string {
+    const { memory } = args
+    while (true) {
+      const pageName = this.fifoQueue.pop() || '';
+      if (!memory.pageIsReferenced(pageName)) return pageName || ''
+      this.fifoQueue.unshift(pageName);
     }
   }
-}
 
-const getPretiffyQueue = (secondChanceQueue: SecondChanceQueue[]): string => {
-  return secondChanceQueue.map(cur => cur.page + ' (R=' + cur.referenced + ')').join(' | ')
-}
+  public run(args: RunArgs): AlgorithmResult {
+    const { pagesQueue, memoryInitalState, actionsQueue, clockInterruption } = args;
 
-export const secondChanceAlgorithm = (memoryInitalState: string[], pagesQueue: string[], clockInterruption: number, shouldSentDetails: boolean): AlgorithmResult => {
-  let memory: string[] = cloneDeep(memoryInitalState);
-  let secondChanceQueue: SecondChanceQueue[] = memory.filter(cur => cur !== '0').map(cur => { return { page: cur, referenced: true } });
-  let faults: number = 0;
-  const simulationExecution: SimulationExecution[] = []
+    const memory = new Memory({ memoryInitalState });
+    const simulationExecution: SimulationExecution[] = []
+    let faults = 0;
 
-  for (let i = 0; i < pagesQueue.length; i++) {
-    if (!memory.includes(pagesQueue[i])) {
-      faults++;
-      if (memory.includes('0')) {
-        memory = replacePage(memory, pagesQueue[i], '0');
-        secondChanceQueue.unshift({ page: pagesQueue[i], referenced: true })
+    for (let i = 0; i < pagesQueue.length; i++) {
+      const pageName = pagesQueue[i]
+      const modified = actionsQueue[i] === 'E'
 
-        if (shouldSentDetails) simulationExecution.push({
-          page: pagesQueue[i],
-          memory: memory.join(' | '),
-          fault: true,
-          text: getPretiffyQueue(secondChanceQueue),
-          action: `Página ${pagesQueue[i]} inserida em uma posição livre da memória.`
-        })
+      if (memory.referencePage(pageName)) {
+        simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: memory.getPages() })
       } else {
-        const pageToReplace: SecondChanceQueue | undefined = findPageToReplace(secondChanceQueue);
-        secondChanceQueue.unshift({ page: pagesQueue[i], referenced: true })
-        memory = replacePage(memory, pagesQueue[i], pageToReplace?.page || '');
-
-        if (shouldSentDetails) simulationExecution.push({
-          page: pagesQueue[i],
-          memory: memory.join(' | '),
-          fault: true,
-          text: getPretiffyQueue(secondChanceQueue),
-          action: `Página ${pagesQueue[i]} inserida no lugar da página ${pageToReplace?.page}.`
-        })
+        faults++;
+        if (memory.hasFreePosition()) {
+          memory.replacePage(pageName, '0');
+          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
+          this.fifoQueue.unshift(pageName);
+        } else {
+          const pageNameToReplace = this.findPageToReplace({ memory, pagesQueue });
+          memory.replacePage(pageName, pageNameToReplace);
+          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: memory.getPages() })
+          this.fifoQueue.unshift(pageName);
+        }
       }
-    } else {
-      if (shouldSentDetails) simulationExecution.push({
-        page: pagesQueue[i],
-        memory: memory.join(' | '),
-        fault: false,
-        text: getPretiffyQueue(secondChanceQueue),
-        action: `Página ${pagesQueue[i]} está na memória.`
-      })
+      memory.setModified(memory.findIndex(pageName), modified);
+      if (i % clockInterruption) {
+        memory.resetReferenced();
+        simulationExecution.push({ action: `Bit R resetado.`, memory: memory.getPages() });
+      }
     }
-    if (i % clockInterruption === 0) {
-      setNotReferenced(secondChanceQueue);
-      if (shouldSentDetails) simulationExecution.push({
-        text: getPretiffyQueue(secondChanceQueue),
-        action: `Bit R resetado.`
-      })
+
+    return {
+      name: this.algorithmName,
+      cont: faults,
+      simulationExecution,
     }
   }
-
-  return { name: 'secondChanceAlgorithm', cont: faults, simulationExecution }
 }

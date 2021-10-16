@@ -1,0 +1,76 @@
+import { MemoryArgs } from "../utils/types";
+
+export interface Page {
+  pageName: string,
+  referenced: boolean,
+  modified: boolean,
+}
+
+export default class Memory {
+  public pagesInMemory: Page[]
+  protected length: number
+
+  constructor(args: MemoryArgs) {
+    const { memoryInitalState } = args;
+    this.pagesInMemory = memoryInitalState.map(cur => {
+      return {
+        pageName: cur,
+        referenced: false,
+        modified: false,
+      }
+    });
+    this.length = memoryInitalState.length;
+  }
+
+  public findIndex(pageName: string) {
+    return this.pagesInMemory.findIndex((value) => value.pageName === pageName)
+  }
+
+  public getPages() {
+    return this.pagesInMemory.map(cur => `${cur.pageName} R: ${cur.referenced ? 1 : 0} M: ${cur.modified ? 1 : 0}`).join(' | ');
+  }
+
+  public hasFreePosition() {
+    return this.pagesInMemory.some((value) => value.pageName === '0')
+  }
+
+  public referencePage(pageName: string): boolean {
+    const pageIndex = this.findIndex(pageName)
+    if (pageIndex === -1) {
+      return false;
+    } else {
+      this.setReferenced(pageIndex, true);
+      return true;
+    }
+  }
+
+  public pageIsReferenced(pageName: string): boolean {
+    const pageIndex = this.findIndex(pageName)
+    return this.pagesInMemory[pageIndex].referenced;
+  }
+
+  public pageIsModified(pageName: string): boolean {
+    const pageIndex = this.findIndex(pageName)
+    return this.pagesInMemory[pageIndex].modified;
+  }
+
+  public setReferenced(pageIndex: number, referenced: boolean) {
+    this.pagesInMemory[pageIndex].referenced = referenced;
+  }
+
+  public setModified(pageIndex: number, modified: boolean) {
+    this.pagesInMemory[pageIndex].modified = modified;
+  }
+
+  public replacePage(pageName: string, pageNameToReplace: string) {
+    const pageIndex = this.findIndex(pageNameToReplace)
+    this.pagesInMemory[pageIndex].pageName = pageName;
+    this.setReferenced(pageIndex, true);
+  }
+
+  public resetReferenced() {
+    for (let i = 0; i < this.length; i++) {
+      this.setReferenced(i, false);
+    }
+  }
+}
