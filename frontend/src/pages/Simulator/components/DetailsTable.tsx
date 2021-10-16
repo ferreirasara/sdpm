@@ -5,21 +5,19 @@ import highlightText from "../../../utils/highlightText";
 import { SimulationExecution } from "../../../utils/types";
 
 export interface DetailsTableProps {
-  algorithm: string,
   simulationExecution?: SimulationExecution[]
 }
 
 export default function DetailsTable(props: DetailsTableProps) {
-  const { algorithm, simulationExecution } = props
+  const { simulationExecution } = props
   if (!simulationExecution?.length) return null
 
   const data: TableData[] = simulationExecution.map((cur, i) => {
     return {
       key: i,
-      page: cur?.page,
+      pageName: cur?.pageName,
       memory: cur?.memory,
       fault: cur?.fault,
-      text: cur?.text,
       action: cur?.action,
     }
   })
@@ -27,25 +25,20 @@ export default function DetailsTable(props: DetailsTableProps) {
   const columns: ColumnsType<TableData> = [
     {
       title: 'Página',
-      dataIndex: 'page',
-      key: 'page'
+      dataIndex: 'pageName',
+      key: 'pageName'
     },
     {
       title: 'Memória',
       dataIndex: 'memory',
       key: 'memory',
-      render: (input: string, record) => highlightText(input, record.page || '', { highlightStyle: { color: 'blue', fontWeight: 'bold' } })
+      render: (input: string, record) => highlightText(input, record.pageName || '', { highlightStyle: { color: 'blue', fontWeight: 'bold' } })
     },
     {
       title: 'Falta de página?',
       dataIndex: 'fault',
       key: 'fault',
       render: (fault: boolean) => fault === undefined ? null : fault ? <CloseCircleOutlined style={{ color: 'red' }} /> : <CheckCircleOutlined style={{ color: 'green' }} />,
-    },
-    {
-      title: 'Detalhamento',
-      dataIndex: 'text',
-      key: 'text'
     },
     {
       title: 'Ação',
@@ -59,9 +52,8 @@ export default function DetailsTable(props: DetailsTableProps) {
 
 interface TableData {
   key: number,
-  page?: string,
+  pageName?: string,
   memory?: string,
   fault?: boolean,
-  text?: string,
   action: string,
 }

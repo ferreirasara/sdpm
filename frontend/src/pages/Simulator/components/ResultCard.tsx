@@ -1,5 +1,5 @@
 import { HourglassOutlined } from "@ant-design/icons";
-import { Card, Col, Collapse, Descriptions, Statistic } from "antd";
+import { Alert, Card, Col, Collapse, Descriptions, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
 import { SimulationData, SimulationResponse } from "../../../utils/types";
 import { formatNumber, formatSimulationTime } from "../../../utils/calculations";
@@ -51,7 +51,7 @@ export default function ResultCard(props: ResultCardProps) {
       {result?.shouldShowDetails ? <Card bordered={false} title="Detalhamento da execução dos algoritmos">
         <Collapse accordion ghost >
           {result?.algorithmResult?.map((cur, i) => <Collapse.Panel header={pretifyAlgorithmName(cur.name)} key={i} >
-            <DetailsTable algorithm={cur.name} simulationExecution={cur.simulationExecution} />
+            <DetailsTable simulationExecution={cur.simulationExecution} />
           </Collapse.Panel>
           )}
         </Collapse>
