@@ -18,9 +18,18 @@ export default function AboutAlgorithmsPage() {
     setCurrentStep(1)
     try {
       const response = await api.post('simulation', data);
-      setSimulationData(data);
-      setSimulationResponse(response.data);
-      setCurrentStep(2)
+      if (response.data.success) {
+        setSimulationData(data);
+        setSimulationResponse(response.data);
+        setCurrentStep(2)
+      } else {
+        notification.open({
+          message: 'Ocorreu um erro durante a simulação.',
+          description: response.data.message,
+          type: 'error'
+        });
+        setCurrentStep(0)
+      }
     } catch (error) {
       console.log(error)
       notification.open({
