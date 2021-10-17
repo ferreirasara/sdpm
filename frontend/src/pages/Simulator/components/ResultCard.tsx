@@ -1,5 +1,5 @@
 import { HourglassOutlined } from "@ant-design/icons";
-import { Alert, Card, Col, Collapse, Descriptions, Statistic } from "antd";
+import { Card, Col, Collapse, Descriptions, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
 import { SimulationData, SimulationResponse } from "../../../utils/types";
 import { formatNumber, formatSimulationTime } from "../../../utils/calculations";

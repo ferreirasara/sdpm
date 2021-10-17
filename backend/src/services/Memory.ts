@@ -1,10 +1,4 @@
-import { MemoryArgs } from "../utils/types";
-
-export interface Page {
-  pageName: string,
-  referenced: boolean,
-  modified: boolean,
-}
+import { MemoryArgs, Page } from "../utils/types";
 
 export default class Memory {
   public pagesInMemory: Page[]
@@ -27,7 +21,7 @@ export default class Memory {
   }
 
   public getPages() {
-    return this.pagesInMemory.map(cur => `${cur.pageName} R: ${cur.referenced ? 1 : 0} M: ${cur.modified ? 1 : 0}`).join(' | ');
+    return this.pagesInMemory;
   }
 
   public hasFreePosition() {

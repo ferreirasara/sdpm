@@ -1,11 +1,26 @@
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { Table } from "antd";
+import { Table, Tag, Typography } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import highlightText from "../../../utils/highlightText";
-import { SimulationExecution } from "../../../utils/types";
+import { Page, SimulationExecution } from "../../../utils/types";
 
 export interface DetailsTableProps {
   simulationExecution?: SimulationExecution[]
+}
+
+const MemoryRender = (props: { memory: Page[], record: TableData }) => {
+  const { memory, record } = props;
+  return <>
+    {memory?.map(cur => {
+      const referenced = cur.referenced ? 1 : 0;
+      const modified = cur.modified ? 1 : 0;
+
+      return <Tag color={record.pageName === cur.pageName ? '#d9d9d9' : '#f5f5f5'}>
+        <Typography.Text keyboard>{cur.pageName}</Typography.Text>
+        <Typography.Text type={referenced ? 'success' : 'danger'} keyboard>{'R=' + referenced}</Typography.Text>
+        <Typography.Text type={modified ? 'success' : 'danger'} keyboard>{'M=' + modified}</Typography.Text>
+      </Tag>
+    })}
+  </>
 }
 
 export default function DetailsTable(props: DetailsTableProps) {
@@ -32,7 +47,7 @@ export default function DetailsTable(props: DetailsTableProps) {
       title: 'Memória',
       dataIndex: 'memory',
       key: 'memory',
-      render: (input: string, record) => highlightText(input, record.pageName || '', { highlightStyle: { color: 'blue', fontWeight: 'bold' } })
+      render: (memory: Page[], record: TableData) => <MemoryRender memory={memory} record={record} />
     },
     {
       title: 'Falta de página?',
@@ -53,7 +68,7 @@ export default function DetailsTable(props: DetailsTableProps) {
 interface TableData {
   key: number,
   pageName?: string,
-  memory?: string,
+  memory?: Page[],
   fault?: boolean,
   action: string,
 }

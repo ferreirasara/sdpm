@@ -27,7 +27,13 @@ export interface AlgorithmResult {
 
 export interface SimulationExecution {
   pageName?: string,
-  memory?: string,
+  memory?: Page[],
   fault?: boolean,
   action: string,
+}
+
+export interface Page {
+  pageName: string,
+  referenced: boolean,
+  modified: boolean,
 }
