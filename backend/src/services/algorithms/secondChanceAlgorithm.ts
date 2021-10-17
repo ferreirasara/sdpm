@@ -8,14 +8,15 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
     super({ algorithmName })
-    this.fifoQueue = memoryInitalState.filter(cur => cur !== '0')
+    this.fifoQueue = memoryInitalState.filter(cur => cur !== '0');
   }
 
   public findPageToReplace(args: FindPageToReplaceArgs): string {
     const { memory } = args
     while (true) {
       const pageName = this.fifoQueue.pop() || '';
-      if (!memory.pageIsReferenced(pageName)) return pageName || ''
+      if (!memory.pageIsReferenced(pageName)) return pageName || '';
+      memory.setReferenced(memory.findIndex(pageName), false);
       this.fifoQueue.unshift(pageName);
     }
   }
@@ -37,17 +38,17 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
         faults++;
         if (memory.hasFreePosition()) {
           memory.replacePage(pageName, '0');
-          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
           this.fifoQueue.unshift(pageName);
+          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
         } else {
           const pageNameToReplace = this.findPageToReplace({ memory, pagesQueue });
           memory.replacePage(pageName, pageNameToReplace);
-          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: memory.getPages() })
           this.fifoQueue.unshift(pageName);
+          simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: memory.getPages() })
         }
       }
       memory.setModified(memory.findIndex(pageName), modified);
-      if (i % clockInterruption) {
+      if ((i+1) % clockInterruption === 0) {
         memory.resetReferenced();
         simulationExecution.push({ action: `Bit R resetado.`, memory: memory.getPages() });
       }

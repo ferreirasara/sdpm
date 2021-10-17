@@ -2,18 +2,16 @@ import { MemoryArgs, Page } from "../utils/types";
 
 export default class Memory {
   public pagesInMemory: Page[]
-  protected length: number
 
   constructor(args: MemoryArgs) {
     const { memoryInitalState } = args;
     this.pagesInMemory = memoryInitalState.map(cur => {
       return {
         pageName: cur,
-        referenced: false,
+        referenced: true,
         modified: false,
       }
     });
-    this.length = memoryInitalState.length;
   }
 
   public findIndex(pageName: string) {
@@ -21,7 +19,7 @@ export default class Memory {
   }
 
   public getPages() {
-    return this.pagesInMemory;
+    return JSON.parse(JSON.stringify(this.pagesInMemory));
   }
 
   public hasFreePosition() {
@@ -63,7 +61,7 @@ export default class Memory {
   }
 
   public resetReferenced() {
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0; i < this.pagesInMemory.length; i++) {
       this.setReferenced(i, false);
     }
   }
