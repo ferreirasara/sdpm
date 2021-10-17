@@ -26,8 +26,8 @@ export default class AlgorithmRunner {
       // if (algorithmsToRun.includes('lruAlgorithm'))
       //   algorithmResult.push(new LRUAlgorithm({ algorithmName: 'lruAlgorithm' }).run({ memoryInitalState, actionsQueue, pagesQueue }))// }
   
-      // if (algorithmsToRun.includes('nruAlgorithm'))
-      //   algorithmResult.push(new NRUAlgorithm({ algorithmName: 'nruAlgorithm' }).run({ memoryInitalState, actionsQueue, pagesQueue }))// }
+      if (algorithmsToRun.includes('nruAlgorithm'))
+        algorithmResult.push(new NRUAlgorithm({ algorithmName: 'nruAlgorithm' }).run({ memoryInitalState, actionsQueue, pagesQueue, clockInterruption }))// }
   
       // if (algorithmsToRun.includes('wsClockAlgorithm'))
       //   algorithmResult.push(new WSClockAlgorithm({ algorithmName: 'wsClockAlgorithm' }).run({ memoryInitalState, actionsQueue, pagesQueue }))// }
