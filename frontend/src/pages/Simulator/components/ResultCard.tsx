@@ -5,6 +5,8 @@ import { SimulationData, SimulationResponse } from "../../../utils/types";
 import { formatNumber, formatSimulationTime } from "../../../utils/calculations";
 import { pretifyAlgorithmName } from "../../../utils/pretifyStrings";
 import DetailsTable from "./DetailsTable";
+import LineChart from "../../../components/charts/LineChart";
+import PizzaChart from "../../../components/charts/PizzaChart";
 
 export interface ResultCardProps {
   result: SimulationResponse,
@@ -14,9 +16,8 @@ export interface ResultCardProps {
 export default function ResultCard(props: ResultCardProps) {
   const { result, simulationData } = props
   const faultAxis = ['Algoritmo', 'Faltas de página']
-  const timeAxis = ['Algoritmo', 'Tempo de execução']
   const faultData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
-  const timeData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.simulationTime } })
+  const timeData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.simulationTime } }).filter(cur => cur.cont > 0)
   const { simulationTime, suffix } = formatSimulationTime(result?.simulationTotalTime || 0)
 
   return <>
@@ -32,14 +33,14 @@ export default function ResultCard(props: ResultCardProps) {
     </Col>
     <Col span={20}>
       <Card bordered={false} title="Total de faltas de página por algoritmo">
-        <BarChart axis={faultAxis} data={faultData || []} />
+        <BarChart suffix={'faltas'} axis={faultAxis} data={faultData || []} />
       </Card>
     </Col>
-    <Col span={20}>
+    {timeData?.length && <Col span={20}>
       <Card bordered={false} title="Tempo de execução de cada algoritmo">
-        <BarChart axis={timeAxis} data={timeData || []} />
+        <PizzaChart suffix={'milisegundos'} data={timeData || []} />
       </Card>
-    </Col>
+    </Col>}
     <Col span={20}>
       <Card bordered={false} title="Dados usados na simulação">
         <Descriptions size='small' labelStyle={{ fontWeight: 'bold' }}>

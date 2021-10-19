@@ -9,14 +9,15 @@ import { contTypesSum } from '../../utils/calculations';
 export type PizzaChartProps = {
   data: { name: string, cont: number, percentage?: number }[],
   usePercentage?: boolean,
-  externalFill?: (color: string) => string
+  externalFill?: (color: string) => string,
+  suffix?: string,
 }
 
 
 const PizzaChart = (props: PizzaChartProps) => {
   let data = props.data && props.data.filter(cur => cur.cont > 0);
 
-  const suffix = props.usePercentage ? '%' : '';
+  const suffix = props.usePercentage ? '%' : (props.suffix ? ' ' + props.suffix : '');
   const externalFill = props.externalFill
 
   if (props?.data?.some(d => !d.percentage)) {

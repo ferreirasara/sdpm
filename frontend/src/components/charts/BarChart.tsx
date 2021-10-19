@@ -14,7 +14,8 @@ export interface Props {
   maxBarsPerPage?: number
   showLegend?: boolean
   usePercentage?: boolean
-  externalFill?: (color: string) => string
+  externalFill?: (color: string) => string,
+  suffix?: string
 }
 
 const BarChart = (props: Props) => {
@@ -33,7 +34,7 @@ const BarChart = (props: Props) => {
   })
 
   // used for pagination
-  const suffix = props.usePercentage ? '%' : ''
+  const suffix = props.usePercentage ? '%' : (props.suffix ? ' ' + props.suffix : '');
   const [skip, setSkip] = useState(0)
   const hasPages = data && data.length > maxBarsPerPage
 
