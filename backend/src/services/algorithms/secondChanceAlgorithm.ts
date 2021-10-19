@@ -23,6 +23,7 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
 
   public run(args: RunArgs): AlgorithmResult {
     const { pagesQueue, memoryInitalState, actionsQueue, clockInterruption } = args;
+    const start = new Date().getTime();
 
     const memory = new Memory({ memoryInitalState });
     const simulationExecution: SimulationExecution[] = []
@@ -53,10 +54,13 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
         simulationExecution.push({ action: `Bit R resetado.`, memory: memory.getPages() });
       }
     }
+    const end = new Date().getTime();
+    const simulationTime = end - start;
 
     return {
       name: this.algorithmName,
       cont: faults,
+      simulationTime,
       simulationExecution,
     }
   }

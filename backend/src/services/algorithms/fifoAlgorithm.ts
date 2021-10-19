@@ -17,6 +17,7 @@ export default class FIFOAlgorithm extends AlgorithmInterface {
 
   public run(args: RunArgs): AlgorithmResult {
     const { pagesQueue, memoryInitalState, actionsQueue, clockInterruption } = args;
+    const start = new Date().getTime();
 
     const memory = new Memory({ memoryInitalState });
     const simulationExecution: SimulationExecution[] = []
@@ -43,10 +44,13 @@ export default class FIFOAlgorithm extends AlgorithmInterface {
       }
       memory.setModified(memory.findIndex(pageName), modified)
     }
+    const end = new Date().getTime();
+    const simulationTime = end - start;
 
     return {
       name: this.algorithmName,
       cont: faults,
+      simulationTime,
       simulationExecution,
     }
   }

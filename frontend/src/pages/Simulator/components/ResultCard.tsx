@@ -13,9 +13,11 @@ export interface ResultCardProps {
 
 export default function ResultCard(props: ResultCardProps) {
   const { result, simulationData } = props
-  const axis = ['Algoritmo', 'Faltas de página']
-  const chartData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
-  const { simulationTime, suffix } = formatSimulationTime(result?.simulationTime || 0)
+  const faultAxis = ['Algoritmo', 'Faltas de página']
+  const timeAxis = ['Algoritmo', 'Tempo de execução']
+  const faultData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
+  const timeData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.simulationTime } })
+  const { simulationTime, suffix } = formatSimulationTime(result?.simulationTotalTime || 0)
 
   return <>
     <Col span={20}>
@@ -30,7 +32,12 @@ export default function ResultCard(props: ResultCardProps) {
     </Col>
     <Col span={20}>
       <Card bordered={false} title="Total de faltas de página por algoritmo">
-        <BarChart axis={axis} data={chartData || []} />
+        <BarChart axis={faultAxis} data={faultData || []} />
+      </Card>
+    </Col>
+    <Col span={20}>
+      <Card bordered={false} title="Tempo de execução de cada algoritmo">
+        <BarChart axis={timeAxis} data={timeData || []} />
       </Card>
     </Col>
     <Col span={20}>

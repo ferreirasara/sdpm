@@ -27,6 +27,7 @@ export default class OptimalAlgorithm extends AlgorithmInterface {
 
   public run(args: RunArgs): AlgorithmResult {
     const { pagesQueue, memoryInitalState, actionsQueue } = args;
+    const start = new Date().getTime();
 
     const memory = new Memory({ memoryInitalState });
     const simulationExecution: SimulationExecution[] = []
@@ -51,10 +52,13 @@ export default class OptimalAlgorithm extends AlgorithmInterface {
       }
       memory.setModified(memory.findIndex(pageName), modified)
     }
+    const end = new Date().getTime();
+    const simulationTime = end - start;
 
     return {
       name: this.algorithmName,
       cont: faults,
+      simulationTime,
       simulationExecution,
     }
   }

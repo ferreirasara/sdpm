@@ -17,13 +17,14 @@ export interface SimulationResponse {
   success: boolean,
   message: string,
   algorithmResult?: AlgorithmResult[],
-  simulationTime?: number,
+  simulationTotalTime?: number,
   shouldShowDetails?: boolean,
 }
 
 export interface AlgorithmResult {
   name: string,
-  cont: number
+  cont: number,
+  simulationTime: number,
   simulationExecution?: SimulationExecution[]
 }
 
