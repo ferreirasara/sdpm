@@ -8,10 +8,10 @@ export const simulateService = async (req: any, res: any, next: any) => {
   const memoryInitalState = body.memoryInitalState.split('|');
   const pagesQueue = body.pagesQueue.split('|');
   const actionsQueue = body.actionsQueue.split('|');
-  const shouldSentDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15;
+  const shouldShowDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15;
   const clockInterruption = body.clockInterruption;
 
-  const response = AlgorithmRunner.runAlgorithms({ shouldSentDetails, algorithmsToRun, memoryInitalState, actionsQueue, pagesQueue, clockInterruption });
+  const response = AlgorithmRunner.runAlgorithms({ shouldShowDetails, algorithmsToRun, memoryInitalState, actionsQueue, pagesQueue, clockInterruption });
 
   res.send(response)
 }

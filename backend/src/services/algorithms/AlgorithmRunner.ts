@@ -29,7 +29,7 @@ export default class AlgorithmRunner {
 
       // if (algorithmsToRun.includes('wsClockAlgorithm'))
       //   algorithmResult.push(new WSClockAlgorithm({ algorithmName: 'wsClockAlgorithm' }).run({ memoryInitalState, actionsQueue, pagesQueue }))// }
-      const simulationTotalTime = algorithmResult.map(cur => cur.simulationTime)?.reduce((cur, prev) => cur + prev);
+      const simulationTotalTime = algorithmResult.reduce((cur, prev) => cur + prev.simulationTime, 0);
 
       return {
         success: true,
