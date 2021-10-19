@@ -1,3 +1,4 @@
+import { BuildOutlined } from "@ant-design/icons";
 import { Card, Form, notification, PageHeader, Row, Spin } from "antd";
 import { useState } from "react";
 import api from "../../api";
@@ -43,9 +44,9 @@ export default function AboutAlgorithmsPage() {
 
   return <>
     <PageHeader
-      title={'Simulador'}
+      title={<><BuildOutlined /> Simulador</>}
       style={{ background: 'white' }}
-      onBack={() => window.history.back()}
+
     />
     <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
       <SimulationSteps currentStep={currentStep} setCurrentStep={setCurrentStep} />

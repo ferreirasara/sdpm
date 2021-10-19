@@ -1,3 +1,4 @@
+import { BulbOutlined } from "@ant-design/icons";
 import { Col, Collapse, PageHeader, Row, Typography } from "antd";
 
 export default function AboutAlgorithmsPage() {
@@ -27,9 +28,8 @@ export default function AboutAlgorithmsPage() {
 
   return <>
     <PageHeader
-      title={'Sobre os algoritmos'}
+      title={<><BulbOutlined /> Sobre os algoritmos</>}
       style={{ background: 'white' }}
-      onBack={() => window.history.back()}
     />
     <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
       <Col style={{ marginTop: '10px', width: '100vh' }}>

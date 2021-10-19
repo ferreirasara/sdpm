@@ -1,4 +1,4 @@
-import { FileTextOutlined, GithubOutlined } from "@ant-design/icons";
+import { FileTextOutlined, GithubOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Col, Descriptions, PageHeader, Row, Tag, Typography } from "antd";
 
 export default function AboutAlgorithmsPage() {
@@ -16,9 +16,8 @@ export default function AboutAlgorithmsPage() {
 
   return <>
     <PageHeader
-      title={'Sobre o simulador'}
+      title={<><QuestionCircleOutlined /> Sobre o simulador</>}
       style={{ background: 'white' }}
-      onBack={() => window.history.back()}
     />
     <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
       <Col style={{ marginTop: '10px' }}>
