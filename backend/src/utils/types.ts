@@ -51,7 +51,7 @@ export interface AlgorithmInterfaceArgs {
 
 export interface AlgorithmRunnerArgs {
   algorithmsToRun: string[]
-  shouldSentDetails: boolean
+  shouldShowDetails: boolean
   memoryInitalState: string[]
   pagesQueue: string[]
   actionsQueue: string[]
@@ -68,4 +68,5 @@ export interface RunArgs {
   pagesQueue: string[]
   actionsQueue: string[]
   clockInterruption: number
+  shouldShowDetails: boolean
 }
