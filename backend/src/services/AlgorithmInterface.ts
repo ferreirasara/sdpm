@@ -1,4 +1,4 @@
-import { AlgorithmInterfaceArgs, AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../../utils/types";
+import { AlgorithmInterfaceArgs, AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../utils/types";
 
 export default abstract class AlgorithmInterface {
   protected algorithmName: string

@@ -1,6 +1,6 @@
-import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../../utils/types";
-import Memory from "../Memory";
-import AlgorithmInterface from "./algorithmInterface";
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../utils/types";
+import Memory from "./Memory";
+import AlgorithmInterface from "./AlgorithmInterface";
 
 export default class NRUAlgorithm extends AlgorithmInterface {
   constructor(args: { algorithmName: string }) {

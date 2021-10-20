@@ -1,7 +1,7 @@
-import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../../utils/types";
-import AlgorithmInterface from "./algorithmInterface";
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../utils/types";
+import AlgorithmInterface from "./AlgorithmInterface";
 
-export default class LRUAlgorithm extends AlgorithmInterface {
+export default class WSClockAlgorithm extends AlgorithmInterface {
   constructor(args: { algorithmName: string }) {
     const { algorithmName } = args;
     super({ algorithmName })
@@ -14,6 +14,7 @@ export default class LRUAlgorithm extends AlgorithmInterface {
   public run(args: RunArgs): AlgorithmResult {
     return {
       cont: 0,
+      simulationTime: 0,
       name: this.algorithmName,
       simulationExecution: []
     }
