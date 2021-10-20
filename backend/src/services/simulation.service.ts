@@ -2,8 +2,8 @@ import { SimulationData } from "../utils/types"
 import AlgorithmRunner from "./algorithms/AlgorithmRunner"
 
 export const simulateService = async (req: any, res: any, next: any) => {
-  const body: SimulationData = req.body
-  const algorithmsToRun: string[] = body.algorithms
+  const body: SimulationData = req.body;
+  const algorithmsToRun: string[] = body.algorithms;
 
   const memoryInitalState = body.memoryInitalState.split('|');
   const pagesQueue = body.pagesQueue.split('|');
@@ -13,5 +13,5 @@ export const simulateService = async (req: any, res: any, next: any) => {
 
   const response = AlgorithmRunner.runAlgorithms({ shouldShowDetails, algorithmsToRun, memoryInitalState, actionsQueue, pagesQueue, clockInterruption });
 
-  res.send(response)
+  res.send(response);
 }
