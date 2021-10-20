@@ -1,4 +1,4 @@
-import { FormInstance } from "antd"
+import { FormInstance, message } from "antd"
 import { algorithmNamesList } from "./algorithmList"
 import { getRandomInt } from "./calculations"
 import { getRandomString } from "./pretifyStrings"
@@ -6,26 +6,56 @@ import { getRandomString } from "./pretifyStrings"
 
 export const setMemoryInitialState = (form: FormInstance<any>) => {
   const memorySize = form.getFieldValue('memorySize')
+  if (!memorySize) {
+    message.error("Preencha o campo 'Tamanho da memória'.")
+    return
+  }
+
   const pages = form.getFieldValue('pages')
+  if (!pages) {
+    message.error("Preencha o campo 'Páginas'.")
+    return
+  }
+
   const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
   form.setFieldsValue({ memoryInitalState })
 }
 
 export const setPagesQueue = (form: FormInstance<any>) => {
   const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  if (!pagesQueueSize) {
+    message.error("Preencha o campo 'Tamanho da fila de páginas'.")
+    return
+  }
+
   const pages = form.getFieldValue('pages')
+  if (!pages) {
+    message.error("Preencha o campo 'Páginas'.")
+    return
+  }
+
   const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
   form.setFieldsValue({ pagesQueue })
 }
 
 export const setActionsQueue = (form: FormInstance<any>) => {
   const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  if (!pagesQueueSize) {
+    message.error("Preencha o campo 'Tamanho da fila de páginas'.")
+    return
+  }
+
   const actionsQueue = generateActionsQueue(pagesQueueSize).join('|')
   form.setFieldsValue({ actionsQueue })
 }
 
 export const setClockInterruption = (form: FormInstance<any>) => {
   const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  if (!pagesQueueSize) {
+    message.error("Preencha o campo 'Tamanho da fila de páginas'.")
+    return
+  }
+
   const clockInterruption = generateClockInterruption(pagesQueueSize)
   form.setFieldsValue({ clockInterruption })
 }
@@ -44,6 +74,7 @@ export const setRandomValues = (form: FormInstance<any>) => {
   const actionsQueue = generateActionsQueue(pagesQueueSize).join('|')
   const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
   const tau = generateTau()
+  const clockInterruption = generateClockInterruption(pagesQueueSize)
 
   form.setFieldsValue({
     memorySize,
@@ -54,6 +85,7 @@ export const setRandomValues = (form: FormInstance<any>) => {
     actionsQueue,
     memoryInitalState,
     tau,
+    clockInterruption,
     algorithms: algorithmNamesList,
   })
 }

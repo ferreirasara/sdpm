@@ -109,7 +109,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       rules={[{ required: true, message: 'Informe a fila de páginas para serem referenciadas' }]}
     >
       <Input addonAfter={
-        <Tooltip title="Gerar automaticamente">
+        <Tooltip title="Gerar automaticamente. Depende dos campos 'Tamanho da fila de páginas' e 'Páginas'.">
           <Button
             type='text'
             size="small"
@@ -128,7 +128,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       rules={[{ required: true, message: 'Informe a fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))' }]}
     >
       <Input addonAfter={
-        <Tooltip title="Gerar automaticamente">
+        <Tooltip title="Gerar automaticamente. Depende do campo 'Tamanho da fila de páginas'.">
           <Button
             type='text'
             size="small"
@@ -147,7 +147,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       rules={[{ required: true, message: 'Informe as páginas que já estão na memória' }]}
     >
       <Input addonAfter={
-        <Tooltip title="Gerar automaticamente">
+        <Tooltip title="Gerar automaticamente. Depende dos campos 'Tamanho da memória' e 'Páginas'.">
           <Button
             type='text'
             size="small"
@@ -166,7 +166,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       rules={[{ required: true, message: 'Informe a quantas referências de página haverá uma interrupção do relógio' }]}
     >
       <Input addonAfter={
-        <Tooltip title="Gerar automaticamente">
+        <Tooltip title="Gerar automaticamente. Depende do campo 'Tamanho da fila de páginas'.">
           <Button
             type='text'
             size="small"
