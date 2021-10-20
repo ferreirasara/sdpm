@@ -8,7 +8,7 @@ import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActio
 import { setExampleValues } from "../../../utils/examples";
 
 export interface SimulationFormProps {
-  form: FormInstance<any>,
+  form: FormInstance<SimulationData>,
   onSubmit?: (data: SimulationData) => void,
 }
 
@@ -61,43 +61,148 @@ export default function SimulationForm(props: SimulationFormProps) {
 
   return <Form labelAlign='right' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit} initialValues={initialValues}>
 
-    <Form.Item label="Tamanho da memória" key="memorySize" name="memorySize" tooltip="Quantos processos cabem na memória." rules={[{ required: true, message: 'Informe o tamanho da memória' }]}>
+    <Form.Item
+      label="Tamanho da memória"
+      key="memorySize"
+      name="memorySize"
+      tooltip="Quantos processos cabem na memória."
+      rules={[{ required: true, message: 'Informe o tamanho da memória' }]}
+    >
       <InputNumber style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="Tamanho da fila de páginas" key="pagesQueueSize" name="pagesQueueSize" tooltip="Tamanho da fila de páginas a serem referenciadas." rules={[{ required: true, message: 'Informe o tamanho da fila de páginas' }]}>
+    <Form.Item
+      label="Tamanho da fila de páginas"
+      key="pagesQueueSize"
+      name="pagesQueueSize"
+      tooltip="Tamanho da fila de páginas a serem referenciadas."
+      rules={[{ required: true, message: 'Informe o tamanho da fila de páginas' }]}
+    >
       <InputNumber style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="Quantidade de páginas" key="numberOfPages" name="numberOfPages" tooltip="Número de páginas únicas." rules={[{ required: true, message: 'Informe o número de páginas únicas' }]}>
+    <Form.Item
+      label="Quantidade de páginas"
+      key="numberOfPages"
+      name="numberOfPages"
+      tooltip="Número de páginas únicas."
+      rules={[{ required: true, message: 'Informe o número de páginas únicas' }]}
+    >
       <InputNumber style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="Páginas" key="pages" name="pages" tooltip="Nomes das páginas." rules={[{ required: true, message: 'Informe os nomes das páginas' }]}>
+    <Form.Item
+      label="Páginas"
+      key="pages"
+      name="pages"
+      tooltip="Nomes das páginas."
+      rules={[{ required: true, message: 'Informe os nomes das páginas' }]}
+    >
       <Select mode="tags" tokenSeparators={[',']} allowClear style={{ width: '100%' }} />
     </Form.Item>
 
-    <Form.Item label="Fila de páginas" key="pagesQueue" name="pagesQueue" tooltip="Fila de páginas para serem referenciadas." rules={[{ required: true, message: 'Informe a fila de páginas para serem referenciadas' }]}>
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setPagesQueue(form)} /></Tooltip>} style={{ width: '100%' }} />
+    <Form.Item
+      label="Fila de páginas"
+      key="pagesQueue"
+      name="pagesQueue"
+      tooltip="Fila de páginas para serem referenciadas."
+      rules={[{ required: true, message: 'Informe a fila de páginas para serem referenciadas' }]}
+    >
+      <Input addonAfter={
+        <Tooltip title="Gerar automaticamente">
+          <Button
+            type='text'
+            size="small"
+            icon={<SettingOutlined />}
+            onClick={() => setPagesQueue(form)}
+          />
+        </Tooltip>
+      } style={{ width: '100%' }} />
     </Form.Item>
 
-    <Form.Item label="Fila de ações" key="actionsQueue" name="actionsQueue" tooltip="Fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))." rules={[{ required: true, message: 'Informe a fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))' }]}>
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setActionsQueue(form)} /></Tooltip>} style={{ width: '100%' }} />
+    <Form.Item
+      label="Fila de ações"
+      key="actionsQueue"
+      name="actionsQueue"
+      tooltip="Fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))."
+      rules={[{ required: true, message: 'Informe a fila de ações a serem executadas para cada página (escrita (E) ou leitura (L))' }]}
+    >
+      <Input addonAfter={
+        <Tooltip title="Gerar automaticamente">
+          <Button
+            type='text'
+            size="small"
+            icon={<SettingOutlined />}
+            onClick={() => setActionsQueue(form)}
+          />
+        </Tooltip>
+      } style={{ width: '100%' }} />
     </Form.Item>
 
-    <Form.Item label="Estado inicial da memória" key="memoryInitalState" name="memoryInitalState" tooltip="Páginas que já estão na memória." rules={[{ required: true, message: 'Informe as páginas que já estão na memória' }]}>
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setMemoryInitialState(form)} /></Tooltip>} style={{ width: '100%' }} />
+    <Form.Item
+      label="Estado inicial da memória"
+      key="memoryInitalState"
+      name="memoryInitalState"
+      tooltip="Páginas que já estão na memória."
+      rules={[{ required: true, message: 'Informe as páginas que já estão na memória' }]}
+    >
+      <Input addonAfter={
+        <Tooltip title="Gerar automaticamente">
+          <Button
+            type='text'
+            size="small"
+            icon={<SettingOutlined />}
+            onClick={() => setMemoryInitialState(form)}
+          />
+        </Tooltip>
+      } style={{ width: '100%' }} />
     </Form.Item>
 
-    <Form.Item label="Interrupção do relógio" key="clockInterruption" name="clockInterruption" tooltip="A quantas referências de página haverá uma interrupção do relógio." rules={[{ required: true, message: 'Informe a quantas referências de página haverá uma interrupção do relógio' }]}>
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setClockInterruption(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
+    <Form.Item
+      label="Interrupção do relógio"
+      key="clockInterruption"
+      name="clockInterruption"
+      tooltip="A quantas referências de página haverá uma interrupção do relógio."
+      rules={[{ required: true, message: 'Informe a quantas referências de página haverá uma interrupção do relógio' }]}
+    >
+      <Input addonAfter={
+        <Tooltip title="Gerar automaticamente">
+          <Button
+            type='text'
+            size="small"
+            icon={<SettingOutlined />}
+            onClick={() => setClockInterruption(form)}
+          />
+        </Tooltip>
+      } style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="τ (tau)" key="tau" name="tau" tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho." rules={[{ required: true, message: 'Informe a idade máxima para considerar uma página dentro do conjunto de trabalho' }]}>
-      <Input addonAfter={<Tooltip title="Gerar automaticamente"><SettingOutlined onClick={() => setTau(form)} /></Tooltip>} style={{ width: '100%' }} type="number" />
+    <Form.Item
+      label="τ (tau)"
+      key="tau"
+      name="tau"
+      tooltip="Idade máxima para considerar uma página dentro do conjunto de trabalho."
+      rules={[{ required: true, message: 'Informe a idade máxima para considerar uma página dentro do conjunto de trabalho' }]}
+    >
+      <Input addonAfter={
+        <Tooltip title="Gerar automaticamente">
+          <Button
+            type='text'
+            size="small"
+            icon={<SettingOutlined />}
+            onClick={() => setTau(form)}
+          />
+        </Tooltip>
+      } style={{ width: '100%' }} type="number" />
     </Form.Item>
 
-    <Form.Item label="Algoritmos" key="algorithms" name="algorithms" tooltip="Algoritmos a serem executados." rules={[{ required: true, message: 'Selecione os algoritmos' }]} >
+    <Form.Item
+      label="Algoritmos"
+      key="algorithms"
+      name="algorithms"
+      tooltip="Algoritmos a serem executados."
+      rules={[{ required: true, message: 'Selecione os algoritmos' }]}
+    >
       <Select mode="multiple" style={{ width: '100%' }} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
         {algorithmsOptions}
       </Select>
