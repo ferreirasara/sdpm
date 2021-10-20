@@ -50,7 +50,7 @@ export default function DetailsTable(props: DetailsTableProps) {
       render: (memory: Page[], record: TableData) => <MemoryRender memory={memory} record={record} />
     },
     {
-      title: 'Falta de página?',
+      title: 'Página presente?',
       dataIndex: 'fault',
       key: 'fault',
       render: (fault: boolean) => fault === undefined ? null : fault ? <CloseCircleOutlined style={{ color: 'red' }} /> : <CheckCircleOutlined style={{ color: 'green' }} />,

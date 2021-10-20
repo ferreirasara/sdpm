@@ -5,7 +5,6 @@ import { SimulationData, SimulationResponse } from "../../../utils/types";
 import { formatNumber, formatSimulationTime } from "../../../utils/calculations";
 import { pretifyAlgorithmName } from "../../../utils/pretifyStrings";
 import DetailsTable from "./DetailsTable";
-import LineChart from "../../../components/charts/LineChart";
 import PizzaChart from "../../../components/charts/PizzaChart";
 
 export interface ResultCardProps {
