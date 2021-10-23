@@ -1,33 +1,34 @@
-import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../utils/types";
+import { AlgorithmResult, RunArgs, SimulationExecution } from "../utils/types";
 import Memory from "./Memory";
 import AlgorithmInterface from "./AlgorithmInterface";
 
 export default class NRUAlgorithm extends AlgorithmInterface {
-  constructor(args: { algorithmName: string }) {
-    const { algorithmName } = args;
-    super({ algorithmName })
+  protected memory: Memory
+
+  constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
+    const { algorithmName, memoryInitalState } = args;
+    super({ algorithmName });
+    this.memory = new Memory({ memoryInitalState });
   }
 
-  private getPageClass(memory: Memory, pageName: string): number {
-    if (!memory.pageIsReferenced(pageName) && !memory.pageIsModified(pageName)) return 0;
-    if (!memory.pageIsReferenced(pageName) && memory.pageIsModified(pageName)) return 1;
-    if (memory.pageIsReferenced(pageName) && !memory.pageIsModified(pageName)) return 2;
-    if (memory.pageIsReferenced(pageName) && memory.pageIsModified(pageName)) return 3;
+  private getPageClass(pageName: string): number {
+    if (!this.memory.pageIsReferenced(pageName) && !this.memory.pageIsModified(pageName)) return 0;
+    if (!this.memory.pageIsReferenced(pageName) && this.memory.pageIsModified(pageName)) return 1;
+    if (this.memory.pageIsReferenced(pageName) && !this.memory.pageIsModified(pageName)) return 2;
+    if (this.memory.pageIsReferenced(pageName) && this.memory.pageIsModified(pageName)) return 3;
     return 0;
   }
 
-  public findPageToReplace(args: FindPageToReplaceArgs): string {
-    const { memory } = args;
-    const pageList = memory.pagesInMemory.map(cur => { return { pageName: cur.pageName, class: this.getPageClass(memory, cur.pageName) } });
+  public findPageToReplace(): string {
+    const pageList = this.memory.pagesInMemory.map(cur => { return { pageName: cur.pageName, class: this.getPageClass(cur.pageName) } });
     pageList.sort((a, b) => a.class - b.class);
     return pageList[0].pageName;
   }
 
   public run(args: RunArgs): AlgorithmResult {
-    const { pagesQueue, memoryInitalState, actionsQueue, clockInterruption, shouldShowDetails } = args;
+    const { pagesQueue, actionsQueue, clockInterruption, shouldShowDetails } = args;
     const start = new Date().getTime();
 
-    const memory = new Memory({ memoryInitalState });
     const simulationExecution: SimulationExecution[] = []
     let faults = 0;
 
@@ -35,23 +36,23 @@ export default class NRUAlgorithm extends AlgorithmInterface {
       const pageName = pagesQueue[i]
       const modified = actionsQueue[i] === "E"
 
-      if (memory.referencePage(pageName)) {
-        if (shouldShowDetails) simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: memory.getPages() })
+      if (this.memory.referencePage(pageName)) {
+        if (shouldShowDetails) simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: this.memory.getPages() })
       } else {
         faults++;
-        if (memory.hasFreePosition()) {
-          memory.replacePage(pageName, "0");
-          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
+        if (this.memory.hasFreePosition()) {
+          this.memory.replacePage(pageName, "0");
+          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
         } else {
-          const pageNameToReplace = this.findPageToReplace({ memory, pagesQueue });
-          memory.replacePage(pageName, pageNameToReplace);
-          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: memory.getPages() })
+          const pageNameToReplace = this.findPageToReplace();
+          this.memory.replacePage(pageName, pageNameToReplace);
+          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
         }
       }
-      memory.setModified(memory.findIndex(pageName), modified);
+      this.memory.setModified(this.memory.findIndex(pageName), modified);
       if ((i + 1) % clockInterruption === 0) {
-        memory.resetReferenced();
-        if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: memory.getPages() });
+        this.memory.resetReferenced();
+        if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: this.memory.getPages() });
       }
     }
     const end = new Date().getTime();

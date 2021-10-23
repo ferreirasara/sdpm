@@ -56,10 +56,10 @@ export interface AlgorithmRunnerArgs {
   pagesQueue: string[]
   actionsQueue: string[]
   clockInterruption: number
+  memorySize: number
 }
 
 export interface FindPageToReplaceArgs {
-  memory: Memory
   pagesQueue: string[]
 }
 
@@ -69,4 +69,5 @@ export interface RunArgs {
   actionsQueue: string[]
   clockInterruption: number
   shouldShowDetails: boolean
+  memorySize: number
 }

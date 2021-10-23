@@ -18,6 +18,10 @@ export default class Memory {
     return this.pagesInMemory.findIndex((value) => value.pageName === pageName)
   }
 
+  public findPageByIndex(index: number) {
+    return this.pagesInMemory[index].pageName;
+  }
+
   public getPages() {
     return JSON.parse(JSON.stringify(this.pagesInMemory));
   }

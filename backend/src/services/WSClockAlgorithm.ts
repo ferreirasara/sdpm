@@ -1,10 +1,14 @@
 import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../utils/types";
 import AlgorithmInterface from "./AlgorithmInterface";
+import Memory from "./Memory";
 
 export default class WSClockAlgorithm extends AlgorithmInterface {
-  constructor(args: { algorithmName: string }) {
-    const { algorithmName } = args;
-    super({ algorithmName })
+  protected memory: Memory
+
+  constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
+    const { algorithmName, memoryInitalState } = args;
+    super({ algorithmName });
+    this.memory = new Memory({ memoryInitalState });
   }
 
   public findPageToReplace(args: FindPageToReplaceArgs): string {

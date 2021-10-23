@@ -1,31 +1,31 @@
-import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../utils/types";
+import { AlgorithmResult, RunArgs, SimulationExecution } from "../utils/types";
 import Memory from "./Memory";
 import AlgorithmInterface from "./AlgorithmInterface";
 
 export default class SecondChanceAlgorithm extends AlgorithmInterface {
   protected fifoQueue: string[]
+  protected memory: Memory
 
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
     super({ algorithmName })
     this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
+    this.memory = new Memory({ memoryInitalState });
   }
 
-  public findPageToReplace(args: FindPageToReplaceArgs): string {
-    const { memory } = args
+  public findPageToReplace(): string {
     while (true) {
       const pageName = this.fifoQueue.pop() || "";
-      if (!memory.pageIsReferenced(pageName)) return pageName || "";
-      memory.setReferenced(memory.findIndex(pageName), false);
+      if (!this.memory.pageIsReferenced(pageName)) return pageName || "";
+      this.memory.setReferenced(this.memory.findIndex(pageName), false);
       this.fifoQueue.unshift(pageName);
     }
   }
 
   public run(args: RunArgs): AlgorithmResult {
-    const { pagesQueue, memoryInitalState, actionsQueue, clockInterruption, shouldShowDetails } = args;
+    const { pagesQueue, actionsQueue, clockInterruption, shouldShowDetails } = args;
     const start = new Date().getTime();
 
-    const memory = new Memory({ memoryInitalState });
     const simulationExecution: SimulationExecution[] = []
     let faults = 0;
 
@@ -33,25 +33,25 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
       const pageName = pagesQueue[i]
       const modified = actionsQueue[i] === "E"
 
-      if (memory.referencePage(pageName)) {
-        if (shouldShowDetails) simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: memory.getPages() })
+      if (this.memory.referencePage(pageName)) {
+        if (shouldShowDetails) simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: this.memory.getPages() })
       } else {
         faults++;
-        if (memory.hasFreePosition()) {
-          memory.replacePage(pageName, "0");
+        if (this.memory.hasFreePosition()) {
+          this.memory.replacePage(pageName, "0");
           this.fifoQueue.unshift(pageName);
-          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
+          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
         } else {
-          const pageNameToReplace = this.findPageToReplace({ memory, pagesQueue });
-          memory.replacePage(pageName, pageNameToReplace);
+          const pageNameToReplace = this.findPageToReplace();
+          this.memory.replacePage(pageName, pageNameToReplace);
           this.fifoQueue.unshift(pageName);
-          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: memory.getPages() })
+          if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
         }
       }
-      memory.setModified(memory.findIndex(pageName), modified);
+      this.memory.setModified(this.memory.findIndex(pageName), modified);
       if ((i+1) % clockInterruption === 0) {
-        memory.resetReferenced();
-        if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: memory.getPages() });
+        this.memory.resetReferenced();
+        if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: this.memory.getPages() });
       }
     }
     const end = new Date().getTime();
