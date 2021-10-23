@@ -5,20 +5,20 @@ import PageFaultsTotalGraph from "./components/PageFaultsTotalGraph";
 import SimulationsTable from "./components/SimulationsTable";
 
 export default function AboutAlgorithmsPage() {
-  document.title = 'Histórico'
+  document.title = "Histórico"
 
   return <>
     <PageHeader
       title={<><HistoryOutlined /> Histórico</>}
-      style={{ background: 'white' }}
+      style={{ background: "white" }}
     />
-    <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
       <GeneralStatistics />
     </Row>
-    <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
       <SimulationsTable />
     </Row>
-    <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
+    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
       <PageFaultsTotalGraph />
     </Row>
   </>

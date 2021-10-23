@@ -1,11 +1,11 @@
-import { CSSProperties } from 'react'
+import { CSSProperties } from "react"
 
 export default function highlightText(text: string, searchValue: string, options?: {
   style?: CSSProperties,
   highlightStyle?: CSSProperties,
 }): JSX.Element {
   const { style = undefined, highlightStyle = {} } = options || {}
-  text = text && typeof text === 'string' ? text : '';
+  text = text && typeof text === "string" ? text : "";
 
   const text2 = text.toLowerCase()
   const searchValue2 = searchValue.toLowerCase()
@@ -17,7 +17,7 @@ export default function highlightText(text: string, searchValue: string, options
   return index > -1 ?
     <span style={style}>
       {beforeStr}
-      <span style={{ color: '#f50', ...highlightStyle }}>{middleStr}</span>
+      <span style={{ color: "#f50", ...highlightStyle }}>{middleStr}</span>
       {afterStr}
     </span>
     :

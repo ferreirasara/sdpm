@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
-import Chart from 'bizcharts/lib/components/Chart';
-import Axis from 'bizcharts/lib/components/Axis';
-import Tooltip from 'bizcharts/lib/components/Tooltip';
-import Interval from 'bizcharts/lib/geometry/Interval';
-import '@antv/data-set/lib/api/statistics'
-import '@antv/data-set/lib/transform/bin/histogram'
-import { DataSet } from '@antv/data-set/lib/data-set';
+import React, { useMemo } from "react";
+import Chart from "bizcharts/lib/components/Chart";
+import Axis from "bizcharts/lib/components/Axis";
+import Tooltip from "bizcharts/lib/components/Tooltip";
+import Interval from "bizcharts/lib/geometry/Interval";
+import "@antv/data-set/lib/api/statistics"
+import "@antv/data-set/lib/transform/bin/histogram"
+import { DataSet } from "@antv/data-set/lib/data-set";
 
 export interface Props {
   data?: number[]
@@ -54,25 +54,25 @@ const HistogramChart = (props: Props) => {
   }, [data, binWidth])
 
   return <>
-    <Chart style={{ width: '90%' }} height={400} data={dataView} scale={scale} autoFit interactions={['active-region']}>
+    <Chart style={{ width: "90%" }} height={400} data={dataView} scale={scale} autoFit interactions={["active-region"]}>
       <Axis
         title={!!title}
         name="valor"
         label={{
           style: {
             textAlign: "center",
-            fill: '#404040',
+            fill: "#404040",
             fontSize: 12,
             rotate: 30,
-            textBaseline: 'top',
-            fontWeight: 'bold'
+            textBaseline: "top",
+            fontWeight: "bold"
           },
           autoRotate: false
         }}
       />
       {title ? <Axis title name="quantidade" /> : <Axis name="quantidade" />}
       <Tooltip shared /* inPlot={false} position={"top"} */ />
-      <Interval position="valor*quantidade" color={fill || '#7AC0A7'} />
+      <Interval position="valor*quantidade" color={fill || "#7AC0A7"} />
     </Chart>
   </>
 }

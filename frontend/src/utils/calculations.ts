@@ -21,7 +21,7 @@ export const addPercentageDataInContType = (countData: ContType[]) => {
     })
     countData.forEach(cur => {
       /* percentageData.push({ name: cur.name, count: parseFloat(((100 * cur.count) / total).toPrecision(2)) }) */
-      cur['percentage'] = parseFloat(((100.00 * cur.cont) / total).toPrecision(2))
+      cur["percentage"] = parseFloat(((100.00 * cur.cont) / total).toPrecision(2))
     })
   }
 }
@@ -36,10 +36,10 @@ export const formatNumber = (num: number) => {
 
 export const formatSimulationTime = (simulationTime: number): { simulationTime: number, suffix: string } => {
   if (simulationTime < 1000) {
-    return { simulationTime, suffix: 'milisegundos' }
+    return { simulationTime, suffix: "milisegundos" }
   } else if (simulationTime >= 1000 && simulationTime < 60000) {
-    return { simulationTime: simulationTime / 1000, suffix: 'segundos' }
+    return { simulationTime: simulationTime / 1000, suffix: "segundos" }
   } else {
-    return { simulationTime: simulationTime / 60000, suffix: 'minutos' }
+    return { simulationTime: simulationTime / 60000, suffix: "minutos" }
   }
 }

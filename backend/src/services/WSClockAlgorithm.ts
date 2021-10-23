@@ -8,7 +8,7 @@ export default class WSClockAlgorithm extends AlgorithmInterface {
   }
 
   public findPageToReplace(args: FindPageToReplaceArgs): string {
-    return '';
+    return "";
   }
 
   public run(args: RunArgs): AlgorithmResult {

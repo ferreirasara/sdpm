@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import Chart from 'bizcharts/lib/components/Chart';
-import Legend from 'bizcharts/lib/components/Legend';
-import Axis from 'bizcharts/lib/components/Axis';
-import Tooltip from 'bizcharts/lib/components/Tooltip';
-import Interval from 'bizcharts/lib/geometry/Interval';
-import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
-import { colorList } from '../../utils/colorList';
+import { useState } from "react"
+import Chart from "bizcharts/lib/components/Chart";
+import Legend from "bizcharts/lib/components/Legend";
+import Axis from "bizcharts/lib/components/Axis";
+import Tooltip from "bizcharts/lib/components/Tooltip";
+import Interval from "bizcharts/lib/geometry/Interval";
+import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons";
+import { colorList } from "../../utils/colorList";
 
 export interface Props {
   axis: string[]
@@ -34,13 +34,13 @@ const BarChart = (props: Props) => {
   })
 
   // used for pagination
-  const suffix = props.usePercentage ? '%' : (props.suffix ? ' ' + props.suffix : '');
+  const suffix = props.usePercentage ? "%" : (props.suffix ? " " + props.suffix : "");
   const [skip, setSkip] = useState(0)
   const hasPages = data && data.length > maxBarsPerPage
 
   const data2 = hasPages ? newData.slice(skip, skip + maxBarsPerPage) : newData
 
-  const position = xAxisName + "*" + (usePercentage ? 'percentage' : yAxisName);
+  const position = xAxisName + "*" + (usePercentage ? "percentage" : yAxisName);
 
   return <>
     {hasPages &&
@@ -57,11 +57,11 @@ const BarChart = (props: Props) => {
       </div>
     }
 
-    <Chart style={{ width: '90%' }} height={400} data={data2} scale={scale} autoFit interactions={['active-region']}>
+    <Chart style={{ width: "90%" }} height={400} data={data2} scale={scale} autoFit interactions={["active-region"]}>
       <Axis title name={xAxisName} />
       <Axis title name={yAxisName} />
       {showLegend ? <Legend /> : null}
-      <Tooltip shared /* crosshairs={{ type: 'x' }} */ />
+      <Tooltip shared /* crosshairs={{ type: "x" }} */ />
       <Interval
         position={position}
         color={externalFill ? [xAxisName, externalFill] : [xAxisName, colorList]}
@@ -74,7 +74,7 @@ const BarChart = (props: Props) => {
             };
           }
         ] : [
-          `${yAxisName}`, // 'Quantidade' axis
+          `${yAxisName}`, // "Quantidade" axis
           (count) => {
             return {
               name: "Quantidade",

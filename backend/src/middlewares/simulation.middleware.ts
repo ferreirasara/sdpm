@@ -31,10 +31,10 @@ export const validateParamsIntegrityMiddleware = async (req: any, res: any, next
   const pagesQueueSize: number = req.body.pagesQueueSize
   const numberOfPages: number = req.body.numberOfPages
   const pages: string[] = req.body.pages
-  const pagesQueue: string[] = (req.body.pagesQueue as string).split('|')
-  const actionsQueue: string[] = (req.body.actionsQueue as string).split('|')
-  const actionsQueueCharNotAllowed: string[] = actionsQueue.filter(cur => cur !== '|' && cur !== 'E' && cur !== 'L')
-  const memoryInitalState: string[] = req.body.memoryInitalState.split('|')
+  const pagesQueue: string[] = (req.body.pagesQueue as string).split("|")
+  const actionsQueue: string[] = (req.body.actionsQueue as string).split("|")
+  const actionsQueueCharNotAllowed: string[] = actionsQueue.filter(cur => cur !== "|" && cur !== "E" && cur !== "L")
+  const memoryInitalState: string[] = req.body.memoryInitalState.split("|")
   const clockInterruption: number = req.body.clockInterruption
   const algorithmsNotAllowed: string[] = (req.body.algorithms as string[]).filter(cur => !algorithmNamesList.includes(cur))
 
@@ -54,10 +54,10 @@ export const validateParamsIntegrityMiddleware = async (req: any, res: any, next
       message: `O campo "Fila de ações" deve possuir comprimento igual ao tamanho da fila de páginas.`
     })
   } else if (actionsQueueCharNotAllowed.length) {
-    const plural = actionsQueueCharNotAllowed.length > 1 ? 's' : '';
+    const plural = actionsQueueCharNotAllowed.length > 1 ? "s" : "";
     return res.status(400).send({
       success: false,
-      message: `O campo "Fila de ações" deve possuir apenas os caracteres '|', 'E' e 'L'. Caracter${plural ? 'es' : ''} não suportado${plural}: ${actionsQueueCharNotAllowed.join(', ')}.`
+      message: `O campo "Fila de ações" deve possuir apenas os caracteres "|", "E" e "L". Caracter${plural ? "es" : ""} não suportado${plural}: ${actionsQueueCharNotAllowed.join(", ")}.`
     })
   } else if (numberOfPages !== pages.length) {
     return res.status(400).send({
@@ -70,10 +70,10 @@ export const validateParamsIntegrityMiddleware = async (req: any, res: any, next
       message: `O campo "Interrupção do relógio" deve ser menor que o tamanho da fila de páginas.`
     })
   } else if (algorithmsNotAllowed.length) {
-    const plural = algorithmsNotAllowed.length > 1 ? 's' : '';
+    const plural = algorithmsNotAllowed.length > 1 ? "s" : "";
     return res.status(400).send({
       success: false,
-      message: `Algoritmo${plural} não suportado${plural}: ${algorithmsNotAllowed.join(', ')}.`
+      message: `Algoritmo${plural} não suportado${plural}: ${algorithmsNotAllowed.join(", ")}.`
     })
   } else {
     return next();

@@ -21,16 +21,16 @@ export default function SimulationsTable() {
   }
 
   const columns = [
-    { title: 'Data', dataIndex: 'date', key: 'date', render: (date: Date) => formatDateHour(date) },
+    { title: "Data", dataIndex: "date", key: "date", render: (date: Date) => formatDateHour(date) },
     {
-      title: 'Input',
+      title: "Input",
       children: [
-        { title: 'Tamanho da memória', dataIndex: 'memoryLenght', key: 'memoryLenght', },
-        { title: 'Tamanho da fila de processos', dataIndex: 'proccessQueueLenght', key: 'proccessQueueLenght', },
+        { title: "Tamanho da memória", dataIndex: "memoryLenght", key: "memoryLenght", },
+        { title: "Tamanho da fila de processos", dataIndex: "proccessQueueLenght", key: "proccessQueueLenght", },
       ]
     },
     {
-      title: 'Resultado',
+      title: "Resultado",
       children: algorithmList.map(cur => { return { title: cur.label, dataIndex: cur.name, key: cur.name, } })
     },
   ];

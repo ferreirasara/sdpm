@@ -10,7 +10,7 @@ export default function GeneralStatistics() {
           title="Total de simulações realizadas"
           value={getRandomInt(50, 100)}
           prefix={<MonitorOutlined />}
-          suffix={'simulações'}
+          suffix={"simulações"}
         />
       </Card>
     </Col>
@@ -20,7 +20,7 @@ export default function GeneralStatistics() {
           title="Total de tempo gasto nas simulações realizadas"
           value={getRandomInt(0, 10)}
           prefix={<HourglassOutlined />}
-          suffix={'horas'}
+          suffix={"horas"}
         />
       </Card>
     </Col>

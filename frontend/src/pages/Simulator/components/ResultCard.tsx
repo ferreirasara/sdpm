@@ -14,7 +14,7 @@ export interface ResultCardProps {
 
 export default function ResultCard(props: ResultCardProps) {
   const { result, simulationData } = props
-  const faultAxis = ['Algoritmo', 'Faltas de página']
+  const faultAxis = ["Algoritmo", "Faltas de página"]
   const faultData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.cont } })
   const timeData = result?.algorithmResult?.map(cur => { return { name: pretifyAlgorithmName(cur.name), cont: cur.simulationTime } }).filter(cur => cur.cont > 0)
   const { simulationTime, suffix } = formatSimulationTime(result?.simulationTotalTime || 0)
@@ -32,27 +32,27 @@ export default function ResultCard(props: ResultCardProps) {
     </Col>
     <Col span={20}>
       <Card bordered={false} title="Total de faltas de página por algoritmo">
-        <BarChart suffix={'faltas'} axis={faultAxis} data={faultData || []} />
+        <BarChart suffix={"faltas"} axis={faultAxis} data={faultData || []} />
       </Card>
     </Col>
     {timeData?.length && <Col span={20}>
       <Card bordered={false} title="Tempo de execução de cada algoritmo">
-        <PizzaChart suffix={'milisegundos'} data={timeData || []} />
+        <PizzaChart suffix={"milisegundos"} data={timeData || []} />
       </Card>
     </Col>}
     <Col span={20}>
       <Card bordered={false} title="Dados usados na simulação">
-        <Descriptions size='small' labelStyle={{ fontWeight: 'bold' }}>
+        <Descriptions size="small" labelStyle={{ fontWeight: "bold" }}>
           <Descriptions.Item label="Tamanho da memória">{simulationData.memorySize}</Descriptions.Item>
           <Descriptions.Item label="Tamanho da fila de páginas">{simulationData.pagesQueueSize}</Descriptions.Item>
           <Descriptions.Item label="Quantidade de páginas">{simulationData.numberOfPages}</Descriptions.Item>
-          <Descriptions.Item label="Páginas">{simulationData.pages?.join('|')}</Descriptions.Item>
+          <Descriptions.Item label="Páginas">{simulationData.pages?.join("|")}</Descriptions.Item>
           <Descriptions.Item label="Fila de páginas">{simulationData.pagesQueue}</Descriptions.Item>
           <Descriptions.Item label="Fila de ações">{simulationData.actionsQueue}</Descriptions.Item>
           <Descriptions.Item label="Estado inicial da memória">{simulationData.memoryInitalState}</Descriptions.Item>
           <Descriptions.Item label="Interrupção do relógio">{simulationData.clockInterruption}</Descriptions.Item>
           <Descriptions.Item label="τ (tau)">{simulationData.tau}</Descriptions.Item>
-          <Descriptions.Item label="Algoritmos">{simulationData.algorithms?.map(cur => pretifyAlgorithmName(cur)).join(', ')}</Descriptions.Item>
+          <Descriptions.Item label="Algoritmos">{simulationData.algorithms?.map(cur => pretifyAlgorithmName(cur)).join(", ")}</Descriptions.Item>
         </Descriptions>
       </Card>
       {result?.shouldShowDetails ? <Card bordered={false} title="Detalhamento da execução dos algoritmos">

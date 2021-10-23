@@ -1,7 +1,7 @@
-import React from 'react';
-import Chart from 'bizcharts/lib/components/Chart';
-import Coordinate from 'bizcharts/lib/components/Coordinate';
-import Line from 'bizcharts/lib/geometry/Line';
+import React from "react";
+import Chart from "bizcharts/lib/components/Chart";
+import Coordinate from "bizcharts/lib/components/Coordinate";
+import Line from "bizcharts/lib/geometry/Line";
 
 const RadarChart = (props: {
   data: {
@@ -11,11 +11,11 @@ const RadarChart = (props: {
 }) => {
 
   const data = [
-    { item: 'Geral', score: props.data.total || 0 },
-    { item: 'Preço', score: (props.data.price && props.data.price.value) || 0 },
-    { item: 'Localização', score: (props.data.location && props.data.location.value) || 0 },
-    { item: 'Adicionais', score: (props.data.extraFeatures && props.data.extraFeatures.value) || 0 },
-    { item: 'Área', score: (props.data.area && props.data.area.value) || 0 }
+    { item: "Geral", score: props.data.total || 0 },
+    { item: "Preço", score: (props.data.price && props.data.price.value) || 0 },
+    { item: "Localização", score: (props.data.location && props.data.location.value) || 0 },
+    { item: "Adicionais", score: (props.data.extraFeatures && props.data.extraFeatures.value) || 0 },
+    { item: "Área", score: (props.data.area && props.data.area.value) || 0 }
   ]
 
   return (

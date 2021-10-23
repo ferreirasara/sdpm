@@ -8,7 +8,7 @@ export default class LRUAlgorithm extends AlgorithmInterface {
   }
 
   public findPageToReplace(args: FindPageToReplaceArgs): string {
-    return '';
+    return "";
   }
 
   public run(args: RunArgs): AlgorithmResult {

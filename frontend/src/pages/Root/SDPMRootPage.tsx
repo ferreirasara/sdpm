@@ -1,28 +1,28 @@
-import { Layout, Menu } from 'antd';
-import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, MenuOutlined } from '@ant-design/icons';
-import { Content, Header } from 'antd/lib/layout/layout';
+import { Layout, Menu } from "antd";
+import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, MenuOutlined } from "@ant-design/icons";
+import { Content, Header } from "antd/lib/layout/layout";
 import "antd/dist/antd.css";
-import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
-import SimulatorPage from '../Simulator/SimulatorPage';
-import HistoryPage from '../History/HistoryPage';
-import AboutAlgorithmsPage from '../AboutAlgorithms/AboutAlgorithmsPage';
-import AboutSimulatorPage from '../AboutSimulator/AboutSimulatorPage';
+import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
+import SimulatorPage from "../Simulator/SimulatorPage";
+import HistoryPage from "../History/HistoryPage";
+import AboutAlgorithmsPage from "../AboutAlgorithms/AboutAlgorithmsPage";
+import AboutSimulatorPage from "../AboutSimulator/AboutSimulatorPage";
 
 export default function SDPMRootPage() {
-  const urlSplit = document.URL.split('/')
+  const urlSplit = document.URL.split("/")
   const actualRoute = urlSplit[urlSplit?.length - 1]
 
   const allLinks = [
-    <Menu.Item key={'simulator'}>
+    <Menu.Item key={"simulator"}>
       <NavLink to="/simulator"><BuildOutlined /> Simulador</NavLink>
     </Menu.Item>,
-    <Menu.Item key={'history'}>
+    <Menu.Item key={"history"}>
       <NavLink to="/history"><HistoryOutlined /> Histórico</NavLink>
     </Menu.Item>,
-    <Menu.Item key={'aboutAlgorithms'}>
+    <Menu.Item key={"aboutAlgorithms"}>
       <NavLink to="/aboutAlgorithms"><BulbOutlined /> Sobre os algoritmos</NavLink>
     </Menu.Item>,
-    <Menu.Item key={'aboutSimulator'}>
+    <Menu.Item key={"aboutSimulator"}>
       <NavLink to="/aboutSimulator"><QuestionCircleOutlined /> Sobre o simulador</NavLink>
     </Menu.Item>,
   ]
@@ -38,10 +38,10 @@ export default function SDPMRootPage() {
 
   return <>
     <BrowserRouter>
-      <Layout style={{ height: '100vh', overflow: 'auto', backgroundColor: 'white' }}>
+      <Layout style={{ height: "100vh", overflow: "auto", backgroundColor: "white" }}>
         <Header>
-          <div style={{ float: 'left', fontSize: '20px', marginRight: '10px' }}><NavLink to="/" style={{ color: "#DDD" }}>SDPM</NavLink></div>
-          <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || 'simulator']}>
+          <div style={{ float: "left", fontSize: "20px", marginRight: "10px" }}><NavLink to="/" style={{ color: "#DDD" }}>SDPM</NavLink></div>
+          <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || "simulator"]}>
             {allLinks}
           </Menu>
         </Header>

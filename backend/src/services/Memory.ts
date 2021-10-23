@@ -23,7 +23,7 @@ export default class Memory {
   }
 
   public hasFreePosition() {
-    return this.pagesInMemory.some((value) => value.pageName === '0')
+    return this.pagesInMemory.some((value) => value.pageName === "0")
   }
 
   public referencePage(pageName: string): boolean {

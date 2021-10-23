@@ -14,10 +14,10 @@ const MemoryRender = (props: { memory: Page[], record: TableData }) => {
       const referenced = cur.referenced ? 1 : 0;
       const modified = cur.modified ? 1 : 0;
 
-      return <Tag color={record.pageName === cur.pageName ? '#d9d9d9' : '#f5f5f5'}>
+      return <Tag color={record.pageName === cur.pageName ? "#d9d9d9" : "#f5f5f5"}>
         <Typography.Text keyboard>{cur.pageName}</Typography.Text>
-        <Typography.Text type={referenced ? 'success' : 'danger'} keyboard>{'R=' + referenced}</Typography.Text>
-        <Typography.Text type={modified ? 'success' : 'danger'} keyboard>{'M=' + modified}</Typography.Text>
+        <Typography.Text type={referenced ? "success" : "danger"} keyboard>{"R=" + referenced}</Typography.Text>
+        <Typography.Text type={modified ? "success" : "danger"} keyboard>{"M=" + modified}</Typography.Text>
       </Tag>
     })}
   </>
@@ -39,26 +39,26 @@ export default function DetailsTable(props: DetailsTableProps) {
 
   const columns: ColumnsType<TableData> = [
     {
-      title: 'Página',
-      dataIndex: 'pageName',
-      key: 'pageName'
+      title: "Página",
+      dataIndex: "pageName",
+      key: "pageName"
     },
     {
-      title: 'Memória',
-      dataIndex: 'memory',
-      key: 'memory',
+      title: "Memória",
+      dataIndex: "memory",
+      key: "memory",
       render: (memory: Page[], record: TableData) => <MemoryRender memory={memory} record={record} />
     },
     {
-      title: 'Página presente?',
-      dataIndex: 'fault',
-      key: 'fault',
-      render: (fault: boolean) => fault === undefined ? null : fault ? <CloseCircleOutlined style={{ color: 'red' }} /> : <CheckCircleOutlined style={{ color: 'green' }} />,
+      title: "Página presente?",
+      dataIndex: "fault",
+      key: "fault",
+      render: (fault: boolean) => fault === undefined ? null : fault ? <CloseCircleOutlined style={{ color: "red" }} /> : <CheckCircleOutlined style={{ color: "green" }} />,
     },
     {
-      title: 'Ação',
-      dataIndex: 'action',
-      key: 'action'
+      title: "Ação",
+      dataIndex: "action",
+      key: "action"
     },
   ];
 

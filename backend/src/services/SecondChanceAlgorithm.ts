@@ -8,14 +8,14 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
     super({ algorithmName })
-    this.fifoQueue = memoryInitalState.filter(cur => cur !== '0');
+    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
   }
 
   public findPageToReplace(args: FindPageToReplaceArgs): string {
     const { memory } = args
     while (true) {
-      const pageName = this.fifoQueue.pop() || '';
-      if (!memory.pageIsReferenced(pageName)) return pageName || '';
+      const pageName = this.fifoQueue.pop() || "";
+      if (!memory.pageIsReferenced(pageName)) return pageName || "";
       memory.setReferenced(memory.findIndex(pageName), false);
       this.fifoQueue.unshift(pageName);
     }
@@ -31,14 +31,14 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
 
     for (let i = 0; i < pagesQueue.length; i++) {
       const pageName = pagesQueue[i]
-      const modified = actionsQueue[i] === 'E'
+      const modified = actionsQueue[i] === "E"
 
       if (memory.referencePage(pageName)) {
         if (shouldShowDetails) simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: memory.getPages() })
       } else {
         faults++;
         if (memory.hasFreePosition()) {
-          memory.replacePage(pageName, '0');
+          memory.replacePage(pageName, "0");
           this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
         } else {

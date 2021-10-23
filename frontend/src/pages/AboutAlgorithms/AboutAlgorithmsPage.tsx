@@ -2,7 +2,7 @@ import { BulbOutlined } from "@ant-design/icons";
 import { Col, Collapse, PageHeader, Row, Typography } from "antd";
 
 export default function AboutAlgorithmsPage() {
-  document.title = 'Sobre os algoritmos'
+  document.title = "Sobre os algoritmos"
 
   const firstParagraphText = `Se uma página é referenciada, mas não está carregada na memória, ocorre a chamada falta de página.
   Para resolver isso, o sistema operacional precisa escolher uma página para ser substituída. Para um melhor desempenho do sistema, a página a ser escolhida deve ser uma página pouco utilizada.
@@ -29,10 +29,10 @@ export default function AboutAlgorithmsPage() {
   return <>
     <PageHeader
       title={<><BulbOutlined /> Sobre os algoritmos</>}
-      style={{ background: 'white' }}
+      style={{ background: "white" }}
     />
-    <Row justify='center' style={{ marginBottom: '2px', marginTop: '2px' }}>
-      <Col style={{ marginTop: '10px', width: '100vh' }}>
+    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+      <Col style={{ marginTop: "10px", width: "100vh" }}>
         <Typography.Title>Algoritmos de troca de página</Typography.Title>
         <p>{firstParagraphText}</p>
         <p>{secondParagraphText}</p>

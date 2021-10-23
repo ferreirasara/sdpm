@@ -5,52 +5,52 @@ import { getRandomString } from "./pretifyStrings"
 
 
 export const setMemoryInitialState = (form: FormInstance<any>) => {
-  const memorySize = form.getFieldValue('memorySize')
+  const memorySize = form.getFieldValue("memorySize")
   if (!memorySize) {
     message.error("Preencha o campo 'Tamanho da memória'.")
     return
   }
 
-  const pages = form.getFieldValue('pages')
+  const pages = form.getFieldValue("pages")
   if (!pages) {
     message.error("Preencha o campo 'Páginas'.")
     return
   }
 
-  const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
+  const memoryInitalState = generateMemoryInitialState(memorySize, pages).join("|")
   form.setFieldsValue({ memoryInitalState })
 }
 
 export const setPagesQueue = (form: FormInstance<any>) => {
-  const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  const pagesQueueSize = form.getFieldValue("pagesQueueSize")
   if (!pagesQueueSize) {
     message.error("Preencha o campo 'Tamanho da fila de páginas'.")
     return
   }
 
-  const pages = form.getFieldValue('pages')
+  const pages = form.getFieldValue("pages")
   if (!pages) {
     message.error("Preencha o campo 'Páginas'.")
     return
   }
 
-  const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
+  const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join("|")
   form.setFieldsValue({ pagesQueue })
 }
 
 export const setActionsQueue = (form: FormInstance<any>) => {
-  const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  const pagesQueueSize = form.getFieldValue("pagesQueueSize")
   if (!pagesQueueSize) {
     message.error("Preencha o campo 'Tamanho da fila de páginas'.")
     return
   }
 
-  const actionsQueue = generateActionsQueue(pagesQueueSize).join('|')
+  const actionsQueue = generateActionsQueue(pagesQueueSize).join("|")
   form.setFieldsValue({ actionsQueue })
 }
 
 export const setClockInterruption = (form: FormInstance<any>) => {
-  const pagesQueueSize = form.getFieldValue('pagesQueueSize')
+  const pagesQueueSize = form.getFieldValue("pagesQueueSize")
   if (!pagesQueueSize) {
     message.error("Preencha o campo 'Tamanho da fila de páginas'.")
     return
@@ -70,9 +70,9 @@ export const setRandomValues = (form: FormInstance<any>) => {
   const pagesQueueSize = getRandomInt(100, 1000)
   const numberOfPages = generateNumberOfPages(memorySize, pagesQueueSize)
   const pages = generatePages(numberOfPages)
-  const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join('|')
-  const actionsQueue = generateActionsQueue(pagesQueueSize).join('|')
-  const memoryInitalState = generateMemoryInitialState(memorySize, pages).join('|')
+  const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join("|")
+  const actionsQueue = generateActionsQueue(pagesQueueSize).join("|")
+  const memoryInitalState = generateMemoryInitialState(memorySize, pages).join("|")
   const tau = generateTau()
   const clockInterruption = generateClockInterruption(pagesQueueSize)
 
@@ -107,7 +107,7 @@ export const generateMemoryInitialState = (memorySize: number, pages: string[]) 
   for (let i = 0; i < memorySize; i++) {
     const randomNumber = getRandomInt(1, 3)
     if (randomNumber === 1) {
-      memoryInitalState.push('0')
+      memoryInitalState.push("0")
     } else {
       const page = pages[Math.floor(Math.random() * pages.length)]
       if (!memoryInitalState.includes(page)) {
@@ -132,9 +132,9 @@ export const generateActionsQueue = (pagesQueueSize: number) => {
   const actionsQueue = []
   for (let i = 0; i < pagesQueueSize; i++) {
     if (getRandomInt(0, 2) === 1) {
-      actionsQueue.push('E')
+      actionsQueue.push("E")
     } else {
-      actionsQueue.push('L')
+      actionsQueue.push("L")
     }
   }
   return actionsQueue

@@ -33,14 +33,14 @@ export default class NRUAlgorithm extends AlgorithmInterface {
 
     for (let i = 0; i < pagesQueue.length; i++) {
       const pageName = pagesQueue[i]
-      const modified = actionsQueue[i] === 'E'
+      const modified = actionsQueue[i] === "E"
 
       if (memory.referencePage(pageName)) {
         if (shouldShowDetails) simulationExecution.push({ fault: false, pageName, action: `A página ${pageName} está na memória.`, memory: memory.getPages() })
       } else {
         faults++;
         if (memory.hasFreePosition()) {
-          memory.replacePage(pageName, '0');
+          memory.replacePage(pageName, "0");
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: memory.getPages() })
         } else {
           const pageNameToReplace = this.findPageToReplace({ memory, pagesQueue });

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Chart from 'bizcharts/lib/components/Chart';
-import Tooltip from 'bizcharts/lib/components/Tooltip';
-import Legend from 'bizcharts/lib/components/Legend';
-import Axis from 'bizcharts/lib/components/Axis';
-import Point from 'bizcharts/lib/geometry/Point';
-import Line from 'bizcharts/lib/geometry/Line';
+import * as React from "react";
+import Chart from "bizcharts/lib/components/Chart";
+import Tooltip from "bizcharts/lib/components/Tooltip";
+import Legend from "bizcharts/lib/components/Legend";
+import Axis from "bizcharts/lib/components/Axis";
+import Point from "bizcharts/lib/geometry/Point";
+import Line from "bizcharts/lib/geometry/Line";
 
 const width100: React.CSSProperties = {
   maxWidth: "100%",
