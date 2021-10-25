@@ -2,8 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { validateParamsIntegrityMiddleware, validateRequiredParamsMiddleware } from "./middlewares/simulation.middleware";
-import { simulateService } from "./services/simulation.service";
+import { simulationService } from "./services/simulation.service";
 import DAO from "./dao/DAO";
+import { simulationHistoryService, simulationStatsService } from "./services/simulationHistory.service";
 require("dotenv").config({ path: __dirname + "/.env" });
 
 // Initialize DB
@@ -22,10 +23,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post("/simulation", [
     validateRequiredParamsMiddleware,
     validateParamsIntegrityMiddleware,
-    simulateService,
+    simulationService,
 ])
 
-app.get("/", (req, res) => res.send("SDPM"))
+app.get("/simulationHistory", [
+    simulationHistoryService,
+])
+
+app.get("/simulationStats", [
+    simulationStatsService,
+])
 
 // The port the express app will listen on
 const port = process.env.PORT || 8080;

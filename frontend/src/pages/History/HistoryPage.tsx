@@ -1,7 +1,6 @@
 import { HistoryOutlined } from "@ant-design/icons";
 import { PageHeader, Row } from "antd";
 import GeneralStatistics from "./components/GeneralStatistics";
-import PageFaultsTotalGraph from "./components/PageFaultsTotalGraph";
 import SimulationsTable from "./components/SimulationsTable";
 
 export default function AboutAlgorithmsPage() {
@@ -17,9 +16,6 @@ export default function AboutAlgorithmsPage() {
     </Row>
     <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
       <SimulationsTable />
-    </Row>
-    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
-      <PageFaultsTotalGraph />
     </Row>
   </>
 }

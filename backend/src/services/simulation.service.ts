@@ -1,7 +1,7 @@
 import { SimulationData } from "../utils/types"
 import AlgorithmRunner from "./AlgorithmRunner"
 
-export const simulateService = async (req: any, res: any, next: any) => {
+export const simulationService = async (req: any, res: any, next: any) => {
   const body: SimulationData = req.body;
   const algorithmsToRun: string[] = body.algorithms;
 

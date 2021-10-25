@@ -38,3 +38,20 @@ export interface Page {
   referenced: boolean,
   modified: boolean,
 }
+
+export interface SimulationHistory {
+  date?: string,
+  memorySize?: number,
+  pagesQueueSize?: number,
+  optimalAlgorithm?: number,
+  fifoAlgorithm?: number,
+  secondChanceAlgorithm?: number,
+  lruAlgorithm?: number,
+  nruAlgorithm?: number,
+  wsClockAlgorithm?: number,
+}
+
+export interface SimulationStats {
+  totalOfSimulations?: number,
+  totalOfTime?: number,
+}
