@@ -1,10 +1,10 @@
 import { AlgorithmResult, AlgorithmRunnerArgs, RunArgs, SimulationResponse } from "../utils/types"
-import FIFOAlgorithm from "./FIFOAlgorithm";
-import LRUAlgorithm from "./LRUAlgorithm";
-import NRUAlgorithm from "./NRUAlgorithm";
-import OptimalAlgorithm from "./OptimalAlgorithm";
-import SecondChanceAlgorithm from "./SecondChanceAlgorithm";
-import WSClockAlgorithm from "./WSClockAlgorithm";
+import FIFOAlgorithm from "./algorithms/FIFOAlgorithm";
+import LRUAlgorithm from "./algorithms/LRUAlgorithm";
+import NRUAlgorithm from "./algorithms/NRUAlgorithm";
+import OptimalAlgorithm from "./algorithms/OptimalAlgorithm";
+import SecondChanceAlgorithm from "./algorithms/SecondChanceAlgorithm";
+import WSClockAlgorithm from "./algorithms/WSClockAlgorithm";
 
 export default class AlgorithmRunner {
   public static runAlgorithms = (args: AlgorithmRunnerArgs): SimulationResponse => {

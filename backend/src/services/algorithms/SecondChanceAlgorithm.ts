@@ -1,28 +1,25 @@
-import { AlgorithmResult, RunArgs, SimulationExecution } from "../utils/types";
-import Memory from "./Memory";
-import AlgorithmInterface from "./AlgorithmInterface";
+import { AlgorithmResult, RunArgs, SimulationExecution } from "../../utils/types";
+import Memory from "../Memory";
+import AlgorithmInterface from "../AlgorithmInterface";
 
-export default class NRUAlgorithm extends AlgorithmInterface {
+export default class SecondChanceAlgorithm extends AlgorithmInterface {
+  protected fifoQueue: string[]
   protected memory: Memory
 
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
-    super({ algorithmName });
+    super({ algorithmName })
+    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
     this.memory = new Memory({ memoryInitalState });
   }
 
-  private getPageClass(pageName: string): number {
-    if (!this.memory.pageIsReferenced(pageName) && !this.memory.pageIsModified(pageName)) return 0;
-    if (!this.memory.pageIsReferenced(pageName) && this.memory.pageIsModified(pageName)) return 1;
-    if (this.memory.pageIsReferenced(pageName) && !this.memory.pageIsModified(pageName)) return 2;
-    if (this.memory.pageIsReferenced(pageName) && this.memory.pageIsModified(pageName)) return 3;
-    return 0;
-  }
-
   public findPageToReplace(): string {
-    const pageList = this.memory.pagesInMemory.map(cur => { return { pageName: cur.pageName, class: this.getPageClass(cur.pageName) } });
-    pageList.sort((a, b) => a.class - b.class);
-    return pageList[0].pageName;
+    while (true) {
+      const pageName = this.fifoQueue.pop() || "";
+      if (!this.memory.pageIsReferenced(pageName)) return pageName || "";
+      this.memory.setReferenced(this.memory.findIndex(pageName), false);
+      this.fifoQueue.unshift(pageName);
+    }
   }
 
   public run(args: RunArgs): AlgorithmResult {
@@ -42,15 +39,17 @@ export default class NRUAlgorithm extends AlgorithmInterface {
         faults++;
         if (this.memory.hasFreePosition()) {
           this.memory.replacePage(pageName, "0");
+          this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
         } else {
           const pageNameToReplace = this.findPageToReplace();
           this.memory.replacePage(pageName, pageNameToReplace);
+          this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
         }
       }
       this.memory.setModified(this.memory.findIndex(pageName), modified);
-      if ((i + 1) % clockInterruption === 0) {
+      if ((i+1) % clockInterruption === 0) {
         this.memory.resetReferenced();
         if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: this.memory.getPages() });
       }
@@ -62,7 +61,7 @@ export default class NRUAlgorithm extends AlgorithmInterface {
       name: this.algorithmName,
       cont: faults,
       simulationTime,
-      simulationExecution
+      simulationExecution,
     }
   }
 }

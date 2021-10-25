@@ -1,29 +1,35 @@
-import { AlgorithmResult, RunArgs, SimulationExecution } from "../utils/types";
-import Memory from "./Memory";
-import AlgorithmInterface from "./AlgorithmInterface";
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../../utils/types";
+import Memory from "../Memory";
+import AlgorithmInterface from "../AlgorithmInterface";
 
-export default class SecondChanceAlgorithm extends AlgorithmInterface {
-  protected fifoQueue: string[]
+export default class OptimalAlgorithm extends AlgorithmInterface {
   protected memory: Memory
 
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
-    super({ algorithmName })
-    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
+    super({ algorithmName });
     this.memory = new Memory({ memoryInitalState });
   }
 
-  public findPageToReplace(): string {
-    while (true) {
-      const pageName = this.fifoQueue.pop() || "";
-      if (!this.memory.pageIsReferenced(pageName)) return pageName || "";
-      this.memory.setReferenced(this.memory.findIndex(pageName), false);
-      this.fifoQueue.unshift(pageName);
+  public findPageToReplace(args: FindPageToReplaceArgs): string {
+    const { pagesQueue } = args
+    const pagesReferences = this.memory.pagesInMemory.map(cur => {
+      return {
+        pageName: cur.pageName,
+        index: pagesQueue?.findIndex((value) => value === cur.pageName)
+      }
+    });
+    const notInQueue = pagesReferences?.find(cur => cur.index - 1);
+    if (notInQueue) {
+      return notInQueue.pageName;
+    } else {
+      pagesReferences?.sort((a, b) => a.index - b.index);
+      return pagesReferences?.pop()?.pageName || "";
     }
   }
 
   public run(args: RunArgs): AlgorithmResult {
-    const { pagesQueue, actionsQueue, clockInterruption, shouldShowDetails } = args;
+    const { pagesQueue, memoryInitalState, actionsQueue, shouldShowDetails } = args;
     const start = new Date().getTime();
 
     const simulationExecution: SimulationExecution[] = []
@@ -39,20 +45,14 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
         faults++;
         if (this.memory.hasFreePosition()) {
           this.memory.replacePage(pageName, "0");
-          this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
         } else {
-          const pageNameToReplace = this.findPageToReplace();
+          const pageNameToReplace = this.findPageToReplace({ pagesQueue: pagesQueue.slice(i) });
           this.memory.replacePage(pageName, pageNameToReplace);
-          this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
         }
       }
-      this.memory.setModified(this.memory.findIndex(pageName), modified);
-      if ((i+1) % clockInterruption === 0) {
-        this.memory.resetReferenced();
-        if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: this.memory.getPages() });
-      }
+      this.memory.setModified(this.memory.findIndex(pageName), modified)
     }
     const end = new Date().getTime();
     const simulationTime = end - start;

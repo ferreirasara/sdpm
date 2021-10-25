@@ -1,35 +1,24 @@
-import { AlgorithmResult, FindPageToReplaceArgs, RunArgs, SimulationExecution } from "../utils/types";
-import Memory from "./Memory";
-import AlgorithmInterface from "./AlgorithmInterface";
+import { AlgorithmResult, RunArgs, SimulationExecution } from "../../utils/types";
+import AlgorithmInterface from "../AlgorithmInterface";
+import Memory from "../Memory";
 
-export default class OptimalAlgorithm extends AlgorithmInterface {
+export default class FIFOAlgorithm extends AlgorithmInterface {
+  protected fifoQueue: string[]
   protected memory: Memory
 
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
-    super({ algorithmName });
+    super({ algorithmName })
+    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
     this.memory = new Memory({ memoryInitalState });
   }
 
-  public findPageToReplace(args: FindPageToReplaceArgs): string {
-    const { pagesQueue } = args
-    const pagesReferences = this.memory.pagesInMemory.map(cur => {
-      return {
-        pageName: cur.pageName,
-        index: pagesQueue?.findIndex((value) => value === cur.pageName)
-      }
-    });
-    const notInQueue = pagesReferences?.find(cur => cur.index - 1);
-    if (notInQueue) {
-      return notInQueue.pageName;
-    } else {
-      pagesReferences?.sort((a, b) => a.index - b.index);
-      return pagesReferences?.pop()?.pageName || "";
-    }
+  public findPageToReplace(): string {
+    return this.fifoQueue.pop() || "";
   }
 
   public run(args: RunArgs): AlgorithmResult {
-    const { pagesQueue, memoryInitalState, actionsQueue, shouldShowDetails } = args;
+    const { pagesQueue, actionsQueue, shouldShowDetails } = args;
     const start = new Date().getTime();
 
     const simulationExecution: SimulationExecution[] = []
@@ -46,10 +35,12 @@ export default class OptimalAlgorithm extends AlgorithmInterface {
         if (this.memory.hasFreePosition()) {
           this.memory.replacePage(pageName, "0");
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
+          this.fifoQueue.unshift(pageName);
         } else {
-          const pageNameToReplace = this.findPageToReplace({ pagesQueue: pagesQueue.slice(i) });
+          const pageNameToReplace = this.findPageToReplace();
           this.memory.replacePage(pageName, pageNameToReplace);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
+          this.fifoQueue.unshift(pageName);
         }
       }
       this.memory.setModified(this.memory.findIndex(pageName), modified)

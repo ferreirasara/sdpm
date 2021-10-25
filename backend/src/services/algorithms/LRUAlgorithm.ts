@@ -1,6 +1,6 @@
-import { AlgorithmResult, RunArgs, SimulationExecution } from "../utils/types";
-import AlgorithmInterface from "./AlgorithmInterface";
-import Memory from "./Memory";
+import { AlgorithmResult, RunArgs, SimulationExecution } from "../../utils/types";
+import AlgorithmInterface from "../AlgorithmInterface";
+import Memory from "../Memory";
 
 export default class LRUAlgorithm extends AlgorithmInterface {
   protected matrix: number[][]

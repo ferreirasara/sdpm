@@ -1,6 +1,6 @@
-import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../utils/types";
-import AlgorithmInterface from "./AlgorithmInterface";
-import Memory from "./Memory";
+import { AlgorithmResult, FindPageToReplaceArgs, RunArgs } from "../../utils/types";
+import AlgorithmInterface from "../AlgorithmInterface";
+import Memory from "../Memory";
 
 export default class WSClockAlgorithm extends AlgorithmInterface {
   protected memory: Memory

@@ -1,24 +1,32 @@
-import { AlgorithmResult, RunArgs, SimulationExecution } from "../utils/types";
-import AlgorithmInterface from "./AlgorithmInterface";
-import Memory from "./Memory";
+import { AlgorithmResult, RunArgs, SimulationExecution } from "../../utils/types";
+import Memory from "../Memory";
+import AlgorithmInterface from "../AlgorithmInterface";
 
-export default class FIFOAlgorithm extends AlgorithmInterface {
-  protected fifoQueue: string[]
+export default class NRUAlgorithm extends AlgorithmInterface {
   protected memory: Memory
 
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
-    super({ algorithmName })
-    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
+    super({ algorithmName });
     this.memory = new Memory({ memoryInitalState });
   }
 
+  private getPageClass(pageName: string): number {
+    if (!this.memory.pageIsReferenced(pageName) && !this.memory.pageIsModified(pageName)) return 0;
+    if (!this.memory.pageIsReferenced(pageName) && this.memory.pageIsModified(pageName)) return 1;
+    if (this.memory.pageIsReferenced(pageName) && !this.memory.pageIsModified(pageName)) return 2;
+    if (this.memory.pageIsReferenced(pageName) && this.memory.pageIsModified(pageName)) return 3;
+    return 0;
+  }
+
   public findPageToReplace(): string {
-    return this.fifoQueue.pop() || "";
+    const pageList = this.memory.pagesInMemory.map(cur => { return { pageName: cur.pageName, class: this.getPageClass(cur.pageName) } });
+    pageList.sort((a, b) => a.class - b.class);
+    return pageList[0].pageName;
   }
 
   public run(args: RunArgs): AlgorithmResult {
-    const { pagesQueue, actionsQueue, shouldShowDetails } = args;
+    const { pagesQueue, actionsQueue, clockInterruption, shouldShowDetails } = args;
     const start = new Date().getTime();
 
     const simulationExecution: SimulationExecution[] = []
@@ -35,15 +43,17 @@ export default class FIFOAlgorithm extends AlgorithmInterface {
         if (this.memory.hasFreePosition()) {
           this.memory.replacePage(pageName, "0");
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
-          this.fifoQueue.unshift(pageName);
         } else {
           const pageNameToReplace = this.findPageToReplace();
           this.memory.replacePage(pageName, pageNameToReplace);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
-          this.fifoQueue.unshift(pageName);
         }
       }
-      this.memory.setModified(this.memory.findIndex(pageName), modified)
+      this.memory.setModified(this.memory.findIndex(pageName), modified);
+      if ((i + 1) % clockInterruption === 0) {
+        this.memory.resetReferenced();
+        if (shouldShowDetails) simulationExecution.push({ action: `Bit R resetado.`, memory: this.memory.getPages() });
+      }
     }
     const end = new Date().getTime();
     const simulationTime = end - start;
@@ -52,7 +62,7 @@ export default class FIFOAlgorithm extends AlgorithmInterface {
       name: this.algorithmName,
       cont: faults,
       simulationTime,
-      simulationExecution,
+      simulationExecution
     }
   }
 }
