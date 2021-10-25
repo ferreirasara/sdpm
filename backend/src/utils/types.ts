@@ -1,5 +1,3 @@
-import Memory from "../services/Memory";
-
 export interface SimulationData {
   memorySize: number;
   pagesQueueSize: number;

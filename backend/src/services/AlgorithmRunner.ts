@@ -42,8 +42,12 @@ export default class AlgorithmRunner {
 
       const simulationTotalTime = algorithmResult.reduce((cur, prev) => cur + prev.simulationTime, 0);
 
-      const dao = new DAO();
-      await dao.insertSimulationResult({ memorySize, pagesQueueSize: pagesQueue.length, algorithmResult });
+      try {
+        const dao = new DAO();
+        await dao.insertSimulationResult({ memorySize, pagesQueueSize: pagesQueue.length, algorithmResult });
+      } catch (error) {
+        console.log(error);
+      }
 
       return {
         success: true,
