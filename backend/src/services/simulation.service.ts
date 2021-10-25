@@ -12,7 +12,7 @@ export const simulateService = async (req: any, res: any, next: any) => {
   const shouldShowDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15;
   const clockInterruption = body.clockInterruption;
 
-  const response = AlgorithmRunner.runAlgorithms({ shouldShowDetails, algorithmsToRun, memoryInitalState, actionsQueue, pagesQueue, clockInterruption, memorySize });
+  const response = await AlgorithmRunner.runAlgorithms({ shouldShowDetails, algorithmsToRun, memoryInitalState, actionsQueue, pagesQueue, clockInterruption, memorySize });
 
   res.send(response);
 }

@@ -1,3 +1,4 @@
+import DAO from "../dao/DAO";
 import { AlgorithmResult, AlgorithmRunnerArgs, RunArgs, SimulationResponse } from "../utils/types"
 import FIFOAlgorithm from "./algorithms/FIFOAlgorithm";
 import LRUAlgorithm from "./algorithms/LRUAlgorithm";
@@ -7,7 +8,7 @@ import SecondChanceAlgorithm from "./algorithms/SecondChanceAlgorithm";
 import WSClockAlgorithm from "./algorithms/WSClockAlgorithm";
 
 export default class AlgorithmRunner {
-  public static runAlgorithms = (args: AlgorithmRunnerArgs): SimulationResponse => {
+  public static runAlgorithms = async (args: AlgorithmRunnerArgs): Promise<SimulationResponse> => {
     const { actionsQueue, pagesQueue, memoryInitalState, algorithmsToRun, shouldShowDetails, clockInterruption, memorySize } = args;
     const algorithmResult: AlgorithmResult[] = []
 
@@ -40,6 +41,9 @@ export default class AlgorithmRunner {
       //   algorithmResult.push(new WSClockAlgorithm({ algorithmName: "wsClockAlgorithm", memoryInitalState }).run(runArgs));
 
       const simulationTotalTime = algorithmResult.reduce((cur, prev) => cur + prev.simulationTime, 0);
+
+      const dao = new DAO();
+      await dao.insertSimulationResult({ memorySize, pagesQueueSize: pagesQueue.length, algorithmResult });
 
       return {
         success: true,

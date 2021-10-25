@@ -3,7 +3,12 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { validateParamsIntegrityMiddleware, validateRequiredParamsMiddleware } from "./middlewares/simulation.middleware";
 import { simulateService } from "./services/simulation.service";
-require("dotenv").config({ path: __dirname+"/.env" });
+import DAO from "./dao/DAO";
+require("dotenv").config({ path: __dirname + "/.env" });
+
+// Initialize DB
+const dao = new DAO();
+dao.initializeDB().then().catch(error => console.log(error));
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -24,6 +29,7 @@ app.get("/", (req, res) => res.send("SDPM"))
 
 // The port the express app will listen on
 const port = process.env.PORT || 8080;
+
 
 // Serve the application at the given port
 app.listen(port, () => {
