@@ -5,7 +5,12 @@ export default class DAO {
   protected client: Pool
   constructor() {
     const connectionString = process.env.DATABASE_URL
-    this.client = new Pool({ connectionString, ssl: true });
+    if (connectionString) {
+      this.client = new Pool({ connectionString, ssl: true });
+    } else {
+      this.client = new Pool();
+    }
+
   }
 
   public async query(query: string, values?: any[]) {
@@ -24,57 +29,55 @@ export default class DAO {
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         simulationDate TIMESTAMP,
         memorySize INT,
-        pagesQueueSize INT
-      );
-    `
-    const createTableSimulationResultQuery = `
-      CREATE TABLE IF NOT EXISTS SimulationResult (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        algorithmResult JSONB,
-        simulationHistoryId UUID references SimulationHistory(id)
+        pagesQueueSize INT,
+        optimalAlgorithm INT,
+        fifoAlgorithm INT,
+        secondChanceAlgorithm INT,
+        lruAlgorithm INT,
+        nruAlgorithm INT,
+        wsClockAlgorithm INT
       );
     `
     await this.query(createTableSimulationHistoryQuery);
-    await this.query(createTableSimulationResultQuery);
   }
 
   public async insertSimulationResult(args: { memorySize?: number, pagesQueueSize?: number, algorithmResult?: AlgorithmResult[] }) {
     const { algorithmResult, memorySize, pagesQueueSize } = args;
     if (!algorithmResult?.length) return;
 
+    const optimalAlgorithm = algorithmResult.find(cur => cur.name === 'optimalAlgorithm')?.cont;
+    const fifoAlgorithm = algorithmResult.find(cur => cur.name === 'fifoAlgorithm')?.cont;
+    const secondChanceAlgorithm = algorithmResult.find(cur => cur.name === 'secondChanceAlgorithm')?.cont;
+    const lruAlgorithm = algorithmResult.find(cur => cur.name === 'lruAlgorithm')?.cont;
+    const nruAlgorithm = algorithmResult.find(cur => cur.name === 'nruAlgorithm')?.cont;
+    const wsClockAlgorithm = algorithmResult.find(cur => cur.name === 'wsClockAlgorithm')?.cont;
+
     const insertSimulationHistoryQuery = `
       INSERT INTO SimulationHistory (
         simulationDate,
         memorySize,
-        pagesQueueSize
+        pagesQueueSize,
+        optimalAlgorithm,
+        fifoAlgorithm,
+        secondChanceAlgorithm,
+        lruAlgorithm,
+        nruAlgorithm,
+        wsClockAlgorithm
       )
-      VALUES ($1, $2, $3)
-      RETURNING *
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     `
     const insertSimulationHistoryValues = [
       new Date(),
       memorySize,
       pagesQueueSize,
+      optimalAlgorithm,
+      fifoAlgorithm,
+      secondChanceAlgorithm,
+      lruAlgorithm,
+      nruAlgorithm,
+      wsClockAlgorithm,
     ]
 
-    const res = await this.query(insertSimulationHistoryQuery, insertSimulationHistoryValues);
-    const SimulationHistoryId = res?.rows[0]?.id;
-
-    const insertSimulationResultQuery = `
-      INSERT INTO SimulationResult (
-        algorithmResult,
-        simulationHistoryId
-      )
-      VALUES ($1, $2)
-    `
-
-    algorithmResult.map(async (cur: AlgorithmResult) => {
-      const algorithmResult = { name: cur.name, faults: cur.cont, simulationTime: cur.simulationTime }
-      const insertSimulationResultValues = [
-        algorithmResult,
-        SimulationHistoryId,
-      ]
-      await this.query(insertSimulationResultQuery, insertSimulationResultValues);
-    })
+    await this.query(insertSimulationHistoryQuery, insertSimulationHistoryValues);
   }
 }
