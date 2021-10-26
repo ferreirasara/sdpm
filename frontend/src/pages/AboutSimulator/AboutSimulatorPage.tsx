@@ -1,4 +1,4 @@
-import { FileTextOutlined, GithubOutlined, LinkedinOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import {  FileTextOutlined, GithubOutlined, LinkedinOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Col, Descriptions, PageHeader, Row, Space, Tag, Typography } from "antd";
 
 export default function AboutAlgorithmsPage() {
@@ -61,6 +61,16 @@ export default function AboutAlgorithmsPage() {
               <Typography.Link href="https://drive.google.com/file/d/18nN5XVq_JEna6NUJPhbl0SHJOSdT1HA_/view?usp=sharing" target="_blank">
                 <Tag icon={<FileTextOutlined />} color="#34a853">Monografia</Tag>
               </Typography.Link>
+            </Space>
+          </Descriptions.Item>
+          <Descriptions.Item label="Doações" labelStyle={{ fontWeight: "bold" }}>
+            <Space>
+              <Typography.Link href="https://www.buymeacoffee.com/ferreirasara" target="_blank">
+                <Tag color="#FFDD02" style={{ color: "#000" }}>☕ Buy Me A Coffe</Tag>
+              </Typography.Link>
+              {/* <Tooltip title="Carteira Bitcoin">
+                <Tag color="#F7931A" style={{ color: "#000" }}>Bitcoin</Tag>
+              </Tooltip> */}
             </Space>
           </Descriptions.Item>
         </Descriptions>
