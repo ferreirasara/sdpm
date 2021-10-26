@@ -6,7 +6,7 @@ export default function AboutAlgorithmsPage() {
 
   const developmentTools = [
     <li><b>Versionamento</b>: GitHub <Typography.Text code>v2.31.0</Typography.Text></li>,
-    <li><b>Banco de dados</b>: MongoDB <Typography.Text code>v4.2</Typography.Text></li>,
+    <li><b>Banco de dados</b>: PostgreSQL <Typography.Text code>v13.4</Typography.Text></li>,
     <li><b>Backend</b>: Node.js <Typography.Text code>v14.15.0</Typography.Text></li>,
     <li><b>Frontend</b>: React.js <Typography.Text code>v16</Typography.Text></li>,
     <li><b>IDE</b>: VSCode <Typography.Text code>v1.57.1</Typography.Text></li>,
