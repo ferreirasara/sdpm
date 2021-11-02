@@ -9,7 +9,7 @@ import WSClockAlgorithm from "./algorithms/WSClockAlgorithm";
 
 export default class AlgorithmRunner {
   public static runAlgorithms = async (args: AlgorithmRunnerArgs): Promise<SimulationResponse> => {
-    const { actionsQueue, pagesQueue, memoryInitalState, algorithmsToRun, shouldShowDetails, clockInterruption, memorySize } = args;
+    const { actionsQueue, pagesQueue, memoryInitalState, algorithmsToRun, shouldShowDetails, clockInterruption, memorySize, tau } = args;
     const algorithmResult: AlgorithmResult[] = []
 
     const runArgs: RunArgs = {
@@ -37,8 +37,8 @@ export default class AlgorithmRunner {
       if (algorithmsToRun.includes("nruAlgorithm"))
         algorithmResult.push(new NRUAlgorithm({ algorithmName: "nruAlgorithm", memoryInitalState }).run(runArgs));
 
-      // if (algorithmsToRun.includes("wsClockAlgorithm"))
-      //   algorithmResult.push(new WSClockAlgorithm({ algorithmName: "wsClockAlgorithm", memoryInitalState }).run(runArgs));
+      if (algorithmsToRun.includes("wsClockAlgorithm"))
+        algorithmResult.push(new WSClockAlgorithm({ algorithmName: "wsClockAlgorithm", memoryInitalState, tau }).run(runArgs));
 
       const simulationTotalTime = algorithmResult.reduce((cur, prev) => cur + prev.simulationTime, 0);
 

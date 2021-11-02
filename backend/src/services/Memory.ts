@@ -10,6 +10,7 @@ export default class Memory {
         pageName: cur,
         referenced: true,
         modified: false,
+        timeInMemory: 0,
       }
     });
   }
@@ -30,12 +31,22 @@ export default class Memory {
     return this.pagesInMemory.some((value) => value.pageName === "0")
   }
 
+  public increaseTimeInMemory(index: number) {
+    this.pagesInMemory[index].timeInMemory++;
+  }
+
+  public getTimeInMemory(pageName: string) {
+    const pageIndex = this.findIndex(pageName)
+    return this.pagesInMemory[pageIndex].timeInMemory;
+  }
+
   public referencePage(pageName: string): boolean {
     const pageIndex = this.findIndex(pageName)
     if (pageIndex === -1) {
       return false;
     } else {
       this.setReferenced(pageIndex, true);
+      this.increaseTimeInMemory(pageIndex);
       return true;
     }
   }

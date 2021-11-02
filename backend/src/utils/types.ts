@@ -41,6 +41,7 @@ export interface Page {
   pageName: string,
   referenced: boolean,
   modified: boolean,
+  timeInMemory: number,
 }
 
 export interface AlgorithmInterfaceArgs {
@@ -55,6 +56,7 @@ export interface AlgorithmRunnerArgs {
   actionsQueue: string[]
   clockInterruption: number
   memorySize: number
+  tau: number
 }
 
 export interface FindPageToReplaceArgs {
