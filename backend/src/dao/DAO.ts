@@ -127,7 +127,9 @@ export default class DAO {
            "SimulationHistory"."lruAlgorithm",
            "SimulationHistory"."nruAlgorithm",
            "SimulationHistory"."wsClockAlgorithm"
-    FROM "SimulationHistory" LIMIT 30;
+    FROM "SimulationHistory"
+    ORDER BY "SimulationHistory"."simulationDate" DESC
+    LIMIT 30;
     `;
     const res = await this.query({ query: last30SimulationsQuery, caller: "last30SimulationsQuery" });
     return res?.rows
