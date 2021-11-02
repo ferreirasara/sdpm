@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://sdpm-simulator.herokuapp.com/</loc>
+      <lastmod>2021-11-01</lastmod>
+   </url>
+   <url>
+      <loc>https://sdpm-simulator.herokuapp.com/simulator</loc>
+      <lastmod>2021-11-01</lastmod>
+   </url>
+   <url>
+      <loc>https://sdpm-simulator.herokuapp.com/history</loc>
+      <lastmod>2021-11-01</lastmod>
+   </url>
+   <url>
+      <loc>https://sdpm-simulator.herokuapp.com/aboutAlgorithms</loc>
+      <lastmod>2021-11-01</lastmod>
+   </url>
+   <url>
+      <loc>https://sdpm-simulator.herokuapp.com/aboutSimulator</loc>
+      <lastmod>2021-11-01</lastmod>
+   </url>
+</urlset>
