@@ -62,7 +62,7 @@ export default function DetailsTable(props: DetailsTableProps) {
     },
   ];
 
-  return <Table dataSource={data} columns={columns} size="small" pagination={false} />
+  return <Table dataSource={data} columns={columns} size="small" pagination={false} rowKey={row => row.key} />
 }
 
 interface TableData {
