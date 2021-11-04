@@ -9,7 +9,8 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
   constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
     const { algorithmName, memoryInitalState } = args;
     super({ algorithmName })
-    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
+    this.fifoQueue = [];
+    memoryInitalState.filter(cur => cur !== "0").map(cur => this.fifoQueue.unshift(cur));
     this.memory = new Memory({ memoryInitalState });
   }
 

@@ -10,7 +10,8 @@ export default class WSClockAlgorithm extends AlgorithmInterface {
   constructor(args: { algorithmName: string, memoryInitalState: string[], tau: number }) {
     const { algorithmName, memoryInitalState, tau } = args;
     super({ algorithmName });
-    this.fifoQueue = memoryInitalState.filter(cur => cur !== "0");
+    this.fifoQueue = [];
+    memoryInitalState.filter(cur => cur !== "0").map(cur => this.fifoQueue.unshift(cur));
     this.memory = new Memory({ memoryInitalState });
     this.tau = tau;
   }

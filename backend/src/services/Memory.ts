@@ -31,22 +31,22 @@ export default class Memory {
     return this.pagesInMemory.some((value) => value.pageName === "0")
   }
 
-  public increaseTimeInMemory(index: number) {
-    this.pagesInMemory[index].timeInMemory++;
+  public increaseTimeInMemory() {
+    this.pagesInMemory.forEach(cur => cur.timeInMemory++);
   }
 
   public getTimeInMemory(pageName: string) {
-    const pageIndex = this.findIndex(pageName)
+    const pageIndex = this.findIndex(pageName);
     return this.pagesInMemory[pageIndex].timeInMemory;
   }
 
   public referencePage(pageName: string): boolean {
+    this.increaseTimeInMemory();
     const pageIndex = this.findIndex(pageName)
     if (pageIndex === -1) {
       return false;
     } else {
       this.setReferenced(pageIndex, true);
-      this.increaseTimeInMemory(pageIndex);
       return true;
     }
   }
@@ -72,6 +72,7 @@ export default class Memory {
   public replacePage(pageName: string, pageNameToReplace: string) {
     const pageIndex = this.findIndex(pageNameToReplace)
     this.pagesInMemory[pageIndex].pageName = pageName;
+    this.pagesInMemory[pageIndex].timeInMemory = 1;
     this.setReferenced(pageIndex, true);
   }
 
