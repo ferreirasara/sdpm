@@ -35,11 +35,11 @@ export default function ResultCard(props: ResultCardProps) {
         <BarChart suffix={"faltas"} axis={faultAxis} data={faultData || []} />
       </Card>
     </Col>
-    {timeData?.length && <Col span={20}>
+    {timeData?.length ? <Col span={20}>
       <Card bordered={false} title="Tempo de execução de cada algoritmo">
         <PizzaChart suffix={"milisegundos"} data={timeData || []} />
       </Card>
-    </Col>}
+    </Col> : null}
     <Col span={20}>
       <Card bordered={false} title="Dados usados na simulação">
         <Descriptions size="small" labelStyle={{ fontWeight: "bold" }}>
