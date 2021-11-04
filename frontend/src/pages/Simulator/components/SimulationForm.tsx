@@ -3,7 +3,7 @@ import { Button, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Toolti
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
-import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
+import { algorithmList } from "../../../utils/algorithmList";
 import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue, setClockInterruption } from "../../../utils/generateRandomData";
 import { setExampleValues } from "../../../utils/examples";
 
