@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Button, Layout, Menu, Result } from "antd";
 import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, MenuOutlined } from "@ant-design/icons";
 import { Content, Header } from "antd/lib/layout/layout";
 import "antd/dist/antd.css";
@@ -33,7 +33,15 @@ export default function SDPMRootPage() {
     <Route key="history" path="/history" component={HistoryPage} />,
     <Route key="aboutAlgorithms" path="/aboutAlgorithms" component={AboutAlgorithmsPage} />,
     <Route key="aboutSimulator" path="/aboutSimulator" component={AboutSimulatorPage} />,
-    <Route key={"404"} render={() => "404: Page Not Found"} />,
+    <Route
+      key={"404"}
+      render={() => <Result
+        status="404"
+        title="404"
+        subTitle="Desculpe, essa página não existe."
+        extra={<Button type="primary"><NavLink to="/" >Voltar para a página inicial</NavLink></Button>}
+      />}
+    />,
   ]
 
   return <>
