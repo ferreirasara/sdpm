@@ -6,6 +6,7 @@ import { SimulationData } from "../../../utils/types";
 import { algorithmList } from "../../../utils/algorithmList";
 import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue, setClockInterruption } from "../../../utils/generateRandomData";
 import { setExampleValues } from "../../../utils/examples";
+import { env } from "process";
 
 export interface SimulationFormProps {
   form: FormInstance<SimulationData>,
@@ -212,7 +213,7 @@ export default function SimulationForm(props: SimulationFormProps) {
     <Form.Item>
       <Space>
         <Button type="primary" htmlType="submit" icon={<ThunderboltOutlined />}>Simular</Button>
-        <Dropdown.Button overlay={examplesMenu} type="dashed">Usar exemplo</Dropdown.Button>
+        {process.env.NODE_ENV !== "production" && <Dropdown.Button overlay={examplesMenu} type="dashed">Usar exemplo</Dropdown.Button>}
         <Button type="dashed" htmlType="button" icon={<SettingOutlined />} onClick={() => setRandomValues(form)}>Gerar dados aleatórios</Button>
         <Button type="dashed" htmlType="button" icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
       </Space>
