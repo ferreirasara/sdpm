@@ -56,6 +56,7 @@ export default function SimulationForm(props: SimulationFormProps) {
     <Menu selectedKeys={[selectedExample]} onClick={(e) => setSelectedExample(e.key)} >
       <Menu.Item key="example1" >Exemplo 1</Menu.Item>
       <Menu.Item key="example2" >Exemplo 2</Menu.Item>
+      <Menu.Item key="example3" >Exemplo 3</Menu.Item>
     </Menu>
   )
 
