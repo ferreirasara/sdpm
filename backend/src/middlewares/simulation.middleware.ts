@@ -15,12 +15,12 @@ export const validateRequiredParamsMiddleware = async (req: any, res: any, next:
     return res.status(400).send({ success: false, message: `O campo "Fila de ações" é obrigatório.` })
   } else if (!req.body.memoryInitalState) {
     return res.status(400).send({ success: false, message: `O campo "Estado inicial da memória" é obrigatório.` })
-  } else if (!req.body.clockInterruption) {
-    return res.status(400).send({ success: false, message: `O campo "Interrupção do relógio" é obrigatório.` })
-  } else if (!req.body.tau) {
-    return res.status(400).send({ success: false, message: `O campo "τ (tau)" é obrigatório.` })
   } else if (!req.body.algorithms) {
     return res.status(400).send({ success: false, message: `O campo "Algoritmos" é obrigatório.` })
+  } else if (!req.body.clockInterruption && (req.body.algorithms.includes("nruAlgorithm") || req.body.algorithms.includes("secondChanceAlgorithm") || req.body.algorithms.includes("wsClockAlgorithm"))) {
+    return res.status(400).send({ success: false, message: `O campo "Interrupção do relógio" é obrigatório.` })
+  } else if (!req.body.tau && req.body.algorithms.includes("wsClockAlgorithm")) {
+    return res.status(400).send({ success: false, message: `O campo "τ (tau)" é obrigatório.` })
   } else {
     return next();
   }

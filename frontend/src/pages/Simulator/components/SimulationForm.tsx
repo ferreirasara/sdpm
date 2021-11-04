@@ -17,7 +17,7 @@ export default function SimulationForm(props: SimulationFormProps) {
 
   const algorithmsOptions = algorithmList.map(cur => { return <Select.Option value={cur.name} key={cur.name}>{cur.label}</Select.Option> })
 
-  const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>(algorithmNamesList)
+  const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>()
   const [formSubmitLoading, setFormSubmitLoading] = useState(false)
   const [selectedExample, setSelectedExample] = useState<string>("")
 
@@ -159,7 +159,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       } style={{ width: "100%" }} />
     </Form.Item>
 
-    <Form.Item
+    {!!(selectedAlgorithms?.includes("nruAlgorithm") || selectedAlgorithms?.includes("secondChanceAlgorithm") || selectedAlgorithms?.includes("wsClockAlgorithm")) && <Form.Item
       label="Interrupção do relógio"
       key="clockInterruption"
       name="clockInterruption"
@@ -176,9 +176,9 @@ export default function SimulationForm(props: SimulationFormProps) {
           />
         </Tooltip>
       } style={{ width: "100%" }} type="number" />
-    </Form.Item>
+    </Form.Item>}
 
-    <Form.Item
+    {!!(selectedAlgorithms?.includes("wsClockAlgorithm")) && <Form.Item
       label="τ (tau)"
       key="tau"
       name="tau"
@@ -195,7 +195,7 @@ export default function SimulationForm(props: SimulationFormProps) {
           />
         </Tooltip>
       } style={{ width: "100%" }} type="number" />
-    </Form.Item>
+    </Form.Item>}
 
     <Form.Item
       label="Algoritmos"

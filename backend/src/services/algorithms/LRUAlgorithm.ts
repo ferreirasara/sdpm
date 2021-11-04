@@ -50,7 +50,7 @@ export default class LRUAlgorithm extends AlgorithmInterface {
   }
 
   public run(args: RunArgs): AlgorithmResult {
-    const { pagesQueue, memoryInitalState, actionsQueue, clockInterruption, shouldShowDetails } = args;
+    const { pagesQueue, actionsQueue, shouldShowDetails } = args;
     const start = new Date().getTime();
 
     const simulationExecution: SimulationExecution[] = []
