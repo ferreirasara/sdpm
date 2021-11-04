@@ -37,6 +37,7 @@ export interface Page {
   pageName: string,
   referenced: boolean,
   modified: boolean,
+  timeInMemory: number,
 }
 
 export interface SimulationHistory {

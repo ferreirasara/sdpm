@@ -18,6 +18,7 @@ const MemoryRender = (props: { memory: Page[], record: TableData }) => {
         <Typography.Text keyboard>{cur.pageName}</Typography.Text>
         <Typography.Text type={referenced ? "success" : "danger"} keyboard>{"R=" + referenced}</Typography.Text>
         <Typography.Text type={modified ? "success" : "danger"} keyboard>{"M=" + modified}</Typography.Text>
+        <Typography.Text keyboard>{"K=" + cur.timeInMemory}</Typography.Text>
       </Tag>
     })}
   </>
