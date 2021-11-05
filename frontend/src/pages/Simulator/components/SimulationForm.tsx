@@ -3,7 +3,7 @@ import { Button, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Toolti
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
-import { algorithmList } from "../../../utils/algorithmList";
+import { algorithmList, algorithmNamesList } from "../../../utils/algorithmList";
 import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue, setClockInterruption } from "../../../utils/generateRandomData";
 import { setExampleValues } from "../../../utils/examples";
 
@@ -20,12 +20,16 @@ export default function SimulationForm(props: SimulationFormProps) {
   const [selectedAlgorithms, setSelectedAlgorithms] = useState<string[]>()
   const [formSubmitLoading, setFormSubmitLoading] = useState(false)
   const [selectedExample, setSelectedExample] = useState<string>("")
+  const [firstRender, setFirstRender] = useState<boolean>(true);
+
+  if (firstRender) {
+    setSelectedAlgorithms(algorithmNamesList)
+    setFirstRender(false);
+  }
 
   useEffect(() => {
     setExampleValues(form, selectedExample)
   }, [selectedExample, form])
-
-  const initialValues = { algorithms: selectedAlgorithms }
 
   const onReset = () => {
     form.resetFields();
@@ -60,7 +64,7 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Menu>
   )
 
-  return <Form labelAlign="right" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit} initialValues={initialValues}>
+  return <Form labelAlign="right" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit}>
 
     <Form.Item
       label="Tamanho da memória"
@@ -204,7 +208,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       tooltip="Algoritmos a serem executados."
       rules={[{ required: true, message: "Selecione os algoritmos" }]}
     >
-      <Select mode="multiple" style={{ width: "100%" }} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
+      <Select mode="multiple" style={{ width: "100%" }} defaultValue={algorithmNamesList} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
         {algorithmsOptions}
       </Select>
     </Form.Item>
@@ -213,7 +217,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       <Space>
         <Button type="primary" htmlType="submit" icon={<ThunderboltOutlined />}>Simular</Button>
         {process.env.NODE_ENV !== "production" && <Dropdown.Button overlay={examplesMenu} type="dashed">Usar exemplo</Dropdown.Button>}
-        <Button type="dashed" htmlType="button" icon={<SettingOutlined />} onClick={() => setRandomValues(form)}>Gerar dados aleatórios</Button>
+        <Button type="dashed" htmlType="button" icon={<SettingOutlined />} onClick={() => setRandomValues(form, setSelectedAlgorithms)}>Gerar dados aleatórios</Button>
         <Button type="dashed" htmlType="button" icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
       </Space>
     </Form.Item>
