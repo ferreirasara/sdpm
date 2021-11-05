@@ -1,10 +1,10 @@
 import { RunArgs } from "../utils/types";
-import FIFOAlgorithm from "./algorithms/FIFOAlgorithm";
-import LRUAlgorithm from "./algorithms/LRUAlgorithm";
-import NRUAlgorithm from "./algorithms/NRUAlgorithm";
-import OptimalAlgorithm from "./algorithms/OptimalAlgorithm";
-import SecondChanceAlgorithm from "./algorithms/SecondChanceAlgorithm";
-import WSClockAlgorithm from "./algorithms/WSClockAlgorithm";
+import FIFOAlgorithm from "../services/algorithms/FIFOAlgorithm";
+import LRUAlgorithm from "../services/algorithms/LRUAlgorithm";
+import NRUAlgorithm from "../services/algorithms/NRUAlgorithm";
+import OptimalAlgorithm from "../services/algorithms/OptimalAlgorithm";
+import SecondChanceAlgorithm from "../services/algorithms/SecondChanceAlgorithm";
+import WSClockAlgorithm from "../services/algorithms/WSClockAlgorithm";
 
 describe(`Tests FIFOAlgorithm`, () => {
   it(``, () => {
@@ -90,6 +90,7 @@ describe(`Tests SecondChanceAlgorithm`, () => {
 describe(`Tests WSClockAlgorithm`, () => {
   it(``, () => {
     const memoryInitalState = ["0","0","0"];
+    const tau = 3;
     const runArgs: RunArgs = {
       memoryInitalState,
       actionsQueue: ["E", "E", "L", "E", "E", "L", "E", "L", "L", "L", "L", "E", "E"],
@@ -98,7 +99,7 @@ describe(`Tests WSClockAlgorithm`, () => {
       shouldShowDetails: false,
       memorySize: 3,
     };
-    const res = new WSClockAlgorithm({ algorithmName: "fifoAlgorithm", memoryInitalState }).run(runArgs);
-    expect(res.cont).toBe(0);
+    const res = new WSClockAlgorithm({ algorithmName: "fifoAlgorithm", memoryInitalState, tau }).run(runArgs);
+    expect(res.cont).toBe(9);
   });
 });
