@@ -1,6 +1,12 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SDPM",
+  "name": "SDPM - Simulador Didático de Paginação de Memória",
+  "description": "Simulador desenvolvido como Trabalho de Conclusão de Curso, apresentado ao curso de Bacharelado em Ciência da Computação da Faculdade de Ciências Exatas e de Tecnologia da Universidade Tuiuti do Paraná, como requisito à obtenção ao grau de Bacharel.",
+  "author": "Sara Cristina Ferreira",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#001529",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +14,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo128.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "128x128"
     },
     {
       "src": "logo512.png",
@@ -18,8 +24,26 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "shortcuts": [
+    {
+      "name": "Simulador",
+      "short_name": "Simulador",
+      "url": "/"
+    },
+    {
+      "name": "Histórico",
+      "short_name": "Histórico",
+      "url": "/history"
+    },
+    {
+      "name": "Sobre os algoritmos",
+      "short_name": "Sobre os algoritmos",
+      "url": "/aboutAlgorithms"
+    },
+    {
+      "name": "obre o simulador",
+      "short_name": "obre o simulador",
+      "url": "/aboutSimulator"
+    }
+  ]
 }
