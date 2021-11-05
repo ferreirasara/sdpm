@@ -101,7 +101,7 @@ export default function SimulationsTable() {
 
   return <Col span={20}>
     <Card bordered={false} title="30 últimas simulações">
-      <Table dataSource={response} columns={columns} size="small" pagination={false} loading={loading} bordered />
+      <Table dataSource={response} columns={columns} size="small" loading={loading} bordered />
     </Card>
   </Col>
 }

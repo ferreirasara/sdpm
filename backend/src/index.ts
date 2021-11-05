@@ -1,10 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { validateParamsIntegrityMiddleware, validateRequiredParamsMiddleware } from "./middlewares/simulation.middleware";
+import { validateSimulationParamsIntegrityMiddleware, validateSimulationRequiredParamsMiddleware } from "./middlewares/simulation.middleware";
 import { simulationService } from "./services/simulation.service";
 import DAO from "./dao/DAO";
 import { simulationHistoryService, simulationStatsService } from "./services/simulationHistory.service";
+import { simulationRatingStatsService, simulatorRatingService } from "./services/simulatorRating.service";
+import { validateSimulationRatingRequiredParamsMiddleware } from "./middlewares/rating.middleware";
 require("dotenv").config({ path: __dirname + "/.env" });
 
 // Initialize DB
@@ -21,17 +23,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/simulation", [
-    validateRequiredParamsMiddleware,
-    validateParamsIntegrityMiddleware,
-    simulationService,
+  validateSimulationRequiredParamsMiddleware,
+  validateSimulationParamsIntegrityMiddleware,
+  simulationService,
 ])
 
 app.get("/simulationHistory", [
-    simulationHistoryService,
+  simulationHistoryService,
 ])
 
 app.get("/simulationStats", [
-    simulationStatsService,
+  simulationStatsService,
+])
+
+app.post("/simulatorRating", [
+  validateSimulationRatingRequiredParamsMiddleware,
+  simulatorRatingService,
+])
+
+app.get("/simulationRatingStats", [
+  simulationRatingStatsService,
 ])
 
 // The port the express app will listen on
@@ -40,5 +51,5 @@ const port = process.env.PORT || 8080;
 
 // Serve the application at the given port
 app.listen(port, () => {
-    console.log(`Listening at ${process.env.NODE_ENV !== "production" ? "http://localhost:" : "https://api-sdpm-simulator.herokuapp.com:"}${port}/`);
+  console.log(`Listening at ${process.env.NODE_ENV !== "production" ? "http://localhost:" : "https://api-sdpm-simulator.herokuapp.com:"}${port}/`);
 });

@@ -47,6 +47,14 @@ export default class DAO {
         "totalOfTime" INT
       )
     `;
+    const createTableSimulationRatingQuery = `
+      CREATE TABLE IF NOT EXISTS "SimulationRating" (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        "ratingDate" TIMESTAMP,
+        "rating" INT,
+        "comment" VARCHAR
+      )
+    `;
     const insertTableSimulationStatsQuery = `
       INSERT INTO "SimulationStats" (
         "totalOfSimulations",
@@ -57,7 +65,8 @@ export default class DAO {
     `
     await this.query({ query: createTableSimulationHistoryQuery, caller: "createTableSimulationHistoryQuery" });
     await this.query({ query: createTableSimulationStatsQuery, caller: "createTableSimulationStatsQuery" });
-    await this.query({ query: insertTableSimulationStatsQuery, caller: "createTableSimulationStatsQuery" });
+    await this.query({ query: createTableSimulationRatingQuery, caller: "createTableSimulationRatingQuery" });
+    await this.query({ query: insertTableSimulationStatsQuery, caller: "insertTableSimulationStatsQuery" });
   }
 
   public async insertSimulationResult(args: { memorySize?: number, pagesQueueSize?: number, algorithmResult?: AlgorithmResult[] }) {
@@ -113,6 +122,39 @@ export default class DAO {
 
     await this.query({ query: insertSimulationHistoryQuery, values: insertSimulationHistoryValues, caller: "insertSimulationHistoryQuery" });
     await this.query({ query: insertSimulationStatsQuery, values: insertSimulationStatsValues, caller: "insertSimulationStatsQuery" });
+  }
+
+  public async insertSimulationRating(args: { rating: number, comment?: string }) {
+    const { rating, comment } = args;
+
+    const insertSimulationRatingQuery = `
+      INSERT INTO "SimulationRating" (
+        "ratingDate",
+        "rating",
+        "comment"
+      )
+      VALUES ($1, $2, $3)
+    `
+    const insertSimulationRatingValues = [
+      new Date(),
+      rating,
+      comment,
+    ]
+
+    await this.query({ query: insertSimulationRatingQuery, values: insertSimulationRatingValues, caller: "insertSimulationRatingQuery" });
+  }
+
+  public async getLast30SimulationRatings() {
+    const last30SimulationRatingsQuery = `
+    SELECT "SimulationRating"."ratingDate",
+           "SimulationRating"."rating",
+           "SimulationRating"."comment"
+    FROM "SimulationRating"
+    ORDER BY "SimulationRating"."ratingDate" DESC
+    LIMIT 30;
+    `;
+    const res = await this.query({ query: last30SimulationRatingsQuery, caller: "last30SimulationRatingsQuery" });
+    return res?.rows
   }
 
   public async getLast30Simulations() {

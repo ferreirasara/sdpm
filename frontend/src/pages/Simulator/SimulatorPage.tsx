@@ -1,10 +1,11 @@
-import { BuildOutlined, QuestionOutlined, SyncOutlined } from "@ant-design/icons";
+import { BuildOutlined, QuestionOutlined, StarOutlined, SyncOutlined } from "@ant-design/icons";
 import { Button, Card, Form, notification, PageHeader, Result, Row } from "antd";
 import { useState } from "react";
 import api from "../../api";
 import { SimulationResponse, SimulationData } from "../../utils/types";
 import { getMessageFromError } from "../../utils/utils";
 import HelpModal from "./components/HelpModal";
+import RatingModal from "./components/RatingModal";
 import ResultCard from "./components/ResultCard";
 import SimulationForm from "./components/SimulationForm";
 import SimulationSteps from "./components/SimulationSteps";
@@ -16,6 +17,8 @@ export default function AboutAlgorithmsPage() {
   const [simulationResponse, setSimulationResponse] = useState<SimulationResponse>({})
   const [simulationData, setSimulationData] = useState<SimulationData>({})
   const [helpModalVisible, setHelpModalVisible] = useState<boolean>(false);
+  const [ratingModalVisible, setRatingModalVisible] = useState<boolean>(false);
+  const [rated, setRated] = useState<boolean>(false);
 
   const handleStartSimulation = async (data: SimulationData) => {
     setCurrentStep(1)
@@ -48,7 +51,10 @@ export default function AboutAlgorithmsPage() {
     <PageHeader
       title={<><BuildOutlined /> Simulador</>}
       style={{ background: "white" }}
-      extra={<Button icon={<QuestionOutlined />} shape="circle" onClick={() => setHelpModalVisible(!helpModalVisible)} />}
+      extra={<>
+        <Button icon={<QuestionOutlined />} shape="circle" onClick={() => setHelpModalVisible(!helpModalVisible)} />
+        {(!rated && currentStep === 2) ? <Button icon={<StarOutlined />} shape="circle" onClick={() => setRatingModalVisible(!ratingModalVisible)} /> : null}
+      </>}
     />
     <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
       <SimulationSteps currentStep={currentStep} setCurrentStep={setCurrentStep} />
@@ -77,5 +83,6 @@ export default function AboutAlgorithmsPage() {
     </Row>}
 
     <HelpModal helpModalVisible={helpModalVisible} setHelpModalVisible={setHelpModalVisible} />
+    <RatingModal ratingModalVisible={ratingModalVisible} setRatingModalVisible={setRatingModalVisible} setRated={setRated} />
   </>
 }

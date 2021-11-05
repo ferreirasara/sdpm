@@ -6,7 +6,6 @@ import { SimulationData } from "../../../utils/types";
 import { algorithmList } from "../../../utils/algorithmList";
 import { setPagesQueue, setMemoryInitialState, setTau, setRandomValues, setActionsQueue, setClockInterruption } from "../../../utils/generateRandomData";
 import { setExampleValues } from "../../../utils/examples";
-import { env } from "process";
 
 export interface SimulationFormProps {
   form: FormInstance<SimulationData>,
