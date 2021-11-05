@@ -7,7 +7,7 @@ import { SimulationHistory } from "../../../utils/types";
 import { getMessageFromError } from "../../../utils/utils";
 
 export default function SimulationsTable() {
-  const [response, setResponse] = useState<SimulationHistory[]>([]);
+  const [response, setResponse] = useState<SimulationHistory>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export default function SimulationsTable() {
 
   return <Col span={20}>
     <Card bordered={false} title="30 últimas simulações">
-      <Table dataSource={response} columns={columns} size="small" loading={loading} bordered />
+      <Table dataSource={response?.data} columns={columns} size="small" loading={loading} bordered />
     </Card>
   </Col>
 }

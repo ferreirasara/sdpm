@@ -33,7 +33,7 @@ export default function GeneralStatistics() {
       <Card bordered={false}>
         <Statistic
           title="Total de simulações realizadas"
-          value={response?.totalOfSimulations}
+          value={response?.data?.totalOfSimulations}
           prefix={<MonitorOutlined />}
           suffix={"simulações"}
           loading={loading}
@@ -44,9 +44,9 @@ export default function GeneralStatistics() {
       <Card bordered={false}>
         <Statistic
           title="Total de tempo gasto nas simulações realizadas"
-          value={formatSimulationTime(response?.totalOfTime || 0).simulationTime}
+          value={formatSimulationTime(response?.data?.totalOfTime || 0).simulationTime}
           prefix={<HourglassOutlined />}
-          suffix={formatSimulationTime(response?.totalOfTime || 0).suffix}
+          suffix={formatSimulationTime(response?.data?.totalOfTime || 0).suffix}
           loading={loading}
         />
       </Card>

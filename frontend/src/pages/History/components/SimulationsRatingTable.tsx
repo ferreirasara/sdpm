@@ -2,10 +2,11 @@ import { Card, Col, notification, Rate, Table } from "antd";
 import { useEffect, useState } from "react";
 import api from "../../../api";
 import { formatDateHour } from "../../../utils/pretifyStrings";
+import { SimulationsRating } from "../../../utils/types";
 import { getMessageFromError } from "../../../utils/utils";
 
 export default function SimulationsRatingTable() {
-  const [response, setResponse] = useState<{ ratingDate: string, rating: number, comment?: string }[]>([]);
+  const [response, setResponse] = useState<SimulationsRating>();
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function SimulationsRatingTable() {
 
   return <Col span={20}>
     <Card bordered={false} title="30 últimas avaliações">
-      <Table dataSource={response} columns={columns} size="small" loading={loading} bordered />
+      <Table dataSource={response?.data} columns={columns} size="small" loading={loading} bordered />
     </Card>
   </Col>
 }

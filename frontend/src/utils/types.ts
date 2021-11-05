@@ -41,18 +41,33 @@ export interface Page {
 }
 
 export interface SimulationHistory {
-  date?: string,
-  memorySize?: number,
-  pagesQueueSize?: number,
-  optimalAlgorithm?: number,
-  fifoAlgorithm?: number,
-  secondChanceAlgorithm?: number,
-  lruAlgorithm?: number,
-  nruAlgorithm?: number,
-  wsClockAlgorithm?: number,
+  succes: boolean,
+  data: {
+    date?: string,
+    memorySize?: number,
+    pagesQueueSize?: number,
+    optimalAlgorithm?: number,
+    fifoAlgorithm?: number,
+    secondChanceAlgorithm?: number,
+    lruAlgorithm?: number,
+    nruAlgorithm?: number,
+    wsClockAlgorithm?: number,
+  }[],
 }
 
 export interface SimulationStats {
-  totalOfSimulations?: number,
-  totalOfTime?: number,
+  succes: boolean,
+  data: {
+    totalOfSimulations?: number,
+    totalOfTime?: number,
+  },
+}
+
+export interface SimulationsRating {
+  succes: boolean,
+  data: {
+    ratingDate: string,
+    rating: number,
+    comment?: string
+  }[],
 }

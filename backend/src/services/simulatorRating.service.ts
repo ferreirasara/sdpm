@@ -6,21 +6,21 @@ export const simulatorRatingService = async (req: any, res: any, next: any) => {
 
   try {
     await dao.insertSimulationRating({ rating, comment });
-    res.send({
-      success: true,
-      message: "Saved.",
-    });
+    res.send({ success: true });
   } catch (error) {
-    res.send({
-      success: false,
-      message: error,
-    });
+    console.log(error);
+    res.send({ success: false, message: `Erro: ${(error as Error).message}` });
   }
 }
 
 export const simulationRatingStatsService = async (req: any, res: any, next: any) => {
-  const dao = new DAO();
-  const result = await dao.getLast30SimulationRatings();
+  try {
+    const dao = new DAO();
+    const data = await dao.getLast30SimulationRatings();
 
-  res.send(result);
+    res.send({ success: true, data });
+  } catch (error) {
+    console.log(error);
+    res.send({ success: false, message: `Erro: ${(error as Error).message}` });
+  }
 }
