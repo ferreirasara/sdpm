@@ -64,7 +64,7 @@ export default function SimulationForm(props: SimulationFormProps) {
     </Menu>
   )
 
-  return <Form labelAlign="right" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit}>
+  return <Form labelAlign="right" initialValues={{ algorithms: algorithmNamesList }} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} onFinish={handleSubmit}>
 
     <Form.Item
       label="Tamanho da memória"
