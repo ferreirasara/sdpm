@@ -39,7 +39,7 @@ export default function HelpModal(props: HelpModalProps) {
       <Timeline.Item color="#ffe58f">
         <Space direction="vertical">
           <Typography.Text strong mark>Resultados</Typography.Text>
-          <span>Caso o tamanho da memória seja menor ou igual a 5, o número de páginas seja menor ou igual a 10 e o tamanho da fila de páginas seja menor ou igual a 15, serão mostrados os detalhes da simulação, disponíveis ao final da página.</span>
+          <span>Caso o tamanho da memória seja menor ou igual a 5, o número de páginas seja menor ou igual a 10 e o tamanho da fila de páginas seja menor ou igual a 50, serão mostrados os detalhes da simulação, disponíveis ao final da página.</span>
         </Space>
       </Timeline.Item>
     </Timeline>

@@ -9,7 +9,7 @@ export const simulationService = async (req: any, res: any, next: any) => {
   const memorySize = body.memorySize
   const pagesQueue = body.pagesQueue.split("|");
   const actionsQueue = body.actionsQueue.split("|");
-  const shouldShowDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 15;
+  const shouldShowDetails = body.memorySize <= 5 && body.numberOfPages <= 10 && pagesQueue.length <= 50;
   const clockInterruption = body.clockInterruption;
   const tau = body.tau
 
