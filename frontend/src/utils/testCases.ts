@@ -1,6 +1,6 @@
 import { FormInstance } from "antd"
 
-const example1 = {
+const testCase1 = {
   memorySize: 5,
   pagesQueueSize: 50,
   numberOfPages: 10,
@@ -12,7 +12,7 @@ const example1 = {
   tau: 1,
 }
 
-const example2 = {
+const testCase2 = {
   memorySize: 5,
   pagesQueueSize: 50,
   numberOfPages: 10,
@@ -24,7 +24,7 @@ const example2 = {
   tau: 1,
 }
 
-const example3 = {
+const testCase3 = {
   memorySize: 5,
   pagesQueueSize: 50,
   numberOfPages: 10,
@@ -36,9 +36,9 @@ const example3 = {
   tau: 4,
 }
 
-export const setExampleValues = (form: FormInstance<any>, selectedExample: string) => {
-  if (selectedExample === "") return
-  if (selectedExample === "example1") form.setFieldsValue({ ...example1 });
-  if (selectedExample === "example2") form.setFieldsValue({ ...example2 });
-  if (selectedExample === "example3") form.setFieldsValue({ ...example3 });
+export const setTestCaseValues = (form: FormInstance<any>, selectedTestCase: string) => {
+  if (selectedTestCase === "") return
+  if (selectedTestCase === "testCase1") form.setFieldsValue({ ...testCase1 });
+  if (selectedTestCase === "testCase2") form.setFieldsValue({ ...testCase2 });
+  if (selectedTestCase === "testCase3") form.setFieldsValue({ ...testCase3 });
 }
