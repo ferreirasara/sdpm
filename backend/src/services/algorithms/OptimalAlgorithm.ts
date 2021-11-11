@@ -19,7 +19,7 @@ export default class OptimalAlgorithm extends AlgorithmInterface {
         index: pagesQueue?.findIndex((value) => value === cur.pageName)
       }
     });
-    const notInQueue = pagesReferences?.find(cur => cur.index - 1);
+    const notInQueue = pagesReferences?.find(cur => cur.index === -1);
     if (notInQueue) {
       return notInQueue.pageName;
     } else {
