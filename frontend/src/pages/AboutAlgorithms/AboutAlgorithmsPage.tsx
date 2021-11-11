@@ -10,11 +10,12 @@ export default function AboutAlgorithmsPage() {
 
   const secondParagraphText = `Para realizar esse trabalho existem os diversos algoritmos de troca de página, que buscam otimizar ao máximo a substituição de páginas.`
 
+  // TODO: add more info here
   const optimalAlgorithmText = `O algoritmo ótimo é excelente, mas impossível na prática.  Apesar disso, ele pode ser utilizado como forma de mensurar os outros algoritmos.`;
   const fifoAlgorithmText = `O FIFO é o mais simples, mas também a pior escolha, pois remove as páginas sem levar nada em consideração, fazendo com que remova páginas que estão em uso.`;
   const secondChanceAlgorithmText = `O algoritmo segunda chance é uma versão mais aprimorada do FIFO. Ele confere se a página está sendo usada. Caso não esteja, ela é removida. Essa pequena alteração, melhora muito o desempenho, comparado com o FIFO.`;
   const lruAlgorithmText = `O LRU é muito bom, mas só pode ser implementado utilizando um hardware especial.`;
-  const nruAlgorithmText = `O NRU divide as páginas em classes, combinando os bits R e M, e a página declasse mais baixa é removida. Apesar de ser fácil de implementar, ele é rudimentar.`;
+  const nruAlgorithmText = `O NRU divide as páginas em classes, combinando os bits R e M, e a página de classe mais baixa é removida. Apesar de ser fácil de implementar, ele é rudimentar.`;
   const wsClockAlgorithmText = `O WS-Clock é baseado no conjunto de trabalho, e é muito eficiente, amplamente utilizado na prática.`;
 
   const panels = [
