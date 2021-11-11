@@ -1,5 +1,4 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cors from "cors";
 import { validateSimulationParamsIntegrityMiddleware, validateSimulationRequiredParamsMiddleware } from "./middlewares/simulation.middleware";
 import { simulationService } from "./services/simulation.service";
