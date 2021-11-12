@@ -65,8 +65,8 @@ export default class Memory {
     this.pagesInMemory[pageIndex].referenced = referenced;
   }
 
-  public setModified(pageIndex: number, modified: boolean) {
-    if (!this.pagesInMemory[pageIndex].modified) this.pagesInMemory[pageIndex].modified = modified;
+  public setModified(pageIndex: number, modified: boolean, force?: boolean) {
+    if (force || !this.pagesInMemory[pageIndex].modified) this.pagesInMemory[pageIndex].modified = modified;
   }
 
   public replacePage(pageName: string, pageNameToReplace: string, modified: boolean) {

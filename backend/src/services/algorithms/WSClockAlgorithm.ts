@@ -26,7 +26,7 @@ export default class WSClockAlgorithm extends AlgorithmInterface {
           return false;
         } else {
           if (this.memory.pageIsModified(pageName)) {
-            this.memory.setModified(this.memory.findIndex(pageName), false);
+            this.memory.setModified(this.memory.findIndex(pageName), false, true);
             return false;
           } else {
             return true;
@@ -35,13 +35,13 @@ export default class WSClockAlgorithm extends AlgorithmInterface {
       }
     }
 
-    let pageName = this.fifoQueue.pop() || "";
-    while (!shouldRemovePage(pageName)) {
+    for (let i = 0; i <= this.fifoQueue.length; i++) {
+      const pageName = this.fifoQueue.pop() || "";
+      if (shouldRemovePage(pageName)) return pageName;
       this.fifoQueue.unshift(pageName);
-      pageName = this.fifoQueue.pop() || "";
     }
 
-    return pageName;
+    return this.fifoQueue.pop() || "";
   }
 
   public run(args: RunArgs): AlgorithmResult {
