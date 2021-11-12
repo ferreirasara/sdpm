@@ -8,7 +8,7 @@ export default class Memory {
     this.pagesInMemory = memoryInitalState.map(cur => {
       return {
         pageName: cur,
-        referenced: true,
+        referenced: false,
         modified: false,
         timeInMemory: 0,
       }
