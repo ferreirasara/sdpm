@@ -65,12 +65,12 @@ export default class LRUAlgorithm extends AlgorithmInterface {
       } else {
         faults++;
         if (this.memory.hasFreePosition()) {
-          this.memory.replacePage(pageName, "0");
+          this.memory.replacePage(pageName, "0", modified);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
           this.referencePage(this.memory.findIndex(pageName));
         } else {
           const pageNameToReplace = this.findPageToReplace();
-          this.memory.replacePage(pageName, pageNameToReplace);
+          this.memory.replacePage(pageName, pageNameToReplace, modified);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
           this.referencePage(this.memory.findIndex(pageName));
         }

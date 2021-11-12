@@ -39,12 +39,12 @@ export default class SecondChanceAlgorithm extends AlgorithmInterface {
       } else {
         faults++;
         if (this.memory.hasFreePosition()) {
-          this.memory.replacePage(pageName, "0");
+          this.memory.replacePage(pageName, "0", modified);
           this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida em uma posição livre da memória.`, memory: this.memory.getPages() })
         } else {
           const pageNameToReplace = this.findPageToReplace();
-          this.memory.replacePage(pageName, pageNameToReplace);
+          this.memory.replacePage(pageName, pageNameToReplace, modified);
           this.fifoQueue.unshift(pageName);
           if (shouldShowDetails) simulationExecution.push({ fault: true, pageName, action: `A página ${pageName} foi inserida no lugar da página ${pageNameToReplace}.`, memory: this.memory.getPages() })
         }

@@ -66,13 +66,14 @@ export default class Memory {
   }
 
   public setModified(pageIndex: number, modified: boolean) {
-    this.pagesInMemory[pageIndex].modified = modified;
+    if (!this.pagesInMemory[pageIndex].modified) this.pagesInMemory[pageIndex].modified = modified;
   }
 
-  public replacePage(pageName: string, pageNameToReplace: string) {
+  public replacePage(pageName: string, pageNameToReplace: string, modified: boolean) {
     const pageIndex = this.findIndex(pageNameToReplace)
     this.pagesInMemory[pageIndex].pageName = pageName;
     this.pagesInMemory[pageIndex].timeInMemory = 1;
+    this.pagesInMemory[pageIndex].modified = modified;
     this.setReferenced(pageIndex, true);
   }
 
