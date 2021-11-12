@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: sdpm-simulator.herokuapp.com
+Token: 98be907ece4a63a959200f43cefb45da3efe18441784d435b1243341eae55478
