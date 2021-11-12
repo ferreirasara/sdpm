@@ -37,12 +37,12 @@ export default class LRUAlgorithm extends AlgorithmInterface {
   }
 
   public findPageToReplace(): string {
-    let max = 0;
+    let min = 99999999;
     let indexPageToReplace = 0;
     for (let line = 0; line < this.memorySize; line++) {
       const value = parseInt(this.matrix[line].join(''), 2);
-      if (value > max) {
-        max = value;
+      if (value < min) {
+        min = value;
         indexPageToReplace = line;
       }
     }
