@@ -1,5 +1,5 @@
 import { ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Form, Input, InputNumber, Menu, Popover, Select, Space, Tooltip } from "antd";
+import { Button, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";

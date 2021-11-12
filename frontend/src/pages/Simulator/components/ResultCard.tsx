@@ -1,5 +1,5 @@
 import { HourglassOutlined } from "@ant-design/icons";
-import { Card, Col, Collapse, Descriptions, Statistic } from "antd";
+import { Card, Col, Collapse, Descriptions, Divider, Statistic } from "antd";
 import BarChart from "../../../components/charts/BarChart";
 import { SimulationData, SimulationResponse } from "../../../utils/types";
 import { formatNumber, formatSimulationTime } from "../../../utils/calculations";
@@ -32,11 +32,19 @@ export default function ResultCard(props: ResultCardProps) {
     </Col>
     <Col span={20}>
       <Card bordered={false} title="Total de faltas de página por algoritmo">
+        <Descriptions size="small">
+          {result?.algorithmResult?.map(cur => <Descriptions.Item label={pretifyAlgorithmName(cur.name)}>{cur.cont}</Descriptions.Item>)}
+        </Descriptions>
+        <Divider />
         <BarChart suffix={"faltas"} axis={faultAxis} data={faultData || []} />
       </Card>
     </Col>
     {timeData?.length ? <Col span={20}>
-      <Card bordered={false} title="Tempo de execução de cada algoritmo">
+      <Card bordered={false} title="Tempo de execução de cada algoritmo (em milisegundos)">
+        <Descriptions size="small">
+          {result?.algorithmResult?.map(cur => <Descriptions.Item label={pretifyAlgorithmName(cur.name)}>{cur.simulationTime}</Descriptions.Item>)}
+        </Descriptions>
+        <Divider />
         <PizzaChart suffix={"milisegundos"} data={timeData || []} />
       </Card>
     </Col> : null}
