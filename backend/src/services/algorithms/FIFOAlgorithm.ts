@@ -6,9 +6,9 @@ export default class FIFOAlgorithm extends AlgorithmInterface {
   protected fifoQueue: string[]
   protected memory: Memory
 
-  constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
-    const { algorithmName, memoryInitalState } = args;
-    super({ algorithmName })
+  constructor(args: { memoryInitalState: string[] }) {
+    const { memoryInitalState } = args;
+    super({ algorithmName: 'fifoAlgorithm' })
     this.fifoQueue = [];
     memoryInitalState.filter(cur => cur !== "0").map(cur => this.fifoQueue.unshift(cur));
     this.memory = new Memory({ memoryInitalState });

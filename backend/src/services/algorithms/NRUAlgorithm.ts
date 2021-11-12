@@ -5,9 +5,9 @@ import AlgorithmInterface from "../AlgorithmInterface";
 export default class NRUAlgorithm extends AlgorithmInterface {
   protected memory: Memory
 
-  constructor(args: { algorithmName: string, memoryInitalState: string[] }) {
-    const { algorithmName, memoryInitalState } = args;
-    super({ algorithmName });
+  constructor(args: { memoryInitalState: string[] }) {
+    const { memoryInitalState } = args;
+    super({ algorithmName: 'nruAlgorithm' });
     this.memory = new Memory({ memoryInitalState });
   }
 

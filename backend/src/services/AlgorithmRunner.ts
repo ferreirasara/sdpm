@@ -23,22 +23,22 @@ export default class AlgorithmRunner {
 
     try {
       if (algorithmsToRun.includes("optimalAlgorithm"))
-        algorithmResult.push(new OptimalAlgorithm({ algorithmName: "optimalAlgorithm", memoryInitalState }).run(runArgs));
+        algorithmResult.push(new OptimalAlgorithm({ memoryInitalState }).run(runArgs));
 
       if (algorithmsToRun.includes("fifoAlgorithm"))
-        algorithmResult.push(new FIFOAlgorithm({ algorithmName: "fifoAlgorithm", memoryInitalState }).run(runArgs));
+        algorithmResult.push(new FIFOAlgorithm({ memoryInitalState }).run(runArgs));
 
       if (algorithmsToRun.includes("secondChanceAlgorithm"))
-        algorithmResult.push(new SecondChanceAlgorithm({ algorithmName: "secondChanceAlgorithm", memoryInitalState }).run(runArgs));
+        algorithmResult.push(new SecondChanceAlgorithm({ memoryInitalState }).run(runArgs));
 
       if (algorithmsToRun.includes("lruAlgorithm"))
-        algorithmResult.push(new LRUAlgorithm({ algorithmName: "lruAlgorithm", memoryInitalState, memorySize }).run(runArgs));
+        algorithmResult.push(new LRUAlgorithm({ memoryInitalState, memorySize }).run(runArgs));
 
       if (algorithmsToRun.includes("nruAlgorithm"))
-        algorithmResult.push(new NRUAlgorithm({ algorithmName: "nruAlgorithm", memoryInitalState }).run(runArgs));
+        algorithmResult.push(new NRUAlgorithm({ memoryInitalState }).run(runArgs));
 
       if (algorithmsToRun.includes("wsClockAlgorithm"))
-        algorithmResult.push(new WSClockAlgorithm({ algorithmName: "wsClockAlgorithm", memoryInitalState, tau }).run(runArgs));
+        algorithmResult.push(new WSClockAlgorithm({ memoryInitalState, tau }).run(runArgs));
 
       const simulationTotalTime = algorithmResult.reduce((cur, prev) => cur + prev.simulationTime, 0);
 

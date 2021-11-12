@@ -7,9 +7,9 @@ export default class WSClockAlgorithm extends AlgorithmInterface {
   protected tau: number
   protected memory: Memory
 
-  constructor(args: { algorithmName: string, memoryInitalState: string[], tau: number }) {
-    const { algorithmName, memoryInitalState, tau } = args;
-    super({ algorithmName });
+  constructor(args: { memoryInitalState: string[], tau: number }) {
+    const { memoryInitalState, tau } = args;
+    super({ algorithmName: 'wsClockAlgorithm' });
     this.fifoQueue = [];
     memoryInitalState.filter(cur => cur !== "0").map(cur => this.fifoQueue.unshift(cur));
     this.memory = new Memory({ memoryInitalState });

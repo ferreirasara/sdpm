@@ -7,9 +7,9 @@ export default class LRUAlgorithm extends AlgorithmInterface {
   protected memorySize: number
   protected memory: Memory
 
-  constructor(args: { algorithmName: string, memoryInitalState: string[], memorySize: number }) {
-    const { algorithmName, memoryInitalState, memorySize } = args;
-    super({ algorithmName });
+  constructor(args: { memoryInitalState: string[], memorySize: number }) {
+    const { memoryInitalState, memorySize } = args;
+    super({ algorithmName: 'lruAlgorithm' });
 
     this.memory = new Memory({ memoryInitalState });
 
