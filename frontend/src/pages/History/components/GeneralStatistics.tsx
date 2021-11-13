@@ -48,6 +48,8 @@ export default function GeneralStatistics() {
           prefix={<HourglassOutlined />}
           suffix={formatSimulationTime(response?.data?.totalOfTime || 0).suffix}
           loading={loading}
+          decimalSeparator=","
+          groupSeparator="."
         />
       </Card>
     </Col>

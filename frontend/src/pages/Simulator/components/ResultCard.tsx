@@ -27,6 +27,8 @@ export default function ResultCard(props: ResultCardProps) {
           value={formatNumber(simulationTime)}
           prefix={<HourglassOutlined />}
           suffix={suffix}
+          decimalSeparator=","
+          groupSeparator="."
         />
       </Card>
     </Col>
