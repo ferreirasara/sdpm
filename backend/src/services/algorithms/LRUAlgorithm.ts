@@ -23,7 +23,6 @@ export default class LRUAlgorithm extends AlgorithmInterface {
       }
       this.matrix.push(line);
     }
-    memoryInitalState.map(cur => { if (cur !== '0') this.referencePage(this.memory.findIndex(cur)) });
   }
 
   protected referencePage(pageIndex: number) {
