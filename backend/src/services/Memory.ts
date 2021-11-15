@@ -37,7 +37,7 @@ export default class Memory {
 
   public getTimeInMemory(pageName: string) {
     const pageIndex = this.findIndex(pageName);
-    return this.pagesInMemory[pageIndex].timeInMemory;
+    return this.pagesInMemory[pageIndex]?.timeInMemory || 0;
   }
 
   public referencePage(pageName: string): boolean {
@@ -53,12 +53,12 @@ export default class Memory {
 
   public pageIsReferenced(pageName: string): boolean {
     const pageIndex = this.findIndex(pageName)
-    return this.pagesInMemory[pageIndex].referenced;
+    return this.pagesInMemory[pageIndex]?.referenced || false;
   }
 
   public pageIsModified(pageName: string): boolean {
     const pageIndex = this.findIndex(pageName)
-    return this.pagesInMemory[pageIndex].modified;
+    return this.pagesInMemory[pageIndex]?.modified || false;
   }
 
   public setReferenced(pageIndex: number, referenced: boolean) {
