@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run server",
     "server": "npx ts-node src/index.ts",
-    "test": "jest --no-cache --coverage"
+    "test": "jest --no-cache"
   },
   "author": "Sara Ferreira",
   "license": "MIT",
