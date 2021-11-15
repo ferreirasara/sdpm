@@ -1,4 +1,4 @@
-import { ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design/icons";
+import { BookOutlined, ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
@@ -222,8 +222,8 @@ export default function SimulationForm(props: SimulationFormProps) {
     <Form.Item>
       <Space>
         <Button type="primary" htmlType="submit" icon={<ThunderboltOutlined />}>Simular</Button>
-        <Tooltip title={"Casos de teste que foram utilizados para validar o simulador. Selecione um caso de teste no menu (...)"}>
-          <Dropdown.Button overlay={testCasesMenu} type="dashed">Usar caso de teste</Dropdown.Button>
+        <Tooltip trigger="click" title={"Casos de teste que foram utilizados para validar o simulador. Selecione um caso de teste no menu (...)"}>
+          <Dropdown.Button overlay={testCasesMenu} type="dashed"><BookOutlined /> Usar caso de teste</Dropdown.Button>
         </Tooltip>
         <Button type="dashed" htmlType="button" icon={<SettingOutlined />} onClick={() => setRandomValues(form, setSelectedAlgorithms)}>Gerar dados aleatórios</Button>
         <Button type="dashed" htmlType="button" icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
