@@ -9,7 +9,7 @@ const testCase1 = {
   actionsQueue: "L|E|L|E|E|L|E|E|E|L|E|L|L|L|E|L|E|L|L|E|L|L|E|E|L|L|L|L|L|L|E|E|E|E|L|E|E|E|E|E|L|L|E|L|E|L|E|E|E|L",
   memoryInitalState: "0|0|0|0|0",
   clockInterruption: 3,
-  tau: 1,
+  tau: 3,
 }
 
 const testCase2 = {
@@ -21,7 +21,7 @@ const testCase2 = {
   actionsQueue: "E|L|L|E|L|E|L|L|L|L|E|E|L|L|E|E|E|L|L|E|E|E|L|E|E|E|L|L|E|E|L|E|L|E|E|E|L|E|E|L|L|L|E|E|E|E|E|E|E|L",
   memoryInitalState: "G|D|0|0|A",
   clockInterruption: 5,
-  tau: 1,
+  tau: 5,
 }
 
 const testCase3 = {
@@ -33,7 +33,7 @@ const testCase3 = {
   actionsQueue: "L|E|E|L|L|L|E|E|E|E|L|L|E|L|E|L|E|L|L|E|L|E|L|E|E|L|L|L|L|L|L|L|L|L|L|L|E|E|E|E|E|L|E|E|L|L|E|E|E|L",
   memoryInitalState: "F|E|I|D|A",
   clockInterruption: 10,
-  tau: 4,
+  tau: 3,
 }
 
 export const setTestCaseValues = (form: FormInstance<any>, selectedTestCase: string) => {
