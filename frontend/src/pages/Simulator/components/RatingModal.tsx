@@ -46,7 +46,10 @@ export default function RatingModal(props: RatingModalProps) {
     visible={ratingModalVisible}
     okText="Enviar"
     cancelText="Cancelar"
-    onCancel={() => setRatingModalVisible(false)}
+    onCancel={() => {
+      setRatingModalVisible(false)
+      localStorage.setItem('@sdpm/ratingModalOccult', "1");
+    }}
     onOk={() => handleSubmit({ rating, comment })}
   >
     <Form labelAlign="right" labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>

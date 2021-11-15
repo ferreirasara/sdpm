@@ -2,6 +2,7 @@ import { BuildOutlined, QuestionOutlined, StarOutlined, SyncOutlined } from "@an
 import { Button, Card, Form, notification, PageHeader, Result, Row } from "antd";
 import { useState } from "react";
 import api from "../../api";
+import { getRandomInt } from "../../utils/calculations";
 import { SimulationResponse, SimulationData } from "../../utils/types";
 import { getMessageFromError } from "../../utils/utils";
 import HelpModal from "./components/HelpModal";
@@ -16,7 +17,7 @@ export default function AboutAlgorithmsPage() {
   const [currentStep, setCurrentStep] = useState<number>(0)
   const [simulationResponse, setSimulationResponse] = useState<SimulationResponse>({})
   const [simulationData, setSimulationData] = useState<SimulationData>({})
-  const [helpModalVisible, setHelpModalVisible] = useState<boolean>(false);
+  const [helpModalVisible, setHelpModalVisible] = useState<boolean>(localStorage.getItem('@sdpm/helpModalOccult') ? false : true);
   const [ratingModalVisible, setRatingModalVisible] = useState<boolean>(false);
   const [rated, setRated] = useState<boolean>(false);
 
@@ -27,6 +28,7 @@ export default function AboutAlgorithmsPage() {
       if (response.data.success) {
         setSimulationData(data);
         setSimulationResponse(response.data);
+        if (getRandomInt(0,5) === 1 || !localStorage.getItem('@sdpm/ratingModalOccult')) setRatingModalVisible(true);
         setCurrentStep(2)
       } else {
         notification.open({

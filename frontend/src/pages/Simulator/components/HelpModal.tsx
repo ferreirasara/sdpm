@@ -11,7 +11,10 @@ export default function HelpModal(props: HelpModalProps) {
     title="Ajuda com o simulador"
     visible={helpModalVisible}
     footer={null}
-    onCancel={() => setHelpModalVisible(false)}
+    onCancel={() => {
+      setHelpModalVisible(false)
+      localStorage.setItem('@sdpm/helpModalOccult', "1");
+    }}
   >
     <Timeline>
       <Timeline.Item color="#ffe58f">
