@@ -2,25 +2,26 @@ import { Pool } from 'pg';
 import { AlgorithmResult } from '../utils/types';
 
 export default class DAO {
-  protected client: Pool
-  constructor() {
+  
+  public connect() {
     const connectionString = process.env.DATABASE_URL
     if (connectionString) {
-      this.client = new Pool({ connectionString, ssl: true });
+      return new Pool({ connectionString, ssl: true });
     } else {
-      this.client = new Pool();
+      return new Pool();
     }
-
   }
 
   public async query(args: { query: string, values?: any[], caller: string }) {
     const { caller, query, values } = args;
-    await this.client.connect();
+    const client = this.connect();
     try {
-      const res = await this.client.query(query, values);
+      const res = await client.query(query, values);
+      await client.end();
       return res;
     } catch (error) {
-      console.log("Error when querying db:", error, " Caller:", caller)
+      console.log("Error when querying db:", error, " Caller:", caller);
+      await client.end();
     }
   }
 
