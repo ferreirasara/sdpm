@@ -76,7 +76,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       label="Tamanho da memória"
       key="memorySize"
       name="memorySize"
-      tooltip="Quantos processos cabem na memória."
+      tooltip="Quantas páginas cabem na memória."
       rules={[{ required: true, message: "Informe o tamanho da memória" }]}
     >
       <InputNumber style={{ width: "100%" }} type="number" />

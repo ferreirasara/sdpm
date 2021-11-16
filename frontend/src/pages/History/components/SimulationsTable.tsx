@@ -50,7 +50,7 @@ export default function SimulationsTable() {
           key: "memorySize",
         },
         {
-          title: "Tamanho da fila de processos",
+          title: "Tamanho da fila de páginas",
           dataIndex: "pagesQueueSize",
           key: "pagesQueueSize",
         },
