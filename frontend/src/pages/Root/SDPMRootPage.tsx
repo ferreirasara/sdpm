@@ -7,6 +7,7 @@ import SimulatorPage from "../Simulator/SimulatorPage";
 import HistoryPage from "../History/HistoryPage";
 import AboutAlgorithmsPage from "../AboutAlgorithms/AboutAlgorithmsPage";
 import AboutSimulatorPage from "../AboutSimulator/AboutSimulatorPage";
+import React from "react";
 
 export default function SDPMRootPage() {
   const urlSplit = document.URL.split("/")
@@ -28,11 +29,11 @@ export default function SDPMRootPage() {
   ]
 
   const allRoutes = [
-    <Route key="root" path="/" exact component={SimulatorPage} />,
-    <Route key="simulator" path="/simulator" component={SimulatorPage} />,
-    <Route key="history" path="/history" component={HistoryPage} />,
-    <Route key="aboutAlgorithms" path="/aboutAlgorithms" component={AboutAlgorithmsPage} />,
-    <Route key="aboutSimulator" path="/aboutSimulator" component={AboutSimulatorPage} />,
+    <Route key="root" path="/" exact component={React.lazy(() => import("../Simulator/SimulatorPage"))} />,
+    <Route key="simulator" path="/simulator" component={React.lazy(() => import("../Simulator/SimulatorPage"))} />,
+    <Route key="history" path="/history" component={React.lazy(() => import("../History/HistoryPage"))} />,
+    <Route key="aboutAlgorithms" path="/aboutAlgorithms" component={React.lazy(() => import("../AboutAlgorithms/AboutAlgorithmsPage"))} />,
+    <Route key="aboutSimulator" path="/aboutSimulator" component={React.lazy(() => import("../AboutSimulator/AboutSimulatorPage"))} />,
     <Route
       key={"404"}
       render={() => <Result
