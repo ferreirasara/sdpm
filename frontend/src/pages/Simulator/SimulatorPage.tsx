@@ -28,9 +28,6 @@ export default function AboutAlgorithmsPage() {
       if (response.data.success) {
         setSimulationData(data);
         setSimulationResponse(response.data);
-        if (getRandomInt(0,5) === 1 || !localStorage.getItem('@sdpm/ratingModalOccult')) {
-          setTimeout(() => setRatingModalVisible(true), 10000);
-        };
         setCurrentStep(2)
       } else {
         notification.open({
