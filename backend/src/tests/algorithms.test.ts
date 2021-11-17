@@ -1,4 +1,3 @@
-import { RunArgs } from "../utils/types";
 import FIFOAlgorithm from "../services/algorithms/FIFOAlgorithm";
 import LRUAlgorithm from "../services/algorithms/LRUAlgorithm";
 import NRUAlgorithm from "../services/algorithms/NRUAlgorithm";
@@ -44,205 +43,205 @@ const testCase3 = {
 
 describe(`Tests FIFOAlgorithm, test case 1`, () => {
   it(``, () => {
-    const res = new FIFOAlgorithm({
+    const result = new FIFOAlgorithm({
       memoryInitalState: testCase1.memoryInitalState,
     }).run({ ...testCase1, shouldShowDetails: true });
-    expect(res.name).toBe('fifoAlgorithm');
-    expect(res.cont).toBe(25);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('fifoAlgorithm');
+    expect(result.cont).toBe(25);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests FIFOAlgorithm, test case 2`, () => {
   it(``, () => {
-    const res = new FIFOAlgorithm({
+    const result = new FIFOAlgorithm({
       memoryInitalState: testCase2.memoryInitalState,
     }).run({ ...testCase2, shouldShowDetails: true });
-    expect(res.name).toBe('fifoAlgorithm');
-    expect(res.cont).toBe(15);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('fifoAlgorithm');
+    expect(result.cont).toBe(15);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests FIFOAlgorithm, test case 3`, () => {
   it(``, () => {
-    const res = new FIFOAlgorithm({
+    const result = new FIFOAlgorithm({
       memoryInitalState: testCase3.memoryInitalState,
     }).run({ ...testCase3, shouldShowDetails: true });
-    expect(res.name).toBe('fifoAlgorithm');
-    expect(res.cont).toBe(24);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('fifoAlgorithm');
+    expect(result.cont).toBe(24);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests LRUAlgorithm, test case 1`, () => {
   it(``, () => {
-    const res = new LRUAlgorithm({
+    const result = new LRUAlgorithm({
       memoryInitalState: testCase1.memoryInitalState,
       memorySize: testCase1.memorySize,
     }).run({ ...testCase1, shouldShowDetails: true });
-    expect(res.name).toBe('lruAlgorithm');
-    expect(res.cont).toBe(29);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('lruAlgorithm');
+    expect(result.cont).toBe(29);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests LRUAlgorithm, test case 2`, () => {
   it(``, () => {
-    const res = new LRUAlgorithm({
+    const result = new LRUAlgorithm({
       memoryInitalState: testCase2.memoryInitalState,
       memorySize: testCase2.memorySize,
     }).run({ ...testCase2, shouldShowDetails: true });
-    expect(res.name).toBe('lruAlgorithm');
-    expect(res.cont).toBe(16);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('lruAlgorithm');
+    expect(result.cont).toBe(16);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests LRUAlgorithm, test case 3`, () => {
   it(``, () => {
-    const res = new LRUAlgorithm({
+    const result = new LRUAlgorithm({
       memoryInitalState: testCase3.memoryInitalState,
       memorySize: testCase3.memorySize,
     }).run({ ...testCase3, shouldShowDetails: true });
-    expect(res.name).toBe('lruAlgorithm');
-    expect(res.cont).toBe(24);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('lruAlgorithm');
+    expect(result.cont).toBe(24);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests NRUAlgorithm, test case 1`, () => {
   it(``, () => {
-    const res = new NRUAlgorithm({
+    const result = new NRUAlgorithm({
       memoryInitalState: testCase1.memoryInitalState,
     }).run({ ...testCase1, shouldShowDetails: true });
-    expect(res.name).toBe('nruAlgorithm');
-    expect(res.cont).toBe(28);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('nruAlgorithm');
+    expect(result.cont).toBe(28);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests NRUAlgorithm, test case 2`, () => {
   it(``, () => {
-    const res = new NRUAlgorithm({
+    const result = new NRUAlgorithm({
       memoryInitalState: testCase2.memoryInitalState,
     }).run({ ...testCase2, shouldShowDetails: true });
-    expect(res.name).toBe('nruAlgorithm');
-    expect(res.cont).toBe(19);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('nruAlgorithm');
+    expect(result.cont).toBe(19);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests NRUAlgorithm, test case 3`, () => {
   it(``, () => {
-    const res = new NRUAlgorithm({
+    const result = new NRUAlgorithm({
       memoryInitalState: testCase3.memoryInitalState,
     }).run({ ...testCase3, shouldShowDetails: true });
-    expect(res.name).toBe('nruAlgorithm');
-    expect(res.cont).toBe(25);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('nruAlgorithm');
+    expect(result.cont).toBe(25);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests OptimalAlgorithm, test case 1`, () => {
   it(``, () => {
-    const res = new OptimalAlgorithm({
+    const result = new OptimalAlgorithm({
       memoryInitalState: testCase1.memoryInitalState,
     }).run({ ...testCase1, shouldShowDetails: true });
-    expect(res.name).toBe('optimalAlgorithm');
-    expect(res.cont).toBe(19);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('optimalAlgorithm');
+    expect(result.cont).toBe(19);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests OptimalAlgorithm, test case 2`, () => {
   it(``, () => {
-    const res = new OptimalAlgorithm({
+    const result = new OptimalAlgorithm({
       memoryInitalState: testCase2.memoryInitalState,
     }).run({ ...testCase2, shouldShowDetails: true });
-    expect(res.name).toBe('optimalAlgorithm');
-    expect(res.cont).toBe(11);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('optimalAlgorithm');
+    expect(result.cont).toBe(11);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests OptimalAlgorithm, test case 3`, () => {
   it(``, () => {
-    const res = new OptimalAlgorithm({
+    const result = new OptimalAlgorithm({
       memoryInitalState: testCase3.memoryInitalState,
     }).run({ ...testCase3, shouldShowDetails: true });
-    expect(res.name).toBe('optimalAlgorithm');
-    expect(res.cont).toBe(12);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('optimalAlgorithm');
+    expect(result.cont).toBe(12);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests SecondChanceAlgorithm, test case 1`, () => {
   it(``, () => {
-    const res = new SecondChanceAlgorithm({
+    const result = new SecondChanceAlgorithm({
       memoryInitalState: testCase1.memoryInitalState,
     }).run({ ...testCase1, shouldShowDetails: true });
-    expect(res.name).toBe('secondChanceAlgorithm');
-    expect(res.cont).toBe(28);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('secondChanceAlgorithm');
+    expect(result.cont).toBe(28);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests SecondChanceAlgorithm, test case 2`, () => {
   it(``, () => {
-    const res = new SecondChanceAlgorithm({
+    const result = new SecondChanceAlgorithm({
       memoryInitalState: testCase2.memoryInitalState,
     }).run({ ...testCase2, shouldShowDetails: true });
-    expect(res.name).toBe('secondChanceAlgorithm');
-    expect(res.cont).toBe(16);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('secondChanceAlgorithm');
+    expect(result.cont).toBe(16);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests SecondChanceAlgorithm, test case 3`, () => {
   it(``, () => {
-    const res = new SecondChanceAlgorithm({
+    const result = new SecondChanceAlgorithm({
       memoryInitalState: testCase3.memoryInitalState,
     }).run({ ...testCase3, shouldShowDetails: true });
-    expect(res.name).toBe('secondChanceAlgorithm');
-    expect(res.cont).toBe(22);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('secondChanceAlgorithm');
+    expect(result.cont).toBe(22);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests WSClockAlgorithm, test case 1`, () => {
   it(``, () => {
-    const res = new WSClockAlgorithm({
+    const result = new WSClockAlgorithm({
       memoryInitalState: testCase1.memoryInitalState,
       tau: testCase1.tau,
     }).run({ ...testCase1, shouldShowDetails: true });
-    expect(res.name).toBe('wsClockAlgorithm');
-    expect(res.cont).toBe(27);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('wsClockAlgorithm');
+    expect(result.cont).toBe(27);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests WSClockAlgorithm, test case 2`, () => {
   it(``, () => {
-    const res = new WSClockAlgorithm({
+    const result = new WSClockAlgorithm({
       memoryInitalState: testCase2.memoryInitalState,
       tau: testCase2.tau,
     }).run({ ...testCase2, shouldShowDetails: true });
-    expect(res.name).toBe('wsClockAlgorithm');
-    expect(res.cont).toBe(19);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('wsClockAlgorithm');
+    expect(result.cont).toBe(19);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
 
 describe(`Tests WSClockAlgorithm, test case 3`, () => {
   it(``, () => {
-    const res = new WSClockAlgorithm({
+    const result = new WSClockAlgorithm({
       memoryInitalState: testCase3.memoryInitalState,
       tau: testCase3.tau,
     }).run({ ...testCase3, shouldShowDetails: true });
 
-    expect(res.name).toBe('wsClockAlgorithm');
-    expect(res.cont).toBe(24);
-    expect(res.simulationExecution?.length).toBeGreaterThan(0);
+    expect(result.name).toBe('wsClockAlgorithm');
+    expect(result.cont).toBe(24);
+    expect(result.simulationExecution?.length).toBeGreaterThan(0);
   });
 });
