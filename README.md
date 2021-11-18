@@ -3,14 +3,7 @@
 <p align="center">Um simulador acessível para visualizar e compreender o funcionamento dos algoritmos de troca de página.</p>
 
 
-<img src="https://img.shields.io/github/license/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/issues/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/forks/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/stars/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/last-commit/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/repo-size/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/commit-activity/m/ferreirasara/sdpm" />
-<img src="https://img.shields.io/github/languages/top/ferreirasara/sdpm" />
+<img src="https://img.shields.io/github/license/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/issues/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/forks/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/stars/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/last-commit/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/repo-size/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/commit-activity/m/ferreirasara/sdpm" /> <img src="https://img.shields.io/github/languages/top/ferreirasara/sdpm" />
 
 
 ### Pré-requisitos
