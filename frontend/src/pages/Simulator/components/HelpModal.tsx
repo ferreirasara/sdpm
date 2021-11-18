@@ -28,7 +28,7 @@ export default function HelpModal(props: HelpModalProps) {
       <Timeline.Item color="#ffe58f">
         <Space direction="vertical">
           <Typography.Text strong mark>Botões extras.</Typography.Text>
-          <span>Gerar dados aleratórios: Caso queira, você pode gerar dados aleatorios para a simulação</span>
+          <span>Gerar dados aleatórios: Caso queira, você pode gerar dados aleatórios para a simulação</span>
           <span>Limpar: limpa todos os dados do formulário.</span>
         </Space>
       </Timeline.Item>
