@@ -42,12 +42,12 @@ export default function ResultCard(props: ResultCardProps) {
       </Card>
     </Col>
     {timeData?.length ? <Col span={20}>
-      <Card bordered={false} title="Tempo de execução de cada algoritmo (em milisegundos)">
+      <Card bordered={false} title="Tempo de execução de cada algoritmo (em milissegundos)">
         <Descriptions size="small">
           {result?.algorithmResult?.map(cur => <Descriptions.Item label={pretifyAlgorithmName(cur.name)}>{cur.simulationTime}</Descriptions.Item>)}
         </Descriptions>
         <Divider />
-        <PizzaChart suffix={"milisegundos"} data={timeData || []} />
+        <PizzaChart suffix={"milissegundos"} data={timeData || []} />
       </Card>
     </Col> : null}
     <Col span={20}>

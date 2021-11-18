@@ -36,7 +36,7 @@ export const formatNumber = (num: number) => {
 
 export const formatSimulationTime = (simulationTime: number): { simulationTime: number, suffix: string } => {
   if (simulationTime < 1000) {
-    return { simulationTime, suffix: "milisegundos" }
+    return { simulationTime, suffix: "milissegundos" }
   } else if (simulationTime >= 1000 && simulationTime < 60000) {
     return { simulationTime: simulationTime / 1000, suffix: "segundos" }
   } else {
