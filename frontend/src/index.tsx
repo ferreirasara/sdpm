@@ -3,12 +3,15 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import SDPMRootPage from "./pages/Root/SDPMRootPage";
 import FallbackSpin from "./components/FallbackSpin";
+import ErrorBoundary from "./components/ErrorBoundary";
 require("dotenv").config();
 
 ReactDOM.render(
-  <React.Suspense fallback={<FallbackSpin tip='Carregando página...' />}>
-    <SDPMRootPage />
-  </React.Suspense>,
+  <ErrorBoundary>
+    <React.Suspense fallback={<FallbackSpin tip='Carregando página...' />}>
+      <SDPMRootPage />
+    </React.Suspense>
+  </ErrorBoundary>,
   document.getElementById("root")
 );
 
