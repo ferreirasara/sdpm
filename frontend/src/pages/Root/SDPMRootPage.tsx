@@ -3,10 +3,6 @@ import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, M
 import { Content, Header } from "antd/lib/layout/layout";
 import "antd/dist/antd.css";
 import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
-import SimulatorPage from "../Simulator/SimulatorPage";
-import HistoryPage from "../History/HistoryPage";
-import AboutAlgorithmsPage from "../AboutAlgorithms/AboutAlgorithmsPage";
-import AboutSimulatorPage from "../AboutSimulator/AboutSimulatorPage";
 import React from "react";
 
 export default function SDPMRootPage() {

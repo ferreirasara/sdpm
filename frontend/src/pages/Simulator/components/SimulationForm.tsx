@@ -214,7 +214,7 @@ export default function SimulationForm(props: SimulationFormProps) {
       tooltip="Algoritmos a serem executados."
       rules={[{ required: true, message: "Selecione os algoritmos" }]}
     >
-      <Select mode="multiple" style={{ width: "100%" }} defaultValue={algorithmNamesList} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
+      <Select mode="multiple" style={{ width: "100%" }} onChange={(value: string[]) => setSelectedAlgorithms(value)}>
         {algorithmsOptions}
       </Select>
     </Form.Item>

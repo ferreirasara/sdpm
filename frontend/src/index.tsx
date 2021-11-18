@@ -2,15 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import SDPMRootPage from "./pages/Root/SDPMRootPage";
-import { Spin } from "antd";
+import FallbackSpin from "./components/FallbackSpin";
 require("dotenv").config();
 
 ReactDOM.render(
-  <React.Suspense
-    fallback={
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '75vh' }}>
-        <Spin tip='Carregando página...' />
-      </div>}>
+  <React.Suspense fallback={<FallbackSpin tip='Carregando página...' />}>
     <SDPMRootPage />
   </React.Suspense>,
   document.getElementById("root")

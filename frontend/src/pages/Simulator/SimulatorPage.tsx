@@ -1,15 +1,17 @@
 import { BuildOutlined, QuestionOutlined, StarOutlined, SyncOutlined } from "@ant-design/icons";
 import { Button, Card, Form, notification, PageHeader, Result, Row } from "antd";
+import React from "react";
 import { useState } from "react";
 import api from "../../api";
-import { getRandomInt } from "../../utils/calculations";
+import FallbackSpin from "../../components/FallbackSpin";
 import { SimulationResponse, SimulationData } from "../../utils/types";
 import { getMessageFromError } from "../../utils/utils";
 import HelpModal from "./components/HelpModal";
 import RatingModal from "./components/RatingModal";
 import ResultCard from "./components/ResultCard";
-import SimulationForm from "./components/SimulationForm";
 import SimulationSteps from "./components/SimulationSteps";
+
+const SimulationForm = React.lazy(() => import("./components/SimulationForm"));
 
 export default function AboutAlgorithmsPage() {
   document.title = "SDPM - Simulador Didático de Paginação de Memória"
@@ -63,10 +65,12 @@ export default function AboutAlgorithmsPage() {
 
     {currentStep === 0 && <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
       <Card bordered={false} style={{ width: "100vh", overflow: "auto" }}>
-        <SimulationForm
-          form={form}
-          onSubmit={handleStartSimulation}
-        />
+        <React.Suspense fallback={<FallbackSpin tip='Carregando formulário...' />}>
+          <SimulationForm
+            form={form}
+            onSubmit={handleStartSimulation}
+          />
+        </React.Suspense>
       </Card>
     </Row>}
 
