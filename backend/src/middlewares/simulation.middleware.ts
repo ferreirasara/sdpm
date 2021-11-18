@@ -37,21 +37,23 @@ export const validateSimulationParamsIntegrityMiddleware = async (req: any, res:
   const memoryInitalState: string[] = req.body.memoryInitalState.split("|")
   const clockInterruption: number = req.body.clockInterruption
   const algorithmsNotAllowed: string[] = (req.body.algorithms as string[]).filter(cur => !algorithmNamesList.includes(cur))
+  const pagesQueueNameNotAllowed: string[] = pagesQueue.filter(cur => !pages.includes(cur))
+  const memoryInitalStateNameNotAllowed: string[] = memoryInitalState.filter(cur => !pages.includes(cur) && cur !== "0")
 
   if (memorySize !== memoryInitalState.length) {
     return res.status(400).send({
       success: false,
-      message: `O campo "Estado inicial da memória" deve possuir comprimento igual ao tamanho da memória.`
+      message: `O campo "Estado inicial da memória" deve possuir a mesma quantidade de páginas informada no campo "Tamanho da memória".`
     })
   } else if (pagesQueueSize !== pagesQueue.length) {
     return res.status(400).send({
       success: false,
-      message: `O campo "Fila de páginas" deve possuir comprimento igual ao tamanho da fila de páginas.`
+      message: `O campo "Fila de páginas" deve possuir a mesma quantidade de páginas informada no campo "Tamanho da fila de páginas".`
     })
   } else if (pagesQueueSize !== actionsQueue.length) {
     return res.status(400).send({
       success: false,
-      message: `O campo "Fila de ações" deve possuir comprimento igual ao tamanho da fila de páginas.`
+      message: `O campo "Fila de ações" deve possuir uma quantidade de ações igual à quantidade informada no campo "Tamanho da fila de páginas".`
     })
   } else if (actionsQueueCharNotAllowed.length) {
     const plural = actionsQueueCharNotAllowed.length > 1 ? "s" : "";
@@ -62,7 +64,24 @@ export const validateSimulationParamsIntegrityMiddleware = async (req: any, res:
   } else if (numberOfPages !== pages.length) {
     return res.status(400).send({
       success: false,
-      message: `O campo "Páginas" deve possuir comprimento igual à quantidade de páginas.`
+      message: `O campo "Páginas" deve possuir a mesma quantidade de páginas informada no campo "Quantidade de páginas".`
+    })
+  } else if (pages.some(cur => cur.length >= 20)) {
+    return res.status(400).send({
+      success: false,
+      message: `Os nomes de páginas no campo "Páginas" não devem ultrapassar 20 caracteres.`
+    })
+  } else if (pagesQueueNameNotAllowed.length) {
+    const plural = pagesQueueNameNotAllowed.length > 1 ? "s" : "";
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Fila de páginas" deve possuir apenas os nomes de páginas informados no campo "Páginas". Nome${plural} não suportado${plural}: ${pagesQueueNameNotAllowed.join(", ")}`
+    })
+  } else if (memoryInitalStateNameNotAllowed.length) {
+    const plural = memoryInitalStateNameNotAllowed.length > 1 ? "s" : "";
+    return res.status(400).send({
+      success: false,
+      message: `O campo "Estado inicial da memória" deve possuir apenas os nomes de páginas informados no campo "Páginas" ou o caractere "0". Nome${plural} não suportado${plural}: ${memoryInitalStateNameNotAllowed.join(", ")}`
     })
   } else if (clockInterruption >= pagesQueueSize) {
     return res.status(400).send({
