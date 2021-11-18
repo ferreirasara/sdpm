@@ -58,8 +58,11 @@ export default function AboutAlgorithmsPage() {
               <Typography.Link href="https://github.com/ferreirasara/sdpm" target="_blank">
                 <Tag icon={<GithubOutlined />} color="#333">GitHub</Tag>
               </Typography.Link>
-              <Typography.Link href="https://drive.google.com/file/d/18nN5XVq_JEna6NUJPhbl0SHJOSdT1HA_/view?usp=sharing" target="_blank">
+              <Typography.Link href="https://drive.google.com/file/d/1d77sW2v3VlDeZe06RZ3VUL_qk2BhJ-On/view?usp=sharing" target="_blank">
                 <Tag icon={<FileTextOutlined />} color="#34a853">Monografia</Tag>
+              </Typography.Link>
+              <Typography.Link href="https://drive.google.com/file/d/1VZCWvZ_j1yHgLe7noBnWz9Cujss5iaZm/view?usp=sharing" target="_blank">
+                <Tag icon={<FileTextOutlined />} color="#34a853">Manual do simulador</Tag>
               </Typography.Link>
             </Space>
           </Descriptions.Item>
