@@ -65,10 +65,10 @@ export const setTau = (form: FormInstance<any>) => {
   form.setFieldsValue({ tau })
 }
 
-export const setRandomValues = (form: FormInstance<any>, setSelectedAlgorithms: (value: React.SetStateAction<string[] | undefined>) => void) => {
-  const memorySize = getRandomInt(1, 100)
-  const pagesQueueSize = getRandomInt(100, 1000)
-  const numberOfPages = generateNumberOfPages(memorySize, pagesQueueSize)
+export const setRandomValues = (form: FormInstance<any>, setSelectedAlgorithms: (value: React.SetStateAction<string[] | undefined>) => void, generateFewData?: boolean) => {
+  const memorySize = generateFewData ? getRandomInt(3, 5) : getRandomInt(1, 100)
+  const pagesQueueSize = generateFewData ? getRandomInt(10, 50) : getRandomInt(100, 1000)
+  const numberOfPages = generateFewData ? getRandomInt(memorySize + 1, 10) : generateNumberOfPages(memorySize, pagesQueueSize)
   const pages = generatePages(numberOfPages)
   const pagesQueue = generatePagesQueue(pagesQueueSize, pages).join("|")
   const actionsQueue = generateActionsQueue(pagesQueueSize).join("|")

@@ -1,5 +1,5 @@
 import { BookOutlined, ClearOutlined, SettingOutlined, ThunderboltOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Tooltip } from "antd";
+import { Button, Card, Dropdown, Form, Input, InputNumber, Menu, Select, Space, Switch, Tooltip } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { useEffect, useState } from "react";
 import { SimulationData } from "../../../utils/types";
@@ -21,6 +21,7 @@ export default function SimulationForm(props: SimulationFormProps) {
   const [formSubmitLoading, setFormSubmitLoading] = useState(false)
   const [selectedTestCase, setSelectedTestCase] = useState<string>("")
   const [firstRender, setFirstRender] = useState<boolean>(true);
+  const [generateFewData, setGenerateFewData] = useState<boolean>(false);
 
   if (firstRender) {
     setSelectedAlgorithms(algorithmNamesList)
@@ -223,9 +224,29 @@ export default function SimulationForm(props: SimulationFormProps) {
       <Space>
         <Button type="primary" htmlType="submit" icon={<ThunderboltOutlined />}>Simular</Button>
         <Tooltip trigger="click" title={"Casos de teste que foram utilizados para validar o simulador. Selecione um caso de teste no menu (...)"}>
-          <Dropdown.Button overlay={testCasesMenu} type="dashed"><BookOutlined /> Usar caso de teste</Dropdown.Button>
+          <Dropdown.Button
+            overlay={testCasesMenu}
+            type="dashed"
+          >
+            <BookOutlined /> Usar caso de teste
+          </Dropdown.Button>
         </Tooltip>
-        <Button type="dashed" htmlType="button" icon={<SettingOutlined />} onClick={() => setRandomValues(form, setSelectedAlgorithms)}>Gerar dados aleatórios</Button>
+        <Dropdown.Button
+          overlay={
+            <Card style={{ padding: '10px' }}>
+              <Space direction="vertical">
+                <div><Switch onChange={() => setGenerateFewData(!generateFewData)} /> Visualizar detalhes da execução dos algoritmos.</div>
+                <i>Note que isso irá gerar uma carga de dados menor.</i>
+              </Space>
+            </Card>
+          }
+          type="dashed"
+          htmlType="button"
+          trigger={["click"]}
+          onClick={() => setRandomValues(form, setSelectedAlgorithms, generateFewData)}
+        >
+          <SettingOutlined /> Gerar dados aleatórios
+        </Dropdown.Button>
         <Button type="dashed" htmlType="button" icon={<ClearOutlined />} onClick={onReset}>Limpar</Button>
       </Space>
     </Form.Item>
