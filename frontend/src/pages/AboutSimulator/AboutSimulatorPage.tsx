@@ -1,4 +1,4 @@
-import {  FileTextOutlined, GithubOutlined, LinkedinOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import {  FileTextOutlined, GithubOutlined, LinkedinOutlined, MailOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Col, Descriptions, PageHeader, Row, Space, Tag, Typography } from "antd";
 
 export default function AboutAlgorithmsPage() {
@@ -19,12 +19,12 @@ export default function AboutAlgorithmsPage() {
       title={<><QuestionCircleOutlined /> Sobre o simulador</>}
       style={{ background: "white" }}
     />
-    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+    <Row justify="center" style={{ margin: "5px" }}>
       <Col style={{ marginTop: "10px" }}>
         <Descriptions
           title="SDPM - Simulador Didático de Paginação de Memória"
           column={1}
-          style={{ textAlign: "center", maxWidth: "60vh" }}
+          style={{ textAlign: "center", maxWidth: "100vh" }}
         >
           <Descriptions.Item>
             Simulador desenvolvido como Trabalho de Conclusão de Curso,
@@ -35,7 +35,10 @@ export default function AboutAlgorithmsPage() {
             <Space>
               Sara Cristina Ferreira
               <Typography.Link href="https://www.linkedin.com/in/ferreirasara1501/" target="_blank">
-                <Tag icon={<LinkedinOutlined />} color="#0e76a8">LinkedIn</Tag>
+                <Tag icon={<LinkedinOutlined />} color="geekblue">LinkedIn</Tag>
+              </Typography.Link>
+              <Typography.Link href="mailto:ferreirasara1501@hotmail.com" target="_blank">
+                <Tag icon={<MailOutlined />} color="volcano">Email</Tag>
               </Typography.Link>
             </Space>
           </Descriptions.Item>
@@ -53,23 +56,33 @@ export default function AboutAlgorithmsPage() {
           <Descriptions.Item label="Favicon" labelStyle={{ fontWeight: "bold" }}>
             <div>Feito por <a href="https://www.flaticon.com/authors/wichaiwi" title="Wichai.wi">Wichai.wi</a> disponível em <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
           </Descriptions.Item>
-          <Descriptions.Item label="Links" labelStyle={{ fontWeight: "bold" }}>
+          <Descriptions.Item label="Repositório" labelStyle={{ fontWeight: "bold" }}>
             <Space>
               <Typography.Link href="https://github.com/ferreirasara/sdpm" target="_blank">
-                <Tag icon={<GithubOutlined />} color="#333">GitHub</Tag>
+                <Tag icon={<GithubOutlined />} color="default">GitHub</Tag>
               </Typography.Link>
+            </Space>
+          </Descriptions.Item>
+          <Descriptions.Item label="Documentos" labelStyle={{ fontWeight: "bold" }}>
+            <Space wrap>
               <Typography.Link href="https://drive.google.com/file/d/1d77sW2v3VlDeZe06RZ3VUL_qk2BhJ-On/view?usp=sharing" target="_blank">
-                <Tag icon={<FileTextOutlined />} color="#34a853">Monografia</Tag>
+                <Tag icon={<FileTextOutlined />} color="green">Monografia</Tag>
               </Typography.Link>
               <Typography.Link href="https://drive.google.com/file/d/1VZCWvZ_j1yHgLe7noBnWz9Cujss5iaZm/view?usp=sharing" target="_blank">
-                <Tag icon={<FileTextOutlined />} color="#34a853">Manual do simulador</Tag>
+                <Tag icon={<FileTextOutlined />} color="green">Manual</Tag>
+              </Typography.Link>
+              <Typography.Link href="https://drive.google.com/file/d/18XB5A_hJPgOVOF3Ca5vRnerSD-dTxWtG/view?usp=sharing" target="_blank">
+                <Tag icon={<FileTextOutlined />} color="green">Apresentação I</Tag>
+              </Typography.Link>
+              <Typography.Link href="https://drive.google.com/file/d/1QE0WU-kGmv5ut5Td3w7QBqg4XwoLECOE/view?usp=sharing" target="_blank">
+                <Tag icon={<FileTextOutlined />} color="green">Apresentação II</Tag>
               </Typography.Link>
             </Space>
           </Descriptions.Item>
           <Descriptions.Item label="Doações" labelStyle={{ fontWeight: "bold" }}>
             <Space>
               <Typography.Link href="https://www.buymeacoffee.com/ferreirasara" target="_blank">
-                <Tag color="#FFDD02" style={{ color: "#000" }}>☕ Buy Me A Coffe</Tag>
+                <Tag color="yellow" style={{ color: "#000" }}>☕ Buy Me A Coffe</Tag>
               </Typography.Link>
               {/* <Tooltip title="Carteira Bitcoin">
                 <Tag color="#F7931A" style={{ color: "#000" }}>Bitcoin</Tag>

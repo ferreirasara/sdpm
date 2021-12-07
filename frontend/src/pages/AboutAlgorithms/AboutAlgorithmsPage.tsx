@@ -61,7 +61,7 @@ export default function AboutAlgorithmsPage() {
       title={<><BulbOutlined /> Sobre os algoritmos</>}
       style={{ background: "white" }}
     />
-    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+    <Row justify="center" style={{ margin: "5px" }}>
       <Col style={{ marginTop: "10px", width: "100vh" }}>
         <Typography.Title>Algoritmos de troca de página</Typography.Title>
         <p>{firstParagraphText}</p>
