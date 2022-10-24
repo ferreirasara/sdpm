@@ -51,7 +51,7 @@ export default function SDPMRootPage() {
           showIcon
           message={<>
             <Typography.Text>Atenção: a partir de 28 de novembro de 2022, esse link não estará mais disponível. Por favor, acesse a aplicação pelo link: </Typography.Text>
-            <Typography.Link>https://sdpm-simulator.netlify.app/</Typography.Link>
+            <Typography.Link href="https://sdpm-simulator.netlify.app">https://sdpm-simulator.netlify.app/</Typography.Link>
           </>}
         />}
         <Header>
