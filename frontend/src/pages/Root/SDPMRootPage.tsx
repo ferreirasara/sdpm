@@ -1,4 +1,4 @@
-import { Button, Layout, Menu, Result } from "antd";
+import { Alert, Button, Layout, Menu, Result, Typography } from "antd";
 import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, MenuOutlined } from "@ant-design/icons";
 import { Content, Header } from "antd/lib/layout/layout";
 import "antd/dist/antd.css";
@@ -8,6 +8,7 @@ import React from "react";
 export default function SDPMRootPage() {
   const urlSplit = document.URL.split("/")
   const actualRoute = urlSplit[urlSplit?.length - 1]
+  const showHerokuAlert = document.URL.includes('herokuapp')
 
   const allLinks = [
     <Menu.Item key={"simulator"}>
@@ -44,6 +45,15 @@ export default function SDPMRootPage() {
   return <>
     <BrowserRouter>
       <Layout style={{ height: "100vh", overflow: "auto", backgroundColor: "white" }}>
+        {showHerokuAlert && <Alert
+          closable
+          type="error"
+          showIcon
+          message={<>
+            <Typography.Text>Atenção: a partir de 28 de novembro de 2022, esse link não estará mais disponível. Por favor, acesse a aplicação pelo link: </Typography.Text>
+            <Typography.Link>https://sdpm-simulator.netlify.app/</Typography.Link>
+          </>}
+        />}
         <Header>
           <div style={{ float: "left", fontSize: "20px", marginRight: "10px" }}><NavLink to="/" style={{ color: "#DDD" }}>SDPM</NavLink></div>
           <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || "simulator"]}>
