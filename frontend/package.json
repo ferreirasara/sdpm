@@ -2,6 +2,9 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@antv/data-set": "^0.11.8",
