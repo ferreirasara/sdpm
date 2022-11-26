@@ -22,6 +22,14 @@ $ cd sdpm
 # Vá para a pasta backend
 $ cd backend
 
+# Adicione um arquivo .env com as seguintes variáveis:
+PORT=8080
+NODE_ENV=development
+TZ=America/Sao_Paulo
+DATABASE_URL=SUA_CONNECTION_URI_AQUI
+DEVELOPMENT_DATABASE_URL=SUA_CONNECTION_URI_AQUI
+NODE_TLS_REJECT_UNAUTHORIZED=0
+
 # Instale as dependências
 $ npm install
 
@@ -42,6 +50,10 @@ $ cd sdpm
 
 # Vá para a pasta frontend
 $ cd frontend
+
+# Adicione um arquivo .env com as seguintes variáveis:
+REACT_APP_VERSION=$npm_package_version
+NODE_ENV=development
 
 # Instale as dependências
 $ npm install
