@@ -2,13 +2,14 @@ import { Pool } from 'pg';
 import { AlgorithmResult } from '../utils/types';
 
 export default class DAO {
-  
+
   public connect() {
-    const connectionString = process.env.DATABASE_URL
-    if (connectionString) {
+    if (process.env.NODE_ENV === 'production') {
+      const connectionString = process.env.DATABASE_URL
       return new Pool({ connectionString, ssl: true });
     } else {
-      return new Pool();
+      const connectionString = process.env.DEVELOPMENT_DATABASE_URL
+      return new Pool({ connectionString, ssl: true });
     }
   }
 
