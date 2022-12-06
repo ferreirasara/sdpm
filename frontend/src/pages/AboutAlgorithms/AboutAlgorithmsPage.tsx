@@ -1,5 +1,6 @@
 import { BulbOutlined } from "@ant-design/icons";
-import { Col, Collapse, PageHeader, Row, Typography } from "antd";
+import { Card, Col, Collapse, Row, Typography } from "antd";
+import { PageHeader } from '@ant-design/pro-layout';
 
 export default function AboutAlgorithmsPage() {
   document.title = "Sobre os algoritmos"
@@ -57,18 +58,17 @@ export default function AboutAlgorithmsPage() {
   ]
 
   return <>
-    <PageHeader
-      title={<><BulbOutlined /> Sobre os algoritmos</>}
-      style={{ background: "white" }}
-    />
+    <PageHeader title={<><BulbOutlined /> Sobre os algoritmos</>} />
     <Row justify="center" style={{ margin: "5px" }}>
       <Col style={{ marginTop: "10px", width: "100vh" }}>
-        <Typography.Title>Algoritmos de troca de página</Typography.Title>
-        <p>{firstParagraphText}</p>
-        <p>{secondParagraphText}</p>
-        <Collapse accordion ghost>
-          {panels}
-        </Collapse>
+        <Card bordered={false}>
+          <Typography.Title>Algoritmos de troca de página</Typography.Title>
+          <p>{firstParagraphText}</p>
+          <p>{secondParagraphText}</p>
+          <Collapse accordion ghost>
+            {panels}
+          </Collapse>
+        </Card>
       </Col>
     </Row>
   </>

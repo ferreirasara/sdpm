@@ -1,10 +1,11 @@
 import { BuildOutlined, QuestionOutlined, StarOutlined, SyncOutlined } from "@ant-design/icons";
-import { Button, Card, Form, notification, PageHeader, Result, Row } from "antd";
+import { Button, Card, Form, notification, Result, Row } from "antd";
 import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
 import React from "react";
 import { useState } from "react";
 import api from "../../api";
 import FallbackSpin from "../../components/FallbackSpin";
+import { PageHeader } from '@ant-design/pro-layout';
 import { SimulationResponse, SimulationData } from "../../utils/types";
 import { getMessageFromError } from "../../utils/utils";
 import HelpModal from "./components/HelpModal";
@@ -54,17 +55,16 @@ export default function AboutAlgorithmsPage() {
   return <>
     <PageHeader
       title={<><BuildOutlined /> Simulador</>}
-      style={{ background: "white" }}
       extra={<>
         <Button icon={<QuestionOutlined />} shape="circle" onClick={() => setHelpModalVisible(!helpModalVisible)} />
         {(!rated && currentStep === 2) ? <Button icon={<StarOutlined />} shape="circle" onClick={() => setRatingModalVisible(!ratingModalVisible)} /> : null}
       </>}
     />
-    <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+    <Row justify="center">
       <SimulationSteps currentStep={currentStep} setCurrentStep={setCurrentStep} />
     </Row>
 
-    {currentStep === 0 && <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+    {currentStep === 0 && <Row justify="center">
       <Card bordered={false} style={{ width: "100vh", overflow: "auto" }}>
         <ErrorBoundary>
           <React.Suspense fallback={<FallbackSpin tip='Carregando formulário...' />}>
@@ -77,7 +77,7 @@ export default function AboutAlgorithmsPage() {
       </Card>
     </Row>}
 
-    {currentStep === 1 && <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+    {currentStep === 1 && <Row justify="center">
       <Result
         status="info"
         icon={<SyncOutlined spin />}
@@ -86,7 +86,7 @@ export default function AboutAlgorithmsPage() {
       />
     </Row>}
 
-    {currentStep === 2 && <Row justify="center" style={{ marginBottom: "2px", marginTop: "2px" }}>
+    {currentStep === 2 && <Row justify="center">
       <ResultCard result={simulationResponse} simulationData={simulationData} />
     </Row>}
 

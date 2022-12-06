@@ -1,7 +1,6 @@
 import { Alert, Button, Layout, Menu, Result, Typography } from "antd";
 import { BuildOutlined, BulbOutlined, QuestionCircleOutlined, HistoryOutlined, MenuOutlined } from "@ant-design/icons";
 import { Content, Header } from "antd/lib/layout/layout";
-import "antd/dist/antd.css";
 import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 import React from "react";
 
@@ -44,7 +43,7 @@ export default function SDPMRootPage() {
 
   return <>
     <BrowserRouter>
-      <Layout style={{ height: "100vh", overflow: "auto", backgroundColor: "white" }}>
+      <Layout style={{ height: "100vh", overflow: "auto" }}>
         {showHerokuAlert && <Alert
           closable
           type="error"
@@ -54,9 +53,9 @@ export default function SDPMRootPage() {
             <Typography.Link href="https://sdpm-simulator.netlify.app">https://sdpm-simulator.netlify.app/</Typography.Link>
           </>}
         />}
-        <Header>
+        <Header style={{ backgroundColor: '#141414' }}>
           <div style={{ float: "left", fontSize: "20px", marginRight: "10px" }}><NavLink to="/" style={{ color: "#DDD" }}>SDPM</NavLink></div>
-          <Menu theme="dark" mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || "simulator"]}>
+          <Menu mode="horizontal" overflowedIndicator={<MenuOutlined />} defaultSelectedKeys={[actualRoute || "simulator"]}>
             {allLinks}
           </Menu>
         </Header>

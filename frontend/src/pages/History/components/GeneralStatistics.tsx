@@ -29,7 +29,7 @@ export default function GeneralStatistics() {
   }, []);
 
   return <>
-    <Col span={10}>
+    <Col span={10} style={{ marginLeft: '4px', marginRight: '4px' }}>
       <Card bordered={false}>
         <Statistic
           title="Total de simulações realizadas"
@@ -40,7 +40,7 @@ export default function GeneralStatistics() {
         />
       </Card>
     </Col>
-    <Col span={10}>
+    <Col span={10} style={{ marginLeft: '4px', marginRight: '4px' }}>
       <Card bordered={false}>
         <Statistic
           title="Total de tempo gasto nas simulações realizadas"
